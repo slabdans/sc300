@@ -1048,6 +1048,32 @@ Azure Active Directory (Azure AD) Pass-through Authentication allows your users 
     <p><strong>Box 3: No</strong><br>
     Device3 has a device identity of <strong>Azure AD registered</strong>. The Azure AD local administrator role and additional local administrators only apply to <strong>Azure AD joined</strong> devices, not Azure AD registered (BYOD) devices.</p>
   `
+},
+	{
+  id: 37,
+  type: "single",
+  question: `
+    <p>You have an Azure Active Directory (Azure AD) tenant that contains the users and groups shown in the exhibit.</p>
+    
+    <div style="margin: 15px 0; text-align: center;">
+      <img src="images/q37_users_group.jpg" alt="Exhibit" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+    </div>
+    
+    <p>You have an administrative unit named Au1. Group1, User2, and User3 are members of Au1. User5 is assigned the User administrator role for Au1.</p>
+    <p>For which users can User5 reset passwords?</p>
+  `,
+  options: [
+    "User1, User2, and User3",
+    "User1 and User2 only",
+    "User3 and User4 only",
+    "User2 and User3 only"
+  ],
+  answer: "User2 and User3 only",
+  explanation: `
+    <p>Adding a group to an administrative unit brings the group itself into the management scope of the administrative unit, but not the members of the group. In other words, an administrator scoped to the administrative unit can manage properties of the group, such as group name or membership, but they cannot manage properties of the users or devices within that group (unless those users and devices are separately added as members of the administrative unit).</p>
+    <br>
+    <p><a href="https://learn.microsoft.com/en-us/azure/active-directory/roles/administrative-units" target="_blank" rel="noopener noreferrer">https://learn.microsoft.com/en-us/azure/active-directory/roles/administrative-units</a></p>
+  `
 }
 	
 ];

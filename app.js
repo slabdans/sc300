@@ -159,10 +159,10 @@ function updateBookmarkButtonState() {
 
   const qId = activeQuestions[currentIndex].id;
   if (bookmarkedQuestions.has(qId)) {
-    btn.textContent = "🔖 Bookmarked";
+    btn.textContent = "📌 Bookmarked";
     btn.classList.add("bookmarked");
   } else {
-    btn.textContent = "🔖 Bookmark";
+    btn.textContent = "📌 Bookmark";
     btn.classList.remove("bookmarked");
   }
 }
@@ -173,7 +173,7 @@ function populateQuestionDropdown() {
 
   select.innerHTML = "";
   activeQuestions.forEach((q, idx) => {
-    const isBookmarked = bookmarkedQuestions.has(q.id) ? " 🔖" : "";
+    const isBookmarked = bookmarkedQuestions.has(q.id) ? " 📌" : "";
     const option = document.createElement("option");
     option.value = idx;
     option.textContent = `Question ${idx + 1} (ID: #${q.id})${isBookmarked}`;
@@ -215,6 +215,12 @@ function hasUserAnswered() {
     if (!Array.isArray(q.rows)) return false;
     return q.rows.every(row => document.querySelector(`input[name="matrix_row_${row.id}"]:checked`) !== null);
   } else if (q.type === "hotspot") {
+    // Check if hotspot uses inline select dropdowns
+    const selects = document.querySelectorAll(".inline-select");
+    if (selects.length > 0) {
+      return Array.from(selects).every(s => s.value !== "");
+    }
+    // Fall back to radio inputs
     if (!q.answer || typeof q.answer !== "object") return false;
     return Object.keys(q.answer).every(key => document.querySelector(`input[name="${key}"]:checked`) !== null);
   }
@@ -291,7 +297,7 @@ function loadQuestion() {
   else if (q.type === "dragdrop" && Array.isArray(q.items)) {
     let html = `
       <p style="font-size:13px; color:#555; margin-bottom:10px;">
-        📌 <strong>Instruction:</strong> Click an action below to select it, then click an answer step to place it (or press Enter/Space).
+        👉 <strong>Instruction:</strong> Click an action below to select it, then click an answer step to place it (or press Enter/Space).
       </p>
       <div class="drag-drop-wrapper" style="display:flex; gap:20px; align-items:flex-start;">
         <div class="drag-panel" style="flex:1;">
@@ -514,16 +520,37 @@ function handleSubmit(e) {
   }
   else if (q.type === "hotspot" && q.answer && typeof q.answer === "object") {
     isCorrect = true;
-    for (let key in q.answer) {
-      const selected = document.querySelector(`input[name="${key}"]:checked`);
-      const rowContainer = selected ? selected.closest("tr") : null;
-      const expectedVal = q.answer[key];
+    const selects = document.querySelectorAll(".inline-select");
 
-      if (selected && selected.value === expectedVal) {
-        if (rowContainer) rowContainer.style.backgroundColor = "#d4edda";
-      } else {
-        if (rowContainer) rowContainer.style.backgroundColor = "#f8d7da";
-        isCorrect = false;
+    if (selects.length > 0) {
+      // Evaluate dropdown-based hotspots
+      selects.forEach(selectEl => {
+        const key = selectEl.getAttribute("data-key");
+        const containerCell = selectEl.closest("td") || selectEl.closest("tr");
+        if (selectEl.value === q.answer[key]) {
+          selectEl.style.borderColor = "#28a745";
+          selectEl.style.backgroundColor = "#d4edda";
+          if (containerCell) containerCell.style.backgroundColor = "#d4edda";
+        } else {
+          selectEl.style.borderColor = "#dc3545";
+          selectEl.style.backgroundColor = "#f8d7da";
+          if (containerCell) containerCell.style.backgroundColor = "#f8d7da";
+          isCorrect = false;
+        }
+      });
+    } else {
+      // Evaluate radio-based hotspots
+      for (let key in q.answer) {
+        const selected = document.querySelector(`input[name="${key}"]:checked`);
+        const rowContainer = selected ? selected.closest("tr") : null;
+        const expectedVal = q.answer[key];
+
+        if (selected && selected.value === expectedVal) {
+          if (rowContainer) rowContainer.style.backgroundColor = "#d4edda";
+        } else {
+          if (rowContainer) rowContainer.style.backgroundColor = "#f8d7da";
+          isCorrect = false;
+        }
       }
     }
   }

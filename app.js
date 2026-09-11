@@ -63,12 +63,18 @@ function startExam() {
     return;
   }
 
-  // Slice the user-selected question range
-  activeQuestions = questions.slice(startNum - 1, endNum);
+  const questionCount = (endNum - startNum) + 1;
 
-  // If the shuffle checkbox is checked, randomize activeQuestions
   if (shuffleToggle && shuffleToggle.checked) {
-    shuffleArray(activeQuestions);
+    // 1. Shuffle a shallow copy of ALL available questions
+    const allQuestionsCopy = [...questions];
+    shuffleArray(allQuestionsCopy);
+
+    // 2. Select the requested quantity from the entire randomized pool
+    activeQuestions = allQuestionsCopy.slice(0, questionCount);
+  } else {
+    // Sequential range selection
+    activeQuestions = questions.slice(startNum - 1, endNum);
   }
 
   currentIndex = 0;
@@ -96,7 +102,9 @@ function startExam() {
 }
 
 function startTimer() {
+  if (timerInterval) clearInterval(timerInterval);
   updateTimerDisplay();
+
   timerInterval = setInterval(() => {
     if (!isPaused) {
       timerSeconds--;
@@ -168,7 +176,7 @@ function populateQuestionDropdown() {
     const isBookmarked = bookmarkedQuestions.has(q.id) ? " 🔖" : "";
     const option = document.createElement("option");
     option.value = idx;
-    option.textContent = `Question ${q.id}${isBookmarked}`;
+    option.textContent = `Question ${idx + 1} (ID: #${q.id})${isBookmarked}`;
     if (idx === currentIndex) option.selected = true;
     select.appendChild(option);
   });
@@ -176,7 +184,7 @@ function populateQuestionDropdown() {
 
 function handleDropdownJump(e) {
   const targetIndex = parseInt(e.target.value, 10);
-  
+
   if (targetIndex > currentIndex && !hasUserAnswered()) {
     alert("Please select an answer before proceeding to another question.");
     const select = document.getElementById("question-select");
@@ -252,11 +260,11 @@ function loadQuestion() {
 
   const prevBtn = document.getElementById("prevBtn");
   if (prevBtn) prevBtn.disabled = currentIndex === 0;
-  
+
   const isLastQuestion = currentIndex === activeQuestions.length - 1;
   const nextBtn = document.getElementById("nextBtn");
   if (nextBtn) nextBtn.style.display = isLastQuestion ? "none" : "inline-block";
-  
+
   const finishBtn = document.getElementById("finishBtn");
   if (finishBtn) finishBtn.style.display = isLastQuestion ? "inline-block" : "none";
 
@@ -283,7 +291,7 @@ function loadQuestion() {
   else if (q.type === "dragdrop" && Array.isArray(q.items)) {
     let html = `
       <p style="font-size:13px; color:#555; margin-bottom:10px;">
-        💡 <strong>Instruction:</strong> Click an action below to select it, then click an answer step to place it (or press Enter/Space).
+        📌 <strong>Instruction:</strong> Click an action below to select it, then click an answer step to place it (or press Enter/Space).
       </p>
       <div class="drag-drop-wrapper" style="display:flex; gap:20px; align-items:flex-start;">
         <div class="drag-panel" style="flex:1;">

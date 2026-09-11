@@ -997,5 +997,57 @@ Azure Active Directory (Azure AD) Pass-through Authentication allows your users 
 
       <p><strong>Reference:</strong> <a href="https://practical365.com/configure-a-custom-domain-in-office-365/" target="_blank">https://practical365.com/configure-a-custom-domain-in-office-365/</a></p>
     `
-  }
+  },
+{
+  id: 21,
+  type: "matrix",
+  question: `
+    <p>You have an Azure Active Directory (Azure AD) tenant that has an Azure Active Directory Premium Plan 2 license. The tenant contains the users shown in the following table:</p>
+    <div style="margin-bottom: 15px;">
+      <img src="images/table_q21.jpg" alt="Users Table" style="max-width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+    </div>
+
+    <p>You have the Device Settings shown in the following exhibit:</p><br>
+    <div style="margin-bottom: 15px;">
+      <img src="images/exhibit_q21.jpg" alt="Device Settings Exhibit" style="max-width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+    </div>
+
+    <p>User1 has the devices shown in the following table:</p>
+    <div style="margin-bottom: 15px;">
+      <img src="images/devices_q21_table.jpg" alt="Devices Table" style="max-width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+    </div>
+
+    <p>For each of the following statements, select <strong>Yes</strong> if the statement is true. Otherwise, select <strong>No</strong>.</p>
+  `,
+  rows: [
+    {
+      id: "statement_1",
+      label: "User1 can join four additional Windows 10 devices to Azure AD."
+    },
+    {
+      id: "statement_2",
+      label: "Admin1 can set Devices to be Azure AD joined or Azure AD registered require Multi-Factor Authentication to Yes."
+    },
+    {
+      id: "statement_3",
+      label: "Admin2 is a local administrator on Device3."
+    }
+  ],
+  answer: {
+    statement_1: 1, // 0 = Yes, 1 = No
+    statement_2: 0, // 0 = Yes, 1 = No
+    statement_3: 1  // 0 = Yes, 1 = No
+  },
+  explanation: `
+    <p><strong>Box 1: No</strong><br>
+    The "Maximum number of devices per user" setting is set to 5. This limit applies to the total count of both Azure AD joined AND Azure AD registered devices combined. User1 already has 4 devices registered/joined (Device1 through Device4), so User1 can only add 1 more device before reaching the maximum limit of 5, not four.</p>
+
+    <p><strong>Box 2: Yes</strong><br>
+    To view or manage device settings in the Azure portal, a user must be assigned one of the following roles: Global Administrator, Cloud Device Administrator, Global Reader, or Directory Reader. Since Admin1 is assigned the <strong>Cloud device administrator</strong> role, they have the required permissions to modify device settings.</p>
+
+    <p><strong>Box 3: No</strong><br>
+    Device3 has a device identity of <strong>Azure AD registered</strong>. The Azure AD local administrator role and additional local administrators only apply to <strong>Azure AD joined</strong> devices, not Azure AD registered (BYOD) devices.</p>
+  `
+}
+	
 ];

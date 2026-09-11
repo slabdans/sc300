@@ -73,8 +73,10 @@ const questions = [
     `
   },
 
+
+
  // Question 2: Single Choice
-  {
+ {
     id: 2,
     type: "single",
     question: `
@@ -101,7 +103,7 @@ const questions = [
       </ul>
       <p>Example: <code>Set-MsolCompanySettings -AllowEmailVerifiedUsers $false -AllowAdHocSubscriptions $false</code></p>
     `
-  },
+  }, 
 
 {
     id: 3,
@@ -1049,31 +1051,615 @@ Azure Active Directory (Azure AD) Pass-through Authentication allows your users 
     Device3 has a device identity of <strong>Azure AD registered</strong>. The Azure AD local administrator role and additional local administrators only apply to <strong>Azure AD joined</strong> devices, not Azure AD registered (BYOD) devices.</p>
   `
 },
-	{
+{
   id: 22,
+  type: "dragdrop",
+  question: `
+    <p>You have a Microsoft 365 E5 subscription that contains three users named User1, User2, and User3. You need to configure the users as shown in the following table:</p>
+    <div style="margin-bottom: 15px;">
+      <img src="images/q22_configuration.jpg" alt="Users Configuration Table" style="max-width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+    </div>
+
+    <p>Which portal should you use to configure each user? To answer, drag the appropriate portals to the correct users. Each portal may be used once, more than once, or not at all.</p>
+    <p style="font-size: 13px; color: #555;">NOTE: Each correct selection is worth one point.</p>
+  `,
+  items: [
+    { id: "item_azure_ad", text: "Azure Active Directory admin center" },
+    { id: "item_exchange", text: "Exchange admin center" },
+    { id: "item_compliance", text: "Microsoft 365 compliance center" },
+    { id: "item_endpoint", text: "Microsoft Endpoint Manager admin center" },
+    { id: "item_sharepoint", text: "SharePoint admin center" }
+  ],
+  targets: [
+    { id: "target_user1", label: "User1:" },
+    { id: "target_user2", label: "User2:" },
+    { id: "target_user3", label: "User3:" }
+  ],
+  answer: {
+    target_user1: "item_azure_ad", // Azure Active Directory admin center
+    target_user2: "item_exchange", // Exchange admin center
+    target_user3: "item_endpoint"  // Microsoft Endpoint Manager admin center
+  },
+  explanation: `
+    <p>Azure Active Directory admin center.<br>
+    Exchange Admin.<br>
+    Microsoft Endpoint Manager admin center.</p>
+  `
+},
+{
+  id: 23,
   type: "single",
   question: `
-    <p>You have an Azure Active Directory (Azure AD) tenant that contains the users and groups shown in the exhibit.</p>
-    
-    <div style="margin: 15px 0; text-align: center;">
-      <img src="images/q37_users_group.jpg" alt="Exhibit" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+    <p>You have an Active Directory forest that syncs to an Azure Active Directory (Azure AD) tenant. The tenant uses pass-through authentication.</p>
+    <p>A corporate security policy states the following:</p>
+    <ul>
+      <li>Domain controllers must never communicate directly to the internet.</li>
+      <li>Only required software must be installed on servers.</li>
+    </ul>
+    <p>The Active Directory domain contains the on-premises servers shown in the following table:</p>
+    <div style="margin-bottom: 15px;">
+      <img src="images/q23_server.jpg" alt="Servers Table" style="max-width: 100%; border: 1px solid #ccc; border-radius: 4px;">
     </div>
-    
-    <p>You have an administrative unit named Au1. Group1, User2, and User3 are members of Au1. User5 is assigned the User administrator role for Au1.</p>
-    <p>For which users can User5 reset passwords?</p>
+    <p>You need to ensure that users can authenticate to Azure AD if a server fails.</p>
+    <p>On which server should you install an additional pass-through authentication agent?</p>
   `,
+  options: [
+    "Server4",
+    "Server2",
+    "Server1",
+    "Server3"
+  ],
+  answer: 0, // 0 = Server4 (Option A)
+  explanation: `
+    <p><strong>Correct Answer: A (Server4)</strong></p>
+    <p>The standalone Authentication Agents can be installed on any Windows Server 2016 or later, with TLS 1.2 enabled. The server needs to be on the same Active Directory forest as the users whose passwords you need to validate.</p>
+    
+  `
+},
+{
+  id: 24,
+  type: "single",
+  question: `
+    <p>You have an Azure Active Directory (Azure AD) tenant named contoso.com that contains an Azure AD enterprise application named App1.</p>
+    <p>A contractor uses the credentials of user1@outlook.com.</p>
+    <p>You need to ensure that you can provide the contractor with access to App1. The contractor must be able to authenticate as user1@outlook.com.</p>
+    <p>What should you do?</p>
+  `,
+  options: [
+    "Run the New-AzureADMSInvitation cmdlet.",
+    "Configure the External collaboration settings.",
+    "Add a WS-Fed identity provider.",
+    "Implement Azure AD Connect."
+  ],
+  answer: 0, // 0 = Option A
+  explanation: `
+    <p>In Question, user1@outlook.com.</p><br>
+    <p>A is the answers, they are looking for you to invite the user to azure ad. Assume that unless stated otherwise, default config in Azure AD is set, so collaboration settings are already on. "By default, all users in your organization, including B2B collaboration guest users, can invite external users to B2B collaboration. If you want to limit the ability to send invitations, you can turn invitations on or off for everyone, or limit invitations to certain roles."</p>
+    <p>https://docs.microsoft.com/en-us/azure/active-directory/external-identities/external-collaboration-settings-configure</p>
+  `
+},
+{
+  id: 25,
+  type: "single",
+  question: `
+    <p>You have 2,500 users who are assigned Microsoft Office 365 Enterprise E3 licenses. The licenses are assigned to individual users.</p>
+    <p>From the Groups blade in the Azure Active Directory admin center, you assign Microsoft 365 Enterprise E5 licenses to the users.</p>
+    <p>You need to remove the Office 365 Enterprise E3 licenses from the users by using the least amount of administrative effort.</p>
+    <p>What should you use?</p>
+  `,
+  options: [
+    "the Administrative units blade in the Azure Active Directory admin center",
+    "the Set-AzureAdUser cmdlet",
+    "the Groups blade in the Azure Active Directory admin center",
+    "the Set-MsolUserLicense cmdlet"
+  ],
+  answer: 3, // 3 = Option D
+  explanation: `
+    <p>The Set-MsolUserLicense cmdlet updates the license assignment for a user. This can include adding a new license, removing a license, updating the license options, or any combination of these actions.</p>
+    <p>Note:</p>
+    <p>There are several versions of this question in the exam. The question has two possible correct answers:</p>
+    <p>1. the Licenses blade in the Azure Active Directory admin center</p>
+    <p>2. the Set-MsolUserLicense cmdlet</p>
+    <p>Other incorrect answer options you may see on the exam include the following:</p>
+    <p>• the Identity Governance blade in the Azure Active Directory admin center</p>
+    <p>• the Set-WindowsProductKey cmdlet</p>
+    <p>• the Set-AzureAdGroup cmdlet</p>
+    <p>Reference: https://docs.microsoft.com/en-us/powershell/module/msonline/set-msoluserlicense?view=azureadps-1.0</p>
+  `
+},
+{
+  id: 26,
+  type: "hotspot",
+  question: `
+    <p>You have an Azure Active Directory (Azure AD) tenant and an Azure web app named App1.</p>
+    <p>You need to provide guest users with self-service sign-up for App1. The solution must meet the following requirements:</p>
+    <ul>
+      <li>Guest users must be able to sign up by using a one-time password.</li>
+      <li>The users must provide their first name, last name, city, and email address during the sign-up process.</li>
+    </ul>
+    <p>What should you configure in the Azure Active Directory admin center for each requirement?</p>
+    <p style="font-size: 13px; color: #555;">NOTE: Each correct selection is worth one point.</p>
+    
+    <div class="hotspot-container" style="margin-top: 15px;">
+      <table style="width: 100%; border-collapse: collapse;">
+        <tbody>
+          <tr style="border-bottom: 1px solid #eee;">
+            <td style="padding: 10px; font-weight: bold; width: 180px;">One-time password:</td>
+            <td style="padding: 10px;">
+              <select class="inline-select" data-key="otp" style="padding: 6px; width: 100%; max-width: 400px; border: 1px solid #ccc; border-radius: 4px;">
+                <option value="">-- Select an Option --</option>
+                <option value="A linked subscription">A linked subscription</option>
+                <option value="An identity provider">An identity provider</option>
+                <option value="Azure AD Privileged Identity Management (PIM)">Azure AD Privileged Identity Management (PIM)</option>
+                <option value="The External collaboration settings">The External collaboration settings</option>
+              </select>
+            </td>
+          </tr>
+          <tr style="border-bottom: 1px solid #eee;">
+            <td style="padding: 10px; font-weight: bold; width: 180px;">User details:</td>
+            <td style="padding: 10px;">
+              <select class="inline-select" data-key="userdetails" style="padding: 6px; width: 100%; max-width: 400px; border: 1px solid #ccc; border-radius: 4px;">
+                <option value="">-- Select an Option --</option>
+                <option value="A user flow">A user flow</option>
+                <option value="Access reviews">Access reviews</option>
+                <option value="An access package">An access package</option>
+                <option value="The tenant properties">The tenant properties</option>
+              </select>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  `,
+  answer: {
+    otp: "An identity provider",
+    userdetails: "A user flow"
+  },
+  explanation: `
+    <p>- First you'll enable self-service sign-up for your tenant and federate with the identity providers you want to allow external users to use for sign-in. Then you'll create and customize the sign-up user flow and assign your applications to it.</p><br>
+    <p>Reference:<br>
+    https://docs.microsoft.com/en-us/azure/active-directory/external-identities/identity-providers<br>
+    https://docs.microsoft.com/en-us/azure/active-directory/external-identities/self-service-sign-up-overview</p>
+  `
+},
+{
+  id: 27,
+  type: "single",
+  question: `
+    <p>You have an Azure Active Directory (Azure AD) tenant.</p>
+    <p>You need to bulk create 25 new user accounts by uploading a template file. Which properties are required in the template file?</p>
+  `,
+  options: [
+    "displayName, identityIssuer, usageLocation, and userType",
+    "accountEnabled, givenName, surname, and userPrincipalName",
+    "accountEnabled, displayName, userPrincipalName, and passwordProfile",
+    "accountEnabled, passwordProfile, usageLocation, and userPrincipalName"
+  ],
+  answer: 2, // 2 = Option C
+  explanation: `
+    <p>Name [displayName] -> Required</p>
+    <p>User name [userPrincipalName] -> Required<br>
+    Initial password [passwordProfile] -> Required,<br>
+    Block sign in (Yes/No) [accountEnabled] -> Required</p><br><br>Reference:
+
+https://docs.microsoft.com/en-us/azure/active-directory/enterprise-users/users-bulk-add
+
+  `
+},
+{
+  id: 28,
+  type: "single",
+  question: `
+    <p>Your network contains an on-premises Active Directory domain that syncs to an Azure Active Directory (Azure AD) tenant.</p>
+    <p>Users sign in to computers that run Windows 10 and are joined to the domain.</p>
+    <p>You plan to implement Azure AD Seamless Single Sign-On (Azure AD Seamless SSO). You need to configure the Windows 10 computers to support Azure AD Seamless SSO. What should you do?</p>
+  `,
+  options: [
+    "Configure Sign-in options from the Settings app.",
+    "Enable Enterprise State Roaming.",
+    "Modify the Intranet Zone settings.",
+    "Install the Azure AD Connect Authentication Agent."
+  ],
+  answer: 2, // 2 = Option C
+  explanation: `
+    <p>You can gradually roll out Seamless SSO to your users using the instructions provided below. You start by adding the following Azure AD URL to all or selected users' Intranet zone settings by using Group Policy in Active Directory: https://autologon.microsoftazuread-sso.com</p><br>
+    <p>In addition, you need to enable an Intranet zone policy setting called Allow updates to status bar via script through Group Policy.</p><br>
+    <p>more information in: https://docs.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-sso-quick-start<br>
+    Reference:<br>
+    https://docs.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-sso-quick-start</p>
+  `
+},
+{
+  id: 29,
+  type: "dragdrop",
+  question: `
+    <p>You need to resolve the recent security incident issues.</p>
+    <p>What should you configure for each incident?</p>
+    <p>To answer, drag the appropriate policy types to the correct issues. Each policy type may be used once, more than once, or not at all. You may need to drag the split bar between panes or scroll to view content.</p>
+    <p style="font-size: 13px; color: #555;">NOTE: Each correct selection is worth one point.</p>
+  `,
+  items: [
+    { id: "item_auth", text: "An authentication method policy" },
+    { id: "item_ca", text: "A Conditional Access policy" },
+    { id: "item_mfa", text: "An Azure AD MFA registration policy" },
+    { id: "item_signin", text: "A sign-in risk policy" },
+    { id: "item_user", text: "A user risk policy" }
+  ],
+  targets: [
+    { id: "target_leaked", label: "Leaked credentials:" },
+    { id: "target_browser", label: "A sign-in from a suspicious browser:" },
+    { id: "target_ip", label: "Resources accessed from an anonymous IP address:" }
+  ],
+  answer: {
+    target_leaked: "item_user",
+    target_browser: "item_signin",
+    target_ip: "item_signin"
+  },
+  explanation: `
+    <p>Box 1: A user risk policy -</p>
+    <p>User-linked detections include:</p>
+    <p>Leaked credentials: This risk detection type indicates that the user's valid credentials have been leaked. When cyber criminals compromise valid passwords of legitimate users, they often share those credentials.</p>
+    <p>User risk policy.</p>
+    <p>Identity Protection can calculate what it believes is normal for a user's behavior and use that to base decisions for their risk. User risk is a calculation of probability that an identity has been compromised. Administrators can make a decision based on this risk score signal to enforce organizational requirements. Administrators can choose to block access, allow access, or allow access but require a password change using Azure AD self-service password reset.</p>
+    
+    <p>Box 2: A sign-in risk policy -</p>
+    <p>Suspicious browser: Suspicious browser detection indicates anomalous behavior based on suspicious sign-in activity across multiple tenants from different countries in the same browser.</p>
+    
+    <p>Box 3: A sign-in risk policy -</p>
+    <p>A sign-in risks include activity from anonymous IP address: This detection is discovered by Microsoft Defender for Cloud Apps. This detection identifies that users were active from an IP address that has been identified as an anonymous proxy IP address.</p>
+    
+    <p>Note: The following three policies are available in Azure AD Identity Protection to protect users and respond to suspicious activity. You can choose to turn the policy enforcement on or off, select users or groups for the policy to apply to, and decide if you want to block access at sign-in or prompt for additional action.</p>
+    <ul>
+      <li><strong>User risk policy</strong><br>Identifies and responds to user accounts that may have compromised credentials. Can prompt the user to create a new password.</li>
+      <li><strong>Sign in risk policy</strong><br>Identifies and responds to suspicious sign-in attempts. Can prompt the user to provide additional forms of verification using Azure AD Multi-Factor Authentication.</li>
+      <li><strong>MFA registration policy</strong><br>Makes sure users are registered for Azure AD Multi-Factor Authentication. If a sign-in risk policy prompts for MFA, the user must already be registered for Azure AD Multi-Factor Authentication. Currently supported risk detections are Sign-in risk detections:<br>
+      Activity from anonymous IP address, Additional risk detected, Admin confirmed user compromised, Anomalous Token, Anonymous IP address, Atypical travel, Azure AD threat intelligence, Impossible travel, Malicious IP address, Malware linked IP address, Mass Access to Sensitive Files, New country, Password spray, Suspicious browser, Suspicious inbox forwarding, Suspicious inbox manipulation rules, Token Issuer Anomaly, Unfamiliar sign-in properties.</li>
+    </ul>
+    <p>User risk detections:<br>
+    Additional risk detected, Anomalous user activity, Azure AD threat intelligence, Leaked credentials, Possible attempt to access Primary Refresh Token (PRT)</p>
+    <p>https://learn.microsoft.com/en-us/azure/active-directory/identity-protection/concept-identity-protection-risks<br>
+    Reference: https://docs.microsoft.com/en-us/azure/active-directory/identity-protection/concept-identity-protection-policies</p>
+  `
+},
+{
+  id: 30,
+  type: "hotspot",
+  question: `
+    <p>You have an Azure Active Directory (Azure AD) tenant that has an Azure Active Directory Premium Plan 2 license. The tenant contains the users shown in the following table:</p>
+    <div style="margin-bottom: 15px;">
+      <img src="images/q30_members_directory.jpg" alt="Users Table" style="max-width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+    </div>
+
+    <p>For which users can you configure the Job title property and the Usage location property in Azure AD?</p>
+    <p>To answer, select the appropriate options in the answer area.</p>
+    <p style="font-size: 13px; color: #555;">NOTE: Each correct selection is worth one point.</p>
+    
+    <div class="answer-area" style="margin-top: 15px;">
+      <p><strong>Answer Area</strong></p>
+      
+      <!-- Job title horizontal row -->
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+        <label style="font-weight: 600; min-width: 170px; white-space: nowrap;">Job title property:</label>
+        <select class="inline-select" data-key="job_title" style="padding: 6px; border-radius: 4px; border: 1px solid #ccc; width: 100%; max-width: 350px;">
+          <option value="">-- Select --</option>
+          <option value="User2 only">User2 only</option>
+          <option value="User2 and User3 only">User2 and User3 only</option>
+          <option value="User1, User2, and User3">User1, User2, and User3</option>
+        </select>
+      </div>
+
+      <!-- Usage location horizontal row -->
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+        <label style="font-weight: 600; min-width: 170px; white-space: nowrap;">Usage location property:</label>
+        <select class="inline-select" data-key="usage_location" style="padding: 6px; border-radius: 4px; border: 1px solid #ccc; width: 100%; max-width: 350px;">
+          <option value="">-- Select --</option>
+          <option value="User2 only">User2 only</option>
+          <option value="User2 and User3 only">User2 and User3 only</option>
+          <option value="User1, User2, and User3">User1, User2, and User3</option>
+        </select>
+      </div>
+    </div>
+  `,
+  answer: {
+    job_title: "User2 and User3 only",
+    usage_location: "User1, User2, and User3"
+  },
+  explanation: `
+    <p>Box 1: User2 and User3 only.</p>
+    <p>This selection likely applies a filter or condition that limits the scope of an operation, report, or policy to users who are associated with specific job titles.</p>
+    <p>"User2 and User3 only" restricts the operation to these users, possibly because their roles or responsibilities are relevant to the context being managed.</p>
+
+    <p>Box 2: User1, User2, and User3 -</p>
+    <p>Invite users with Azure Active Directory B2B collaboration, Update user's name and usage location.</p>
+    <p>To assign a license, the invited user's Usage location must be specified. Admins can update the invited user's profile on the Azure portal.</p>
+    <ol>
+      <li>Go to Azure Active Directory > Users and groups > All users. If you don't see the newly created user, refresh the page.</li>
+      <li>Click on the invited user, and then click Profile.</li>
+      <li>Update First name, Last name, and Usage location.</li>
+      <li>Click Save, and then close the Profile blade.</li>
+    </ol>
+  `
+},
+{
+  id: 31,
+  type: "single",
+  question: `
+    <p>You have an Azure Active Directory (Azure AD) tenant that contains a user named User1.</p>
+    <p>You need to ensure that User1 can create new catalogs and add resources to the catalogs they own. What should you do?</p>
+  `,
+  options: [
+    "From the Roles and administrators blade, modify the Groups administrator role.",
+    "From the Roles and administrators blade, modify the Service support administrator role.",
+    "From the Identity Governance blade, modify the Entitlement management settings.",
+    "From the Identity Governance blade, modify the roles and administrators for the General catalog."
+  ],
+  answer: 2, // 2 = Option C
+  explanation: `
+    <p>The Licenses blade in the Azure Active Directory admin center.</p>
+    <br>
+    <p>To remove licenses with the least amount of administrative effort in this scenario, you should use the bulk management features available in the Azure portal.</p>
+    <br>
+    <p><strong>Why the Licenses Blade is the best choice:</strong></p>
+    <br>
+    <p>When you have a large number of users (2,500), manually editing individual profiles is impossible, and scripting can be prone to errors if not handled carefully. The Licenses blade provides a centralized interface to manage license assignments across the entire tenant.</p>
+    <br>
+    <p><strong>Bulk Operations:</strong> You can select the Office 365 Enterprise E3 product, see all "Licensed users," select them all (or filtered groups), and click Remove license in one workflow.</p>
+    <p><strong>Visual Validation:</strong> It allows you to quickly verify that the E5 licenses (assigned via groups) are active before you strip the E3 licenses, ensuring no loss of service.</p>
+  `
+},
+{
+  id: 32,
+  type: "single",
+  question: `
+    <p>Your network contains an on-premises Active Directory domain that syncs to an Azure Active Directory (Azure AD) tenant.</p>
+    <p>Users sign in to computers that run Windows 10 and are joined to the domain.</p>
+    <p>You plan to implement Azure AD Seamless Single Sign-On (Azure AD Seamless SSO). You need to configure the Windows 10 computers to support Azure AD Seamless SSO. What should you do?</p>
+  `,
+  options: [
+    "Configure Sign-in options from the Settings app.",
+    "Enable Enterprise State Roaming.",
+    "Modify the Local intranet Zone settings.",
+    "Install the Azure AD Connect Authentication Agent."
+  ],
+  answer: 2, // 2 = Option C
+  explanation: `
+    <p>The question states: You need to configure the Windows 10 computers to support Azure AD Seamless SSO. The catch is, "configure the Windows 10 computers.</p>
+    <br>
+    <p>https://docs.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-sso-quick-start</p>
+  `
+},
+{
+  id: 33,
+  type: "single",
+  question: `
+    <p>Your company has two divisions named Contoso East and Contoso West. The Microsoft 365 identity architecture for both divisions is shown in the following exhibit</p>
+    <div style="margin-bottom: 15px;">
+      <img src="images/q33_skitch.jpg" alt="Identity Architecture Exhibit" style="max-width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+    </div>
+    <p>You need to assign users from the Contoso East division access to Microsoft SharePoint Online sites in the Contoso West tenant.</p>
+    <p>The solution must not require additional Microsoft 365 licenses. What should you do?</p>
+  `,
+  options: [
+    "Configure Azure AD Application Proxy in the Contoso West tenant.",
+    "Invite the Contoso East users as guests in the Contoso West tenant.",
+    "Deploy a second Azure AD Connect server to Contoso East and configure the server to sync the Contoso East Active Directory forest to the Contoso West tenant.",
+    "Configure the existing Azure AD Connect server in Contoso East to sync the Contoso East Active Directory forest to the Contoso West tenant."
+  ],
+  answer: 1, // 1 = Option B
+  explanation: `
+    <p>Before any of your users can grant SharePoint Online team site access to external guests, you will have to enable guest sharing from within Azure Active Directory.</p>
+    <br>
+    <p>Reference: https://redmondmag.com/articles/2020/03/11/guest-access-sharepoint-online-team-sites.aspx    https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/multi-tenant-common-considerations</p>
+  `
+},
+{
+  id: 34,
+  type: "dragdrop",
+  question: `
+    <p><strong>Question 34: Drag and Drop</strong></p>
+    <p>You have a Microsoft 365 E5 subscription that contains two users named User1 and User2.</p>
+    <p>You need to ensure that User1 can create access reviews for groups, and that User2 can review the history report for all the completed access reviews.</p>
+    <p>The solution must use the principle of least privilege. Which role should you assign to each user?</p>
+    <p>To answer, drag the appropriate roles to the correct users. Each role may be used once, more than once, or not at all.</p>
+    <p style="font-size: 13px; color: #555;">NOTE: Each correct selection is worth one point.</p>
+  `,
+  items: [
+    { id: "role1", text: "Global administrator" },
+    { id: "role2", text: "Global reader" },
+    { id: "role3", text: "Reports reader" },
+    { id: "role4", text: "Security operator" },
+    { id: "role5", text: "Security reader" },
+    { id: "role6", text: "User administrator" }
+  ],
+  targets: [
+    { id: "user1_role", label: "User1:" },
+    { id: "user2_role", label: "User2:" }
+  ],
+  answer: {
+    user1_role: "role6", // User administrator
+    user2_role: "role5"  // Security reader
+  },
+  explanation: `
+    <p>User1: User Administrator.</p>
+    <p>"Create, update, or delete access review of a group or of an app"</p>
+    <br>
+    <p>User2: Security Reader.</p>
+    <p>"Read access review of a Microsoft Entra role"</p>
+    <br>
+    <p>Reference: https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/delegate-by-task</p>
+  `
+},
+{
+  id: 35,
+  type: "hotspot",
+  question: `
+    <p>You have an Azure subscription.</p>
+    <p>You need to create two custom roles named Role1 and Role2. The solution must meet the following requirements:</p>
+    <ul>
+      <li>Users that are assigned Role1 can create or delete instances of Azure Container Apps.</li>
+      <li>Users that are assigned Role2 can enforce adaptive network hardening rules.</li>
+    </ul>
+    <p>Which resource provider permissions are required for each role? To answer, select the appropriate options in the answer area.</p>
+    <p style="font-size: 13px; color: #555;">NOTE: Each correct selection is worth one point.</p>
+    
+    <div class="answer-area" style="margin-top: 15px; border: 1px solid #e0e0e0; padding: 15px; border-radius: 6px; background: #fafafa;">
+      <p><strong>Answer Area</strong></p>
+      
+      <!-- Role 1 row -->
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px;">
+        <label style="font-weight: 600; min-width: 60px;">Role1:</label>
+        <select class="inline-select" data-key="role1_provider" style="padding: 6px; border-radius: 4px; border: 1px solid #ccc; width: 100%; max-width: 350px; background: white;">
+          <option value="">-- Select --</option>
+          <option value="Microsoft.App">Microsoft.App</option>
+          <option value="Microsoft.Compute">Microsoft.Compute</option>
+          <option value="Microsoft.Management">Microsoft.Management</option>
+          <option value="Microsoft.Security">Microsoft.Security</option>
+        </select>
+      </div>
+
+      <!-- Role 2 row -->
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 5px;">
+        <label style="font-weight: 600; min-width: 60px;">Role2:</label>
+        <select class="inline-select" data-key="role2_provider" style="padding: 6px; border-radius: 4px; border: 1px solid #ccc; width: 100%; max-width: 350px; background: white;">
+          <option value="">-- Select --</option>
+          <option value="Microsoft.App">Microsoft.App</option>
+          <option value="Microsoft.Compute">Microsoft.Compute</option>
+          <option value="Microsoft.Network">Microsoft.Network</option>
+          <option value="Microsoft.Security">Microsoft.Security</option>
+        </select>
+      </div>
+    </div>
+  `,
+  answer: {
+    role1_provider: "Microsoft.App",
+    role2_provider: "Microsoft.Security"
+  },
+  explanation: `
+    <p><strong>Role1: Microsoft.App.</strong></p>
+    <p>Role1 requires permissions to create or delete instances of Azure Container Apps. The relevant resource provider for Azure Container Apps is Microsoft.App. This provider includes the necessary permissions to manage container app instances.</p>
+    <br>
+    <p><strong>Role2: Microsoft.Security.</strong></p>
+    <p>Role2 needs to enforce adaptive network hardening rules, which are part of Azure Security Center's capabilities. The Microsoft.Security resource provider contains the permissions required to enforce adaptive network hardening and other security-related configuration.</p>
+  `
+},
+{
+  id: 36,
+  type: "hotspot",
+  question: `
+    <p>You have a Microsoft 365 tenant that has 5,000 users. One hundred of the users are executives. The executives have a dedicated support team.</p>
+    <p>You need to ensure that the support team can reset passwords and manage multi-factor authentication (MFA) settings for only the executives. The solution must use the principle of least privilege.</p>
+    <p>Which object type and Azure Active Directory (Azure AD) role should you use? To answer, select the appropriate options in the answer area.</p>
+    <p style="font-size: 13px; color: #555;">NOTE: Each correct selection is worth one point.</p>
+    
+    <div class="answer-area" style="margin-top: 15px; border: 1px solid #e0e0e0; padding: 15px; border-radius: 6px; background: #fafafa;">
+      <p><strong>Answer Area</strong></p>
+      
+      <!-- Object Type row -->
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px;">
+        <label style="font-weight: 600; min-width: 100px;">Object type:</label>
+        <select class="inline-select" data-key="object_type" style="padding: 6px; border-radius: 4px; border: 1px solid #ccc; width: 100%; max-width: 350px; background: white;">
+          <option value="">-- Select --</option>
+          <option value="An administrative unit">An administrative unit</option>
+          <option value="A custom administrator role">A custom administrator role</option>
+          <option value="A dynamic group">A dynamic group</option>
+          <option value="A Microsoft 365 group">A Microsoft 365 group</option>
+        </select>
+      </div>
+
+      <!-- Role row -->
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 5px;">
+        <label style="font-weight: 600; min-width: 100px;">Role:</label>
+        <select class="inline-select" data-key="role_name" style="padding: 6px; border-radius: 4px; border: 1px solid #ccc; width: 100%; max-width: 350px; background: white;">
+          <option value="">-- Select --</option>
+          <option value="Authentication administrator">Authentication administrator</option>
+          <option value="Groups administrator">Groups administrator</option>
+          <option value="Helpdesk administrator">Helpdesk administrator</option>
+          <option value="Password administrator">Password administrator</option>
+        </select>
+      </div>
+    </div>
+  `,
+  answer: {
+    object_type: "An administrative unit",
+    role_name: "Authentication administrator"
+  },
+  explanation: `
+    <p><strong>Object Type: Administrative Unit.</strong></p>
+    <p>An administrative unit (AU) is a container for grouping users, groups, and devices within Azure AD. It's used to delegate administrative permissions over a subset of your organization's directory.</p>
+    <br>
+    <p><strong>Role: Authentication administrator.</strong></p>
+    <p>The Authentication administrator is a built-in Azure AD role that grants permissions related to authentication methods and password management for non-administrator users.</p>
+  `
+},
+{
+  id: 37,
+  type: "single",
+
+  question: `
+    <p>
+      You have an Azure Active Directory (Azure AD) tenant that contains the users shown in the following table.
+    </p>
+
+    <div style="margin:15px 0; text-align:center;">
+      <img src="images/q37_users_group.jpg" alt="Users and Groups Table" style="max-width:100%; height:auto; border:1px solid #ccc; border-radius:4px;" />
+    </div>
+
+    <p>
+      You have an administrative unit named <strong>AU1</strong>.
+    </p>
+
+    <p>
+      <li>Group1 is a member of AU1.</li>
+      <li>User2 is a member of AU1.</li>
+      <li>User3 is a member of AU1.</li>
+      <li>User5 is assigned the <strong>User Administrator</strong> role for AU1.</li>
+    </p>
+
+    <p>
+      For which users can User5 reset passwords?
+    </p>
+  `,
+
   options: [
     "User1, User2, and User3",
     "User1 and User2 only",
     "User3 and User4 only",
     "User2 and User3 only"
   ],
-  answer: "User2 and User3 only",
+
+  answer: 3,
+
   explanation: `
-    <p>Adding a group to an administrative unit brings the group itself into the management scope of the administrative unit, but not the members of the group. In other words, an administrator scoped to the administrative unit can manage properties of the group, such as group name or membership, but they cannot manage properties of the users or devices within that group (unless those users and devices are separately added as members of the administrative unit).</p>
-    <br>
-    <p><a href="https://learn.microsoft.com/en-us/azure/active-directory/roles/administrative-units" target="_blank" rel="noopener noreferrer">https://learn.microsoft.com/en-us/azure/active-directory/roles/administrative-units</a></p>
+    <p>
+      <strong>Correct Answer: D (User2 and User3 only)</strong>
+    </p>
+
+    <p>
+      Administrative units scope administrative permissions only to objects that are
+      direct members of the administrative unit.
+    </p>
+
+    <p>
+      User2 and User3 are direct members of AU1, therefore User5 can perform
+      password reset operations on those users.
+    </p>
+
+    <p>
+      Although Group1 is a member of AU1, its members do not automatically
+      become members of the administrative unit. Administrative unit scope
+      does not flow through group membership.
+    </p>
+
+    <p>
+      As a result, User5 cannot manage users simply because they belong to Group1.
+    </p>
+
+    <p>
+      Reference:
+      <a href="https://learn.microsoft.com/en-us/azure/active-directory/roles/administrative-units"
+         target="_blank">
+         Microsoft Learn - Administrative Units
+      </a>
+    </p>
   `
-}
-	
-];
+}];

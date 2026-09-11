@@ -1050,7 +1050,7 @@ Azure Active Directory (Azure AD) Pass-through Authentication allows your users 
   `
 },
 	{
-  id: 37,
+  id: 22,
   type: "single",
   question: `
     <p>You have an Azure Active Directory (Azure AD) tenant that contains the users and groups shown in the exhibit.</p>

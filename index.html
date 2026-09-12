@@ -20,21 +20,8 @@
     </div>
   </header>
 
-  <!-- Candidate Cover Page Screen -->
-  <main id="cover-screen">
-    <h1>SC-300 Practice Assessment</h1>
-    <p class="subtitle">Please enter your candidate details before starting.</p>
-
-    <div class="form-group" style="margin-top: 20px;">
-      <label for="candidateName">Full Name:</label>
-      <input type="text" id="candidateName" placeholder="Enter your full name" style="width: 100%; padding: 10px; margin-top: 5px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px;">
-    </div>
-
-    <button class="btn-primary" id="proceedToSetupBtn" style="margin-top: 20px; width: 100%;">Continue to Exam Setup</button>
-  </main>
-
-  <!-- Setup Screen (Initially Hidden) -->
-  <main id="setup-screen" style="display: none;">
+ <!-- Setup Screen -->
+  <main id="setup-screen">
     <h1>Exam Setup</h1>
     <p class="subtitle">Configure preferences below to start a practice assessment.</p>
 
@@ -55,7 +42,7 @@
       <span class="hint">Specify start and end question numbers.</span>
     </div>
 
-    <!-- Randomize Checkbox -->
+    <!-- NEW: Randomize Checkbox -->
     <div class="form-group" style="margin-top: 15px;">
       <label style="display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-weight: normal;">
         <input type="checkbox" id="shuffleToggle"> Randomize questions
@@ -93,19 +80,14 @@
     <div id="explanation-box" class="explanation-box"></div>
   </main>
 
-  <!-- Results Screen -->
+<!-- Results Screen -->
   <main id="results-screen" style="display: none; text-align: center; margin-top: 60px;">
     <h1>Assessment Results</h1>
     <div id="score-card" class="score-card">
       <div id="score-percentage" class="score-percentage">0%</div>
       <p id="score-details" class="score-details">You answered 0 out of 0 questions correctly.</p>
     </div>
-    
-    <div style="display: flex; flex-direction: column; gap: 12px; max-width: 300px; margin: 25px auto 0 auto;">
-      <button type="button" id="restartBtn" class="btn-primary">Start New Assessment</button>
-      <!-- Log Download Button (Hidden by default using style="display: none;") -->
-      <button type="button" id="viewLogsBtn" class="btn-secondary" style="display: none;">Download Assessment Logs (CSV)</button>
-    </div>
+    <button type="button" id="restartBtn" class="btn-primary" style="margin-top: 25px;">Start New Assessment</button>
   </main>
 
   <!-- Application Logic Scripts -->

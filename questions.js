@@ -1819,5 +1819,1577 @@ https://docs.microsoft.com/en-us/azure/active-directory/enterprise-users/users-b
       The command would look something like this: Set-MsolUserLicense -UserPrincipalName $User -RemoveLicenses "reseller-account:ENTERPRISEPACK" (where ENTERPRISEPACK is the technical name for E3).
     </p>
   `
+},
+	{
+  id: 42,
+  type: "dropdown",
+  question: `
+    <p><strong>Question 42: Hotspot</strong></p>
+    <p>Your on-premises network contains an Active Directory domain that uses Azure AD Connect to sync with an Azure AD tenant.</p>
+    <p>You need to configure Azure AD Connect to meet the following requirements:</p>
+    <ul>
+      <li>User sign-ins to Azure AD must be authenticated by an Active Directory domain controller.</li>
+      <li>Active Directory domain users must be able to use Azure AD self-service password reset (SSPR).</li>
+    </ul>
+    <p>What should you use for each requirement? To answer, select the appropriate options in the answer area.</p>
+    <p><em>NOTE: Each correct selection is worth one point.</em></p>
+
+    <div style="margin-top: 20px; background: #f9f9f9; padding: 15px; border: 1px solid #ddd; border-radius: 4px;">
+      <p style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+        <strong style="flex: 1; text-align: left; padding-right: 15px;">Authentication by the domain controller:</strong> 
+        <select class="inline-select" data-key="authController" style="flex: 1; max-width: 320px; padding: 6px;">
+          <option value="">-- Select Option --</option>
+          <option value="Federation with Active Directory Federation Services (AD FS)">Federation with Active Directory Federation Services (AD FS)</option>
+          <option value="Pass-through authentication">Pass-through authentication</option>
+          <option value="Password hash synchronization">Password hash synchronization</option>
+        </select>
+      </p>
+      
+      <p style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0;">
+        <strong style="flex: 1; text-align: left; padding-right: 15px;">SSPR:</strong> 
+        <select class="inline-select" data-key="sspr" style="flex: 1; max-width: 320px; padding: 6px;">
+          <option value="">-- Select Option --</option>
+          <option value="Device writeback">Device writeback</option>
+          <option value="Group writeback">Group writeback</option>
+          <option value="Password hash synchronization">Password hash synchronization</option>
+          <option value="Password writeback">Password writeback</option>
+        </select>
+      </p>
+    </div>
+  `,
+  answer: {
+    authController: "Pass-through authentication",
+    sspr: "Password writeback"
+  },
+  explanation: `
+    <p>
+      pass-through auth<br>
+      password write back
+    </p>
+  `
+},
+{
+  id: 43,
+  type: "single",
+
+  question: `
+    <p>
+      You have 2,500 users who are assigned Microsoft Office 365 Enterprise E3 licenses. The licenses are assigned to individual users.
+    </p>
+    <p>
+      From the Groups blade in the Azure Active Directory admin center, you assign Microsoft Office 365 Enterprise E5 licenses to a group that includes all users.
+    </p>
+    <p>
+      You needed to remove the Office 365 Enterprise E3 licenses from the users by using the least amount of administrative effort.
+    </p>
+    <p>
+      What should you use?
+    </p>
+  `,
+
+  options: [
+    "the Groups blade in the Azure Active Directory admin center",
+    "the Set-AzureADGroup cmdlet",
+    "the Identity Governance blade in the Azure Active Directory admin center",
+    "the Set-MsolUserLicense cmdlet"
+  ],
+
+  answer: 3, // Index 3 corresponds to D
+
+  explanation: `
+    <p>
+      <strong>A. the Groups blade in the Azure Active Directory admin center</strong><br>
+      Incorrect. Group-based licensing works well for assigning licenses, but it does not automatically remove licenses that were assigned directly to users. Even after assigning E5 via group, E3 will remain unless explicitly removed.
+    </p>
+    <p>
+      <strong>B. the Set-AzureADGroup cmdlet</strong><br>
+      Incorrect. This cmdlet is used for managing group properties and membership, not for modifying or removing user licenses.
+    </p>
+    <p>
+      <strong>C. the Identity Governance blade in the Azure Active Directory admin center</strong><br>
+      Incorrect. Identity Governance focuses on access reviews, entitlement management, and lifecycle processes. It does not handle bulk license removal.
+    </p>
+    <p>
+      <strong>D. the Set-MsolUserLicense cmdlet</strong><br>
+      Correct. This PowerShell cmdlet is specifically designed to assign or remove licenses at scale. Using it, you can bulk remove the E3 licenses from all 2,500 users in a single script, making it the most efficient and least effort solution.
+    </p>
+  `
+},
+{
+  id: 44,
+  type: "single",
+
+  question: `
+    <p>
+      You have an Active Directory forest that syncs to an Azure AD tenant.
+    </p>
+    <p>
+      You discover that when a user account is disabled in Active Directory, the disabled user can still authenticate to Azure AD for up to 30 minutes.
+    </p>
+    <p>
+      You need to ensure that when a user account is disabled in Active Directory, the user account is immediately prevented from authenticating to Azure AD.
+    </p>
+    <p>
+      <strong>Solution:</strong> You configure conditional access policies. Does this meet the goal?
+    </p>
+  `,
+
+  options: [
+    "Yes",
+    "No"
+  ],
+
+  answer: 1, // Index 1 corresponds to No
+
+  explanation: `
+    <p>
+      <strong>B. No.</strong>
+    </p>
+    <p>
+      Why this doesn't meet the goal: Configuring Conditional Access (CA) policies will not solve the "immediate" requirement because CA policies are only evaluated during the authentication process. If a user already has an active session and a valid Access Token, they can continue to access resources until that token expires (typically 60–90 minutes) or until a Continuous Access Evaluation (CAE) event is triggered. Simply disabling the account in on-premises Active Directory (AD) does not instantly kill existing cloud sessions.
+    </p>
+  `
+},
+{
+  id: 45,
+  type: "single",
+  question: `
+    <div style="border: 1px solid #b8daff; background-color: #e8f4f8; padding: 12px; border-radius: 4px; margin-bottom: 15px; font-size: 13px; color: #004085;">
+      <strong>Scenario (Questions 45-46):</strong><br>
+      This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.<br><br>
+      <em>After you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.</em><br><br>
+      You have a Microsoft 365 E5 subscription. You create a user named User1.<br>
+      You need to ensure that User1 can update the status of Identity Secure Score improvement actions.
+    </div>
+    <p><strong>Question 45</strong></p>
+    <p><strong>Solution:</strong> You assign the Exchange Administrator role to User1. Does this meet the goal?</p>
+  `,
+  options: ["Yes", "No"],
+  answer: 1, // B = No
+  explanation: `
+    <p><strong>A. Yes</strong><br>
+    Incorrect. The Exchange Administrator role is limited to managing Exchange Online settings and does not provide permissions for Identity Secure Score actions.</p>
+    <p><strong>B. No</strong><br>
+    Correct. Updating Identity Secure Score requires roles like Security Administrator or Global Administrator, not Exchange Administrator.</p>
+  `
+},
+{
+  id: 46,
+  type: "single",
+  question: `
+    <div style="border: 1px solid #b8daff; background-color: #e8f4f8; padding: 12px; border-radius: 4px; margin-bottom: 15px; font-size: 13px; color: #004085;">
+      <strong>Scenario (Questions 45-46):</strong><br>
+      This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.<br><br>
+      <em>After you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.</em><br><br>
+      You have a Microsoft 365 E5 subscription. You create a user named User1.<br>
+      You need to ensure that User1 can update the status of Identity Secure Score improvement actions.
+    </div>
+    <p><strong>Question 46</strong></p>
+    <p><strong>Solution:</strong> You assign the User Administrator role to User1. Does this meet the goal?</p>
+  `,
+  options: ["Yes", "No"],
+  answer: 1, // B = No
+  explanation: `
+    <p><strong>A. Yes</strong><br>
+    Incorrect. <p>Why this doesn't meet the goalThe User Administrator role allows a user to manage user accounts (reset passwords, create/delete users), but it does not grant the specific permissions required to modify or update the status of Identity Secure Score improvement actions.</p> <br>
+https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/identity-secure-score#read-and-     write-roles
+</p>
+    <p><strong>B. No</strong><br>
+    Correct. Updating Identity Secure Score requires administrative roles with security management permissions (such as Security Administrator or Global Administrator), not a User Administrator role.</p>
+  `
+},
+{
+  id: 47,
+  type: "dropdown",
+  question: `
+    <div style="margin-bottom: 15px;">
+      <details style="border: 1px solid #b8daff; background-color: #e8f4f8; border-radius: 4px; margin-bottom: 8px; padding: 10px;">
+        <summary style="font-weight: bold; color: #004085; cursor: pointer;">Case Study Overview</summary>
+        <div style="margin-top: 8px; font-size: 13px; color: #004085;">
+          Contoso, Ltd. is a consulting company that has a main office in Montreal and branch offices in London and Seattle.<br><br>
+          Contoso has a partnership with a company named Fabrikam, Inc. Fabrikam has an Azure Active Directory (Azure AD) tenant named fabrikam.com.
+        </div>
+      </details>
+
+      <details style="border: 1px solid #b8daff; background-color: #e8f4f8; border-radius: 4px; margin-bottom: 8px; padding: 10px;">
+        <summary style="font-weight: bold; color: #004085; cursor: pointer;">Existing Environment</summary>
+        <div style="margin-top: 8px; font-size: 13px; color: #004085;">
+          The on-premises network of Contoso contains an Active Directory domain named contoso.com. The domain contains an organizational unit (OU) named Contoso_Resources. The Contoso_Resources OU contains all users and computers.<br><br>
+          Contoso has an Azure AD tenant named contoso.com that has the following associated licenses:<br>
+          • Microsoft Office 365 Enterprise E5<br>
+          • Enterprise Mobility+ Security E5<br>
+          • Windows 10 Enterprise E3<br>
+          • Project Plan 3<br><br>
+          Azure AD Connect is configured between Azure AD and Active Directory Domain Services (AD DS). Only the Contoso_Resources OU is synced.<br>
+          Helpdesk administrators routinely use the Microsoft 365 admin center to manage user settings. User administrators currently use the Microsoft 365 admin center to manually assign licenses. All users have all licenses assigned besides the following exceptions:<br>
+          • The users in the London office have the Microsoft 365 Phone System license unassigned.<br>
+          • The users in the Seattle office have the Yammer Enterprise license unassigned.<br><br>
+          Security defaults are disabled for contoso.com. Contoso uses Azure AD Privileged Identity Management (PIM) to protect administrative roles.
+        </div>
+      </details>
+  <details style="border: 1px solid #b8daff; background-color: #fff3cd; border-radius: 4px; margin-bottom: 8px; padding: 10px; text-align: left; transition: all 0.3s ease-in-out;">
+        <summary style="font-weight: bold; color: #856404; cursor: pointer; text-align: left;">Exhibit: User Accounts Table</summary>
+        <div style="margin: 12px 0; text-align: center;">
+          <img src="images/q47_office_location.jpg" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+        </div>
+      </details>
+      <details style="border: 1px solid #b8daff; background-color: #e8f4f8; border-radius: 4px; margin-bottom: 8px; padding: 10px;">
+        <summary style="font-weight: bold; color: #004085; cursor: pointer;">Problem Statements</summary>
+        <div style="margin-top: 8px; font-size: 13px; color: #004085;">
+          • Currently, all the helpdesk administrators can manage user licenses throughout the entire Microsoft 365 tenant.<br>
+          • The user administrators report that it is tedious to manually configure the different license requirements for each Contoso office.<br>
+          • The helpdesk administrators spend too much time provisioning internal and guest access to the required Microsoft 365 services and apps.<br>
+          • Currently, the helpdesk administrators can perform tasks by using the User administrator role without justification or approval.<br>
+          • When the Logs node is selected in Azure AD, an error message appears stating that Log Analytics integration is not enabled.
+        </div>
+      </details>
+
+      <details style="border: 1px solid #b8daff; background-color: #e8f4f8; border-radius: 4px; margin-bottom: 8px; padding: 10px; text-align: left;">
+        <summary style="font-weight: bold; color: #004085; cursor: pointer; text-align: left;">Technical Requirements</summary>
+        <div style="margin-top: 8px; font-size: 13px; color: #004085; text-align: left;">
+          • All users must be synced from AD DS to the contoso.com Azure AD tenant.<br>
+          • App1 must have a redirect URI pointed to https://contoso.com/auth-response.<br>
+          • License allocation for new users must be assigned automatically based on the location of the user.<br>
+          • Fabrikam users must have access to the marketing department’s SharePoint site for a maximum of 90 days.<br>
+          • Administrative actions performed in Azure AD must be audited. Audit logs must be retained for one year.<br>
+          • The helpdesk administrators must be able to manage licenses for only the users in their respective office.<br>
+          • Users must be forced to change their password if there is a probability that the user's identity was compromised.
+        </div>
+      </details>
+
+    </div>
+    
+    <p><strong>Question 47: Hotspot</strong></p>
+    <p>You need to meet the technical requirements for license management by the help desk administrators.</p>
+    <p>What should you create first, and which tool should you use? To answer, select the appropriate options in the answer area.</p>
+    <p><em>NOTE: Each correct selection is worth one point.</em></p>
+
+    <div style="margin-top: 20px; background: #f9f9f9; padding: 15px; border: 1px solid #ddd; border-radius: 4px;">
+      <p style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+        <strong style="flex: 1; text-align: left; padding-right: 15px;">Object to create for each branch office:</strong> 
+        <select class="inline-select" data-key="objectToCreate" style="flex: 1; max-width: 320px; padding: 6px;">
+          <option value="">-- Select Option --</option>
+          <option value="An administrative unit">An administrative unit</option>
+          <option value="A custom role">A custom role</option>
+          <option value="A Dynamic User security group">A Dynamic User security group</option>
+          <option value="An OU">An OU</option>
+        </select>
+      </p>
+      
+      <p style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0;">
+        <strong style="flex: 1; text-align: left; padding-right: 15px;">Tool to use:</strong> 
+        <select class="inline-select" data-key="toolToUse" style="flex: 1; max-width: 320px; padding: 6px;">
+          <option value="">-- Select Option --</option>
+          <option value="Azure Active Directory admin center">Azure Active Directory admin center</option>
+          <option value="Active Directory Administrative Center">Active Directory Administrative Center</option>
+          <option value="Active Directory module for Windows PowerShell">Active Directory module for Windows PowerShell</option>
+          <option value="Microsoft Purview Compliance portal">Microsoft Purview Compliance portal</option>
+        </select>
+      </p>
+    </div>
+  `,
+  answer: {
+    objectToCreate: "An administrative unit",
+    toolToUse: "Azure Active Directory admin center"
+  },
+  explanation: `
+    <p><strong>Object to create: An administrative unit (AU)</strong></p>
+    <p>In Microsoft Entra ID (formerly Azure AD), an Administrative Unit is the cloud equivalent of an Organizational Unit (OU). It allows you to partition your directory into logical containers (like "Branch Office A" or "London Office").</p>
+    <p><strong>Why it's used:</strong> You can assign a specific user (like a local IT lead) an administrative role (like Helpdesk Administrator) that is scoped only to that AU. This follows the principle of least privilege by ensuring they can only manage users within their own branch, not the entire tenant.</p>
+    <p><strong>Tool to use: Azure Active Directory admin center</strong></p>
+    <p>Administrative Units are a core identity governance feature, so they are managed within the Azure Active Directory admin center (now known as the Microsoft Entra admin center).</p>
+  `
+},
+ 
+  {
+    id: 48,
+    type: "single",
+    question: `
+      <div style="margin-bottom: 15px; text-align: left;">
+        <details style="border: 1px solid #b8daff; background-color: #e8f4f8; border-radius: 4px; margin-bottom: 8px; padding: 10px; text-align: left;">
+          <summary style="font-weight: bold; color: #004085; cursor: pointer; text-align: left;">Case Study - Overview</summary>
+          <div style="margin-top: 8px; font-size: 13px; color: #004085; text-align: left; white-space: pre-line;">
+            ADatum Corporation is a consulting company in Montreal.
+            ADatum recently acquired Vancouver-based company named Litware, Inc.
+          </div>
+        </details>
+
+        <details style="border: 1px solid #b8daff; background-color: #e8f4f8; border-radius: 4px; margin-bottom: 8px; padding: 10px; text-align: left;">
+          <summary style="font-weight: bold; color: #004085; cursor: pointer; text-align: left;">Existing Environment - ADatum Environment</summary>
+          <div style="margin-top: 8px; font-size: 13px; color: #004085; text-align: left; white-space: pre-line;">
+            The on-premises network of ADatum contains an Active Directory Domain Services (AD DS) forest named adatum.com.
+
+            ADatum has a Microsoft 365 E5 subscription. The subscription contains a verified domain that syncs with the adatum.com AD DS domain by using Azure AD Connect.
+
+            ADatum has an Azure Active Directory (Azure AD) tenant named adatum.com. The tenant has Security defaults disabled.
+
+            The tenant contains the users shown in the following table.
+          </div>
+        </details>
+
+        <details style="border: 1px solid #b8daff; background-color: #fff3cd; border-radius: 4px; margin-bottom: 8px; padding: 10px; text-align: left; transition: all 0.3s ease-in-out;">
+          <summary style="font-weight: bold; color: #856404; cursor: pointer; text-align: left;">Exhibit: User Accounts Table</summary>
+          <div style="margin: 12px 0; text-align: center;">
+            <img src="images/q48_user_roles.jpg" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+          </div>
+        </details>
+
+        <details style="border: 1px solid #b8daff; background-color: #e8f4f8; border-radius: 4px; margin-bottom: 8px; padding: 10px; text-align: left;">
+          <summary style="font-weight: bold; color: #004085; cursor: pointer; text-align: left;">Existing Environment - Groups Table</summary>
+          <div style="margin-top: 8px; font-size: 13px; color: #004085; text-align: left; white-space: pre-line;">
+            The tenant contains the groups shown in the following table.
+          </div>
+        </details>
+
+        <details style="border: 1px solid #b8daff; background-color: #fff3cd; border-radius: 4px; margin-bottom: 8px; padding: 10px; text-align: left; transition: all 0.3s ease-in-out;">
+          <summary style="font-weight: bold; color: #856404; cursor: pointer; text-align: left;">Exhibit: User Groups Table</summary>
+          <div style="margin: 12px 0; text-align: center;">
+            <img src="images/q48_groups.jpg" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+          </div>
+        </details>
+
+        <details style="border: 1px solid #b8daff; background-color: #e8f4f8; border-radius: 4px; margin-bottom: 8px; padding: 10px; text-align: left;">
+          <summary style="font-weight: bold; color: #004085; cursor: pointer; text-align: left;">Existing Environment - Litware Environment & Problem Statements</summary>
+          <div style="margin-top: 8px; font-size: 13px; color: #004085; text-align: left; white-space: pre-line;">
+            Litware has an AD DS forest named litware.com 
+            Existing Environment. 
+
+            Problem Statements ADatum identifies the following issues:
+            • Multiple users in the sales department have up to five devices. The sales department users report that sometimes they must contact the support department to join their devices to the Azure AD tenant because they have reached their device limit.
+
+            A recent security incident reveals that several users leaked their credentials, a suspicious browser was used for a sign-in, and resources were accessed from an anonymous IP address.
+
+            When you attempt to assign the Device Administrators role to IT_Group1, the group does NOT appear in the selection list.
+
+            Anyone in the organization can invite guest users, including other guests and non-administrators. 
+            The helpdesk spends too much time resetting user passwords.
+
+            Users currently use only passwords for authentication.
+          </div>
+        </details>
+
+        <details style="border: 1px solid #b8daff; background-color: #e8f4f8; border-radius: 4px; margin-bottom: 8px; padding: 10px; text-align: left;">
+          <summary style="font-weight: bold; color: #004085; cursor: pointer; text-align: left;">Planned Changes & Technical Requirements</summary>
+          <div style="margin-top: 8px; font-size: 13px; color: #004085; text-align: left; white-space: pre-line;">
+            Planned Changes:
+            ADatum plans to implement the following changes:
+            • Configure self-service password reset (SSPR).
+            • Configure multi-factor authentication (MFA) for all users.
+            • Configure an access review for an access package named Package1.
+            • Require admin approval for application access to organizational data.
+            • Sync the AD DS users and groups of litware.com with the Azure AD tenant.
+            • Ensure that only users that are assigned specific admin roles can invite guest users.
+            • Increase the maximum number of devices that can be joined or registered to Azure AD to 10. Requirements. 
+
+            Technical Requirements: ADatum identifies the following technical requirements:
+            • Users assigned the User administrator role must be able to request permission to use the role when needed for up to one year.
+            • Users must be prompted to register for MFA and provided with an option to bypass the registration for a grace period.
+            • Users must provide one authentication method to reset their password by using SSPR. Available methods must include:
+            - Email
+            - Phone
+            - Security questions
+            - The Microsoft Authenticator app
+            • Trust relationships must NOT be established between the adatum.com and litware.com AD DS domains.
+            • The principle of least privilege must be used.
+          </div>
+        </details>
+      </div>
+
+      <p style="text-align: left;"><strong>Question 48</strong></p>
+      <p style="text-align: left;">You need to resolve the issue of the sales department users. What should you configure for the Azure AD tenant?</p>
+    `,
+    options: [
+      "A. the Device settings",
+      "B. the User settings",
+      "C. the Access reviews settings",
+      "D. Security defaults"
+    ],
+    answer: 0,
+    explanation: `
+      <p><strong>A. the Device settings</strong><br>
+      Correct.</p>
+      <p><strong>Explanation:</strong><br>
+      Azure Portal > Azure AD > Device > Device Settings > in the "Azure AD join and registration settings" section, change the maximum number of devices a user can have in Azure AD.</p>
+    `
+  },
+  {
+    id: 49,
+    type: "single",
+    question: `
+      <div style="margin-bottom: 15px; text-align: left;">
+        <details style="border: 1px solid #b8daff; background-color: #e8f4f8; border-radius: 4px; margin-bottom: 8px; padding: 10px; text-align: left;">
+          <summary style="font-weight: bold; color: #004085; cursor: pointer; text-align: left;">Case Study - Overview</summary>
+          <div style="margin-top: 8px; font-size: 13px; color: #004085; text-align: left; white-space: pre-line;">
+            ADatum Corporation is a consulting company in Montreal.
+            ADatum recently acquired Vancouver-based company named Litware, Inc.
+          </div>
+        </details>
+
+        <details style="border: 1px solid #b8daff; background-color: #e8f4f8; border-radius: 4px; margin-bottom: 8px; padding: 10px; text-align: left;">
+          <summary style="font-weight: bold; color: #004085; cursor: pointer; text-align: left;">Existing Environment - ADatum Environment</summary>
+          <div style="margin-top: 8px; font-size: 13px; color: #004085; text-align: left; white-space: pre-line;">
+            The on-premises network of ADatum contains an Active Directory Domain Services (AD DS) forest named adatum.com.
+
+            ADatum has a Microsoft 365 E5 subscription. The subscription contains a verified domain that syncs with the adatum.com AD DS domain by using Azure AD Connect.
+
+            ADatum has an Azure Active Directory (Azure AD) tenant named adatum.com. The tenant has Security defaults disabled.
+
+            The tenant contains the users shown in the following table.
+          </div>
+        </details>
+
+        <details style="border: 1px solid #b8daff; background-color: #fff3cd; border-radius: 4px; margin-bottom: 8px; padding: 10px; text-align: left; transition: all 0.3s ease-in-out;">
+          <summary style="font-weight: bold; color: #856404; cursor: pointer; text-align: left;">Exhibit: User Accounts Table</summary>
+          <div style="margin: 12px 0; text-align: center;">
+            <img src="images/q48_user_roles.jpg" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+          </div>
+        </details>
+
+        <details style="border: 1px solid #b8daff; background-color: #e8f4f8; border-radius: 4px; margin-bottom: 8px; padding: 10px; text-align: left;">
+          <summary style="font-weight: bold; color: #004085; cursor: pointer; text-align: left;">Existing Environment - Groups Table</summary>
+          <div style="margin-top: 8px; font-size: 13px; color: #004085; text-align: left; white-space: pre-line;">
+            The tenant contains the groups shown in the following table.
+          </div>
+        </details>
+
+        <details style="border: 1px solid #b8daff; background-color: #fff3cd; border-radius: 4px; margin-bottom: 8px; padding: 10px; text-align: left; transition: all 0.3s ease-in-out;">
+          <summary style="font-weight: bold; color: #856404; cursor: pointer; text-align: left;">Exhibit: User Groups Table</summary>
+          <div style="margin: 12px 0; text-align: center;">
+            <img src="images/q48_groups.jpg" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+          </div>
+        </details>
+
+        <details style="border: 1px solid #b8daff; background-color: #e8f4f8; border-radius: 4px; margin-bottom: 8px; padding: 10px; text-align: left;">
+          <summary style="font-weight: bold; color: #004085; cursor: pointer; text-align: left;">Existing Environment - Litware Environment & Problem Statements</summary>
+          <div style="margin-top: 8px; font-size: 13px; color: #004085; text-align: left; white-space: pre-line;">
+            Litware has an AD DS forest named litware.com 
+            Existing Environment. 
+
+            Problem Statements ADatum identifies the following issues:
+            • Multiple users in the sales department have up to five devices. The sales department users report that sometimes they must contact the support department to join their devices to the Azure AD tenant because they have reached their device limit.
+
+            A recent security incident reveals that several users leaked their credentials, a suspicious browser was used for a sign-in, and resources were accessed from an anonymous IP address.
+
+            When you attempt to assign the Device Administrators role to IT_Group1, the group does NOT appear in the selection list.
+
+            Anyone in the organization can invite guest users, including other guests and non-administrators. 
+            The helpdesk spends too much time resetting user passwords.
+
+            Users currently use only passwords for authentication.
+          </div>
+        </details>
+
+        <details style="border: 1px solid #b8daff; background-color: #e8f4f8; border-radius: 4px; margin-bottom: 8px; padding: 10px; text-align: left;">
+          <summary style="font-weight: bold; color: #004085; cursor: pointer; text-align: left;">Planned Changes & Technical Requirements</summary>
+          <div style="margin-top: 8px; font-size: 13px; color: #004085; text-align: left; white-space: pre-line;">
+            Planned Changes:
+            ADatum plans to implement the following changes:
+            • Configure self-service password reset (SSPR).
+            • Configure multi-factor authentication (MFA) for all users.
+            • Configure an access review for an access package named Package1.
+            • Require admin approval for application access to organizational data.
+            • Sync the AD DS users and groups of litware.com with the Azure AD tenant.
+            • Ensure that only users that are assigned specific admin roles can invite guest users.
+            • Increase the maximum number of devices that can be joined or registered to Azure AD to 10. Requirements. 
+
+            Technical Requirements: ADatum identifies the following technical requirements:
+            • Users assigned the User administrator role must be able to request permission to use the role when needed for up to one year.
+            • Users must be prompted to register for MFA and provided with an option to bypass the registration for a grace period.
+            • Users must provide one authentication method to reset their password by using SSPR. Available methods must include:
+            - Email
+            - Phone
+            - Security questions
+            - The Microsoft Authenticator app
+            • Trust relationships must NOT be established between the adatum.com and litware.com AD DS domains.
+            • The principle of least privilege must be used.
+          </div>
+        </details>
+      </div>
+
+      <p style="text-align: left;"><strong>Question 49</strong></p>
+      <p style="text-align: left;">You need to resolve the issue of IT_Group1. What should you do first?</p>
+    `,
+    options: [
+      "A. Change Membership type of IT_Group1 to Dynamic User.",
+      "B. Recreate the IT_Group1 group.",
+      "C. Change Membership type of IT Group1 to Dynamic Device.",
+      "D. Add an owner to IT_Group1."
+    ],
+    answer: 1,
+    explanation: `
+      <p><strong>B. Recreate the IT_Group1 group.</strong><br>
+      Reasoning: The "issue" typically referred to in this specific scenario is that IT_Group1 was created as a Security Group with a Static membership type, but the organization needs it to function across domains or support dynamic rules that can't be modified in its current state.</p>
+      <p><strong>The Membership Type Limitation:</strong> In Microsoft Entra (Azure AD), you cannot change the membership type of an existing group from "Assigned" (Static) to "Dynamic" if the group was synchronized from an on-premises Active Directory or if it was created as a specific group type that doesn't support the conversion.</p>
+    `
+  },
+  {
+    id: 50,
+    type: "single",
+    question: `
+      <div style="margin-bottom: 15px; text-align: left;">
+        <details style="border: 1px solid #b8daff; background-color: #e8f4f8; border-radius: 4px; margin-bottom: 8px; padding: 10px; text-align: left;">
+          <summary style="font-weight: bold; color: #004085; cursor: pointer; text-align: left;">Case Study - Overview</summary>
+          <div style="margin-top: 8px; font-size: 13px; color: #004085; text-align: left; white-space: pre-line;">
+            ADatum Corporation is a consulting company in Montreal.
+            ADatum recently acquired Vancouver-based company named Litware, Inc.
+          </div>
+        </details>
+
+        <details style="border: 1px solid #b8daff; background-color: #e8f4f8; border-radius: 4px; margin-bottom: 8px; padding: 10px; text-align: left;">
+          <summary style="font-weight: bold; color: #004085; cursor: pointer; text-align: left;">Existing Environment - ADatum Environment</summary>
+          <div style="margin-top: 8px; font-size: 13px; color: #004085; text-align: left; white-space: pre-line;">
+            The on-premises network of ADatum contains an Active Directory Domain Services (AD DS) forest named adatum.com.
+
+            ADatum has a Microsoft 365 E5 subscription. The subscription contains a verified domain that syncs with the adatum.com AD DS domain by using Azure AD Connect.
+
+            ADatum has an Azure Active Directory (Azure AD) tenant named adatum.com. The tenant has Security defaults disabled.
+
+            The tenant contains the users shown in the following table.
+          </div>
+        </details>
+
+        <details style="border: 1px solid #b8daff; background-color: #fff3cd; border-radius: 4px; margin-bottom: 8px; padding: 10px; text-align: left; transition: all 0.3s ease-in-out;">
+          <summary style="font-weight: bold; color: #856404; cursor: pointer; text-align: left;">Exhibit: User Accounts Table</summary>
+          <div style="margin: 12px 0; text-align: center;">
+            <img src="images/q48_user_roles.jpg" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+          </div>
+        </details>
+
+        <details style="border: 1px solid #b8daff; background-color: #e8f4f8; border-radius: 4px; margin-bottom: 8px; padding: 10px; text-align: left;">
+          <summary style="font-weight: bold; color: #004085; cursor: pointer; text-align: left;">Existing Environment - Groups Table</summary>
+          <div style="margin-top: 8px; font-size: 13px; color: #004085; text-align: left; white-space: pre-line;">
+            The tenant contains the groups shown in the following table.
+          </div>
+        </details>
+
+        <details style="border: 1px solid #b8daff; background-color: #fff3cd; border-radius: 4px; margin-bottom: 8px; padding: 10px; text-align: left; transition: all 0.3s ease-in-out;">
+          <summary style="font-weight: bold; color: #856404; cursor: pointer; text-align: left;">Exhibit: User Groups Table</summary>
+          <div style="margin: 12px 0; text-align: center;">
+            <img src="images/q48_groups.jpg" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+          </div>
+        </details>
+
+        <details style="border: 1px solid #b8daff; background-color: #e8f4f8; border-radius: 4px; margin-bottom: 8px; padding: 10px; text-align: left;">
+          <summary style="font-weight: bold; color: #004085; cursor: pointer; text-align: left;">Existing Environment - Litware Environment & Problem Statements</summary>
+          <div style="margin-top: 8px; font-size: 13px; color: #004085; text-align: left; white-space: pre-line;">
+            Litware has an AD DS forest named litware.com 
+            Existing Environment. 
+
+            Problem Statements ADatum identifies the following issues:
+            • Multiple users in the sales department have up to five devices. The sales department users report that sometimes they must contact the support department to join their devices to the Azure AD tenant because they have reached their device limit.
+
+            A recent security incident reveals that several users leaked their credentials, a suspicious browser was used for a sign-in, and resources were accessed from an anonymous IP address.
+
+            When you attempt to assign the Device Administrators role to IT_Group1, the group does NOT appear in the selection list.
+
+            Anyone in the organization can invite guest users, including other guests and non-administrators. 
+            The helpdesk spends too much time resetting user passwords.
+
+            Users currently use only passwords for authentication.
+          </div>
+        </details>
+
+        <details style="border: 1px solid #b8daff; background-color: #e8f4f8; border-radius: 4px; margin-bottom: 8px; padding: 10px; text-align: left;">
+          <summary style="font-weight: bold; color: #004085; cursor: pointer; text-align: left;">Planned Changes & Technical Requirements</summary>
+          <div style="margin-top: 8px; font-size: 13px; color: #004085; text-align: left; white-space: pre-line;">
+            Planned Changes:
+            ADatum plans to implement the following changes:
+            • Configure self-service password reset (SSPR).
+            • Configure multi-factor authentication (MFA) for all users.
+            • Configure an access review for an access package named Package1.
+            • Require admin approval for application access to organizational data.
+            • Sync the AD DS users and groups of litware.com with the Azure AD tenant.
+            • Ensure that only users that are assigned specific admin roles can invite guest users.
+            • Increase the maximum number of devices that can be joined or registered to Azure AD to 10. Requirements. 
+
+            Technical Requirements: ADatum identifies the following technical requirements:
+            • Users assigned the User administrator role must be able to request permission to use the role when needed for up to one year.
+            • Users must be prompted to register for MFA and provided with an option to bypass the registration for a grace period.
+            • Users must provide one authentication method to reset their password by using SSPR. Available methods must include:
+            - Email
+            - Phone
+            - Security questions
+            - The Microsoft Authenticator app
+            • Trust relationships must NOT be established between the adatum.com and litware.com AD DS domains.
+            • The principle of least privilege must be used.
+          </div>
+        </details>
+      </div>
+
+      <p style="text-align: left;"><strong>Question 50</strong></p>
+      <p style="text-align: left;">You need to implement the planned changes for litware.com. What should you configure?</p>
+    `,
+    options: [
+      "A. Azure AD Connect cloud sync between the Azure AD tenant and litware.com",
+      "B. Azure AD Connect to include the litware.com domain",
+      "C. staging mode in Azure AD Connect for the litware.com domain"
+    ],
+    answer: 1,
+    explanation: `
+      <p><strong>B. Azure AD Connect to include the litware.com domain</strong><br>
+      Correct.</p>
+      <p><strong>Explanation:</strong><br>
+      To implement changes for litware.com while adhering to the requirement that no trust relationship exists between the two on-premises domains (adatum.com and litware.com), you should use Azure AD Connect (classic).<br><br>
+      <strong>Multi-Forest Support:</strong> A single instance of Azure AD Connect can connect to multiple forest environments, even if those forests have no trust between them. You simply provide separate administrative credentials for each forest during the configuration.<br><br>
+      <strong>Feature Completeness:</strong> Standard Azure AD Connect supports advanced features often required in these scenarios, such as device writeback and specific attribute filtering, which are more mature than the CloudSync alternative.</p>
+    `
+  },
+{
+  id: 51,
+  type: "single",
+  question: `
+    <div style="margin-bottom: 15px; text-align: left;">
+      <p>You have the Azure resources shown in the following table.</p>
+      
+      <div style="margin: 12px 0; text-align: center;">
+        <img src="images/q51_azure_table.jpg" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" alt="Azure Resources Table" />
+      </div>
+
+      <p>To which identities can you assign the Contributor role for RG1?</p>
+    </div>
+  `,
+  options: [
+    "A. User1 only",
+    "B. User1 and Group1 only",
+    "C. User1 and VM1 only",
+    "D. User1, VM1, and App1 only",
+    "E. User1, Group1, VM1, and App1"
+  ],
+  answer: 4,
+  explanation: `
+    <p><strong>Explanation:</strong></p>
+    <p>In Azure Role-Based Access Control (RBAC), roles such as Contributor can be assigned to the following identity types:</p>
+    <ul>
+      <li><strong>Users</strong> (Azure AD users)</li>
+      <li><strong>Groups</strong> (Azure AD security groups)</li>
+      <li><strong>Service Principals</strong> (App registrations in Azure AD)</li>
+      <li><strong>Managed Identities</strong> (System-assigned identities for VMs, applications, etc.)</li>
+    </ul>
+    <p>Therefore, you can assign the Contributor role to <strong>User1, Group1, VM1, and App1</strong>.</p>
+  `
+},
+{
+  id: 52,
+  type: "dropdown",
+  question: `
+    <div style="margin-bottom: 15px; text-align: left;">
+      <p>You have an Azure AD tenant that contains a user named User1. User1 is assigned the User Administrator role. You need to configure External collaboration settings for the tenant to meet the following requirements:</p>
+      <ul>
+        <li>Guest users must be prevented from querying staff email addresses.</li>
+        <li>Guest users must be able to access the tenant only if they are invited by User1.</li>
+      </ul>
+      <p>Which three settings should you configure? To answer, select the appropriate settings in the answer area.</p>
+      <p><em>NOTE: Each correct selection is worth one point.</em></p>
+
+    </div>
+
+    <div style="margin-top: 20px; background: #f9f9f9; padding: 15px; border: 1px solid #ddd; border-radius: 4px;">
+      <p style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+        <strong style="flex: 1; text-align: left; padding-right: 15px;">Guest user access restrictions:</strong> 
+        <select class="inline-select" data-key="guestAccessRestrictions" style="flex: 1; max-width: 380px; padding: 6px;">
+          <option value="">-- Select Option --</option>
+          <option value="Guest users have the same access as members (most inclusive)">Guest users have the same access as members (most inclusive)</option>
+          <option value="Guest users have limited access to properties and memberships of directory objects">Guest users have limited access to properties and memberships of directory objects</option>
+          <option value="Guest user access is restricted to properties and memberships of their own directory objects (most restrictive)">Guest user access is restricted to properties and memberships of their own directory objects (most restrictive)</option>
+        </select>
+      </p>
+      
+      <p style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+        <strong style="flex: 1; text-align: left; padding-right: 15px;">Guest invite restrictions:</strong> 
+        <select class="inline-select" data-key="guestInviteRestrictions" style="flex: 1; max-width: 380px; padding: 6px;">
+          <option value="">-- Select Option --</option>
+          <option value="Anyone in the organization can invite guest users including guests and non-admins (most inclusive)">Anyone in the organization can invite guest users including guests and non-admins (most inclusive)</option>
+          <option value="Member users and users assigned to specific admin roles can invite guest users including guests with member">Member users and users assigned to specific admin roles can invite guest users including guests with member</option>
+          <option value="Only users assigned to specific admin roles can invite guest users">Only users assigned to specific admin roles can invite guest users</option>
+          <option value="No one in the organization can invite guest users including admins (most restrictive)">No one in the organization can invite guest users including admins (most restrictive)</option>
+        </select>
+      </p>
+
+      <p style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0;">
+        <strong style="flex: 1; text-align: left; padding-right: 15px;">Enable guest self-service sign up via user flows:</strong> 
+        <select class="inline-select" data-key="enableGuestSelfService" style="flex: 1; max-width: 380px; padding: 6px;">
+          <option value="">-- Select Option --</option>
+          <option value="No">No</option>
+          <option value="Yes">Yes</option>
+        </select>
+      </p>
+    </div>
+  `,
+  answer: {
+    guestAccessRestrictions: "Guest user access is restricted to properties and memberships of their own directory objects (most restrictive)",
+    guestInviteRestrictions: "Only users assigned to specific admin roles can invite guest users",
+    enableGuestSelfService: "No"
+  },
+  explanation: `
+    <div style="white-space: pre-line; text-align: left;">
+      Guest user access restrictions: Guest user access is restricted to properties and memberships of their own directory objects (most restrictive) This is the "strict" setting. It prevents guests from seeing the profiles of other users, searching the directory, or viewing group memberships. They can only see their own information. 
+      
+      Guest invite restrictions: Only users assigned to specific admin roles can invite guest users. 
+      By default, any member user can usually invite guests. This setting locks that down so that only people with roles like Global Administrator or Guest Inviter can bring external people into the tenant. 
+      
+      Enable guest self-service sign up via user flows: 
+      No This disables the ability for external users to sign themselves up for access to your applications. Every guest must be manually invited by an admin.
+    </div>
+  `
+},
+{
+  id: 53,
+  type: "single",
+  question: `
+    <div style="margin-bottom: 15px; text-align: left;">
+      <p>You have 2,500 users who are assigned Microsoft Office 365 Enterprise E3 licenses. The licenses are assigned to individual users.</p>
+      <p>From the Groups blade in the Azure Active Directory admin center, you assign Microsoft Office 365 Enterprise E5 licenses to a group that includes all users.</p>
+      <p>You needed to remove the Office 365 Enterprise E3 licenses from the users by using the least amount of administrative effort.</p>
+    </div>
+  `,
+  options: [
+    "A. the Groups blade in the Azure Active Directory admin center",
+    "B. the Set-AzureAdUser cmdlet",
+    "C. the Identity Governance blade in the Azure Active Directory admin center",
+    "D. the Licenses blade in the Azure Active Directory admin center"
+  ],
+  answer: 3,
+  explanation: `
+    <div style="white-space: pre-line; text-align: left;">
+      A. the Groups blade in the Azure Active Directory admin center                                                                                                    Incorrect.
+       
+      Group-based licensing does not remove existing direct (individual) license assignments.
+       
+      B. the Set-AzureADUser cmdlet       Incorrect.
+       
+      This cmdlet manages user properties, not bulk license removal.
+       
+      C. the Identity Governance blade in the Azure Active Directory admin center                                                                                                                                              Incorrect.
+       
+      This is used for access reviews and lifecycle management, not licensing tasks.
+       
+      D. the Licenses blade in the Azure Active Directory admin center                                                                                                                                                                Correct.
+       
+      The Licenses blade allows you to view all users assigned a specific license(E3) and perform bulk removal of that license. This makes it the most efficient option within the admin center for removing licenses from many users at once.
+    </div>
+  `
+},
+  {
+    id: 54,
+    type: "single",
+    question: `
+      <div style="margin-bottom: 15px; text-align: left;">
+        <p>Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.</p>
+        <p>After you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.</p>
+        <p>You have a Microsoft 365 E5 subscription. You create a user named User1.</p>
+        <p>You need to ensure that User1 can update the status of Identity Secure Score improvement actions.</p>
+        <p><strong>Solution:</strong> You assign the Security Operator role to User1.</p>
+        <p><strong>Does this meet the goal?</strong></p>
+      </div>
+    `,
+    options: [
+      "A. Yes",
+      "B. No"
+    ],
+    answer: 1, // Index 1 = B
+    explanation: `
+      <div style="white-space: pre-line; text-align: left;">
+        B With read and write access, you can make changes and directly interact with identity secure score. Global administrator, Security administrator Exchange administrator SharePoint administrator, Security Operator has only read access, so he cannot update anything
+        https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/identity-secure-score#who-can-use-the-identity-secure-score
+      </div>
+    `
+  },
+  {
+    id: 55,
+    type: "single",
+    question: `
+      <div style="margin-bottom: 15px; text-align: left;">
+        <p>Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.</p>
+        <p>After you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.</p>
+        <p>You have a Microsoft 365 E5 subscription.</p>
+        <p>You create a user named User1.</p>
+        <p>You need to ensure that User1 can update the status of Identity Secure Score improvement actions.</p>
+        <p><strong>Solution:</strong> You assign the SharePoint Administrator role to User1.</p>
+        <p><strong>Does this meet the goal?</strong></p>
+      </div>
+    `,
+    options: [
+      "A. Yes",
+      "B. No"
+    ],
+    answer: 1, // Index 1 = B
+    explanation: `
+      <div style="white-space: pre-line; text-align: left;">
+        A. Yes       Incorrect.
+         
+        The SharePoint Administrator role is limited to managing SharePoint Online settings and does not grant permissions for Identity Secure Score.
+
+        B. No       Correct.
+         
+        Updating Identity Secure Score requires roles like Security Administrator or Global Administrator, not SharePoint Administrator.
+      </div>
+    `
+  },
+{
+  id: 56,
+  type: "single",
+  question: `
+    <div style="margin-bottom: 15px; text-align: left;">
+      <p>You have an Azure AD tenant that contains a user named Admin1.</p>
+      <p>You need to ensure that Admin1 can perform only the following tasks:</p>
+      <ul>
+        <li>From the Microsoft 365 admin center, create and manage service requests.</li>
+        <li>From the Microsoft 365 admin center, read and configure service health.</li>
+        <li>From the Azure portal, create and manage support tickets.</li>
+      </ul>
+      <p>The solution must minimize administrative effort.</p>
+    </div>
+  `,
+  options: [
+    "A. Create an administrative unit and add Admin1.",
+    "B. Enable Azure AD Privileged Identity Management (PIM) for Admin1.",
+    "C. Assign Admin1 the Helpdesk Administrator role.",
+    "D. Create a custom role and assign the role to Admin1."
+  ],
+  answer: 3,
+  explanation: `
+    <div style="white-space: pre-line; text-align: left;">
+      D. Create a custom role and assign the role to Admin1.
+       
+      A custom role allows you to specify highly granular permissions tailored to a user's unique requirements. If you need Admin1 to have only the specified permissions with no additional tasks beyond the ones mentioned, a custom role can be meticulously designed to accomplish this.
+       
+      For organizations with strict compliance needs or highly specific delegation requirements, creating custom roles might seem like a viable solution.
+    </div>
+  `
+},
+{
+  id: 57,
+  type: "dropdown",
+  question: `
+    <div style="margin-bottom: 15px; text-align: left;">
+      <p>Your network contains an on-premises Active Directory Domain Services (AD DS) domain that syncs with an Azure AD tenant.</p>
+      <p>You need to ensure that user authentication always occurs by validating passwords against the AD DS domain.</p>
+      <p>What should you configure, and what should you use? To answer, select the appropriate options in the answer area.</p>
+      <p><em>NOTE: Each correct selection is worth one point.</em></p>
+
+      <div style="margin-top: 20px; background: #f9f9f9; padding: 15px; border: 1px solid #ddd; border-radius: 4px;">
+        <p style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+          <strong style="flex: 1; text-align: left; padding-right: 15px;">Configure:</strong> 
+          <select class="inline-select" data-key="configureOption" style="flex: 1; max-width: 320px; padding: 6px;">
+            <option value="">-- Select Option --</option>
+            <option value="Azure AD Password protection">Azure AD Password protection</option>
+            <option value="Cross-tenant synchronization">Cross-tenant synchronization</option>
+            <option value="Pass-through authentication">Pass-through authentication</option>
+            <option value="Password hash synchronization">Password hash synchronization</option>
+          </select>
+        </p>
+        
+        <p style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0;">
+          <strong style="flex: 1; text-align: left; padding-right: 15px;">Use:</strong> 
+          <select class="inline-select" data-key="useOption" style="flex: 1; max-width: 320px; padding: 6px;">
+            <option value="">-- Select Option --</option>
+            <option value="Azure AD Connect">Azure AD Connect</option>
+            <option value="Microsoft Identity Manager (MIM)">Microsoft Identity Manager (MIM)</option>
+            <option value="The Microsoft Entra admin center">The Microsoft Entra admin center</option>
+            <option value="The Microsoft Purview compliance portal">The Microsoft Purview compliance portal</option>
+          </select>
+        </p>
+      </div>
+    </div>
+  `,
+  answer: {
+    configureOption: "Pass-through authentication",
+    useOption: "Azure AD Connect"
+  },
+  explanation: `
+    <p>
+      https://learn.microsoft.com/en-us/azure/active-directory/authentication/concept-password-ban-bad-on-premises
+    </p>
+  `
+},
+{
+  id: 58,
+  type: "single",
+  question: `
+    <div style="margin-bottom: 15px; text-align: left;">
+      <p>You have a Microsoft 365 tenant that uses the domain named fabrikam.com. The Guest invite settings for Azure Active Directory (Azure AD) are configured as shown in the exhibit.</p>
+      
+      <div style="margin: 12px 0; text-align: center;">
+        <img src="images/q58_guest_invite.jpg" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" alt="Guest Invite Settings Exhibit" />
+      </div>
+
+      <p>A user named bsmith@fabrikam.com shares a Microsoft SharePoint Online document library to the users shown in the following table.</p>
+
+      <div style="margin: 12px 0; text-align: center;">
+        <img src="images/q58_user_description.jpg" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" alt="Users Table" />
+      </div>
+
+      <p>Which users will be emailed a passcode?</p>
+    </div>
+  `,
+  options: [
+    "A. User2 only",
+    "B. User1 only",
+    "C. User1 and User2 only",
+    "D. User1, User2, and User3"
+  ],
+  answer: 0,
+  explanation: `
+    <div style="white-space: pre-line; text-align: left;">
+      In Question, [Email Protected] = bsmith@fabrikam.com 
+      https://learn.microsoft.com/en-us/azure/active-directory/external-identities/one-time-passcode
+    </div>
+  `
+},
+{
+  id: 59,
+  type: "single",
+  question: `
+    <div style="margin-bottom: 15px; text-align: left;">
+      <p>You have 2,500 users who are assigned Microsoft Office 365 Enterprise E3 licenses. The licenses are assigned to individual users.</p>
+      <p>From the Groups blade in the Azure Active Directory admin center, you assign Microsoft Office 365 Enterprise E5 licenses to a group that includes all users.</p>
+      <p>You need to remove the Office 365 Enterprise E3 licenses from the users by using the least amount of administrative effort.</p>
+      <p>What should you use?</p>
+    </div>
+  `,
+  options: [
+    "A. the Administrative units blade in the Azure Active Directory admin center",
+    "B. the Set-MsolUserLicense cmdlet",
+    "C. the Groups blade in the Azure Active Directory admin center",
+    "D. the Set-WindowsProductKey cmdlet"
+  ],
+  answer: 1,
+  explanation: `
+    <div style="white-space: pre-line; text-align: left;">
+      This PowerShell cmdlet is used to adjust licenses for users in the Microsoft 365 admin center and can be used to add, replace, or remove licenses. It allows for bulk operations when used in a script, making it quite efficient for managing licenses for a large number of users.
+    </div>
+  `
+},
+{
+  id: 60,
+  type: "hotspot",
+  question: `
+    <div style="margin-bottom: 15px; text-align: left;">
+      <p>Your network contains an on-premises Active Directory Domain Services (AD DS) domain that syncs with Azure AD and contains the users shown in the following table.</p>
+      
+      <div style="margin: 12px 0; text-align: center;">
+        <img src="images/q60_table.jpg" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" alt="Users Table Exhibit" />
+      </div>
+
+      <p>In Azure AD Connect, Domain/OU Filtering is configured as shown in the following exhibit.</p>
+      
+      <div style="margin: 12px 0; text-align: center;">
+        <img src="images/q60_domain_OU.jpg" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" alt="Domain OU Filtering Exhibit" />
+      </div>
+
+      <p>Azure AD Connect is configured as shown in the following exhibit.</p>
+      
+      <div style="margin: 12px 0; text-align: center;">
+        <img src="images/q60_config.jpg" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" alt="Azure AD Connect Configuration Exhibit" />
+      </div>
+
+      <p>For each of the following statements, select Yes if the statement is true. Otherwise, select No.</p>
+      <p><em>NOTE: Each correct selection is worth one point.</em></p>
+
+      <div style="margin-top: 20px; background: #f9f9f9; padding: 15px; border: 1px solid #ddd; border-radius: 4px;">
+        <table style="width: 100%; border-collapse: collapse;">
+          <thead>
+            <tr style="border-bottom: 1px solid #ddd;">
+              <th style="text-align: left; padding: 8px;">Statements</th>
+              <th style="text-align: center; width: 80px; padding: 8px;">Yes</th>
+              <th style="text-align: center; width: 80px; padding: 8px;">No</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid #eee;">
+              <td style="padding: 10px; text-align: left;">User1 can use self-service password reset (SSPR) to reset his password.</td>
+              <td style="text-align: center; padding: 10px;"><input type="radio" name="stmt1" value="Yes" data-key="stmt1" data-answer="Yes"></td>
+              <td style="text-align: center; padding: 10px;"><input type="radio" name="stmt1" value="No" data-key="stmt1" data-answer="Yes"></td>
+            </tr>
+            <tr style="border-bottom: 1px solid #eee;">
+              <td style="padding: 10px; text-align: left;">If User1 accesses Microsoft Exchange Online, he will be authenticated by an on-premises domain controller.</td>
+              <td style="text-align: center; padding: 10px;"><input type="radio" name="stmt2" value="Yes" data-key="stmt2" data-answer="Yes"></td>
+              <td style="text-align: center; padding: 10px;"><input type="radio" name="stmt2" value="No" data-key="stmt2" data-answer="Yes"></td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; text-align: left;">User2 can be added to a Microsoft SharePoint Online site as a member.</td>
+              <td style="text-align: center; padding: 10px;"><input type="radio" name="stmt3" value="Yes" data-key="stmt3" data-answer="No"></td>
+              <td style="text-align: center; padding: 10px;"><input type="radio" name="stmt3" value="No" data-key="stmt3" data-answer="No"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `,
+  answer: {
+    stmt1: "Yes",
+    stmt2: "Yes",
+    stmt3: "No"
+  },
+  explanation: `
+    <div style="white-space: pre-line; text-align: left;">
+      Yes
+      Yes
+      No
+    </div>
+  `
+},
+{
+  id: 61,
+  type: "single",
+  question: `
+    <div style="margin-bottom: 15px; text-align: left;">
+      <p>You have 2,500 users who are assigned Microsoft Office 365 Enterprise E3 licenses. The licenses are assigned to individual users.</p>
+      <p>From the Groups blade in the Azure Active Directory admin center, you assign Microsoft Office 365 Enterprise E5 licenses to a group that includes all users.</p>
+      <p>You need to remove the Office 365 Enterprise E3 licenses from the users by using the least amount of administrative effort.</p>
+      <p>What should you use?</p>
+    </div>
+  `,
+  options: [
+    "A. the Update-MgGroup cmdlet",
+    "B. the Licenses blade in the Azure Active Directory admin center",
+    "C. the Set-WindowsProductKey cmdlet",
+    "D. the Administrative units blade in the Azure Active Directory admi center"
+  ],
+  answer: 1,
+  explanation: `
+    <div style="white-space: pre-line; text-align: left;">
+      the Licenses blade in the Azure Active Directory admin center
+    </div>
+  `
+},
+{
+  id: 62,
+  type: "single",
+  question: `
+    <div style="margin-bottom: 15px; text-align: left;">
+      <p>You have an Azure AD tenant that contains the users shown in the following table.</p>
+      
+      <div style="margin: 12px 0; text-align: center;">
+        <img src="images/q62_table.jpg" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" alt="Users Table Exhibit" />
+      </div>
+
+      <p>You need to compare the role permissions of each user. The solution must minimize administrative effort.</p>
+      <p>What should you use?</p>
+    </div>
+  `,
+  options: [
+    "A. the Microsoft 365 Defender portal",
+    "B. the Microsoft 365 admin center",
+    "C. the Microsoft Entra admin center",
+    "D. the Microsoft Purview compliance portal"
+  ],
+  answer: 1,
+  explanation: `
+    <div style="white-space: pre-line; text-align: left;">
+      B. the Microsoft 365 admin center.
+      
+      The Microsoft 365 admin center provides a centralized location where you can view and manage the role permissions of each user in your Azure AD tenant. This will allow you to easily compare the permissions of Admin1, Admin2, and Admin3, thus minimizing administrative effort. The other options do not provide this specific functionality.
+    </div>
+  `
+},
+{
+  id: 63,
+  type: "single",
+  question: `
+    <div style="margin-bottom: 15px; text-align: left;">
+      <p>You have a Microsoft Exchange organization that uses an SMTP address space of contoso.com. Several users use their contoso.com email address for self-service sign-up to Azure AD.</p>
+      <p>You gain global administrator privileges to the Azure AD tenant that contains the self-signed users.</p>
+      <p>You need to prevent the users from creating user accounts in the contoso.com Azure AD tenant for self-service sign-up to Microsoft 365 services.</p>
+      <p>Which PowerShell cmdlet should you run?</p>
+    </div>
+  `,
+  options: [
+    "A. Update-MgOrganization",
+    "B. Update-MgPolicyPermissionGrantPolicyExclude",
+    "C. Update-MgDomain",
+    "D. Update-MgDomainFederationConfiguration"
+  ],
+  answer: 0,
+  explanation: `
+    <div style="white-space: pre-line; text-align: left;">
+      A. Update-MgOrganization.
+      
+      To prevent users from creating accounts in the Azure AD tenant for self-service sign-up, you need to modify. <br> the organization's settings. The Update-MgOrganization cmdlet allows you to configure tenant-wide policies, including disabling self-service sign-up for users.
+By using this cmdlet, you can set the appropriate parameters to block self-service sign-up, ensuring that users cannot create accounts in the tenant using their contoso.com email addresses.
+
+    </div>
+  `
+},
+{
+  id: 64,
+  type: "dropdown",
+  question: `
+    <div style="margin-bottom: 15px; text-align: left;">
+      <p>You have an Azure AD tenant.</p>
+      <p>You need to configure the following External Identities features:</p>
+      <ul style="margin-top: 5px; margin-bottom: 10px;">
+        <li>B2B collaboration</li>
+        <li>Monthly active users (MAU)-based pricing</li>
+      </ul>
+
+      <div style="margin: 15px 0; text-align: center;">
+        <img src="images/q64_externalId.jpg" alt="Exhibit" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+           </div>
+
+      <p>Which settings should you configure? Complete the statements by selecting the appropriate option from each drop-down list.</p>
+      <p><em>NOTE: Each correct selection is worth one point.</em></p>
+
+      <div style="margin-top: 15px; background: #f9f9f9; padding: 15px; border: 1px solid #ddd; border-radius: 4px;">
+        <div style="display: grid; grid-template-columns: max-content 1fr; gap: 12px 15px; align-items: center;">
+          
+          <label for="feature1" style="font-weight: bold;">B2B collaboration:</label>
+          <select class="inline-select" id="feature1" data-key="feature1" style="padding: 6px; border-radius: 4px; border: 1px solid #ccc; width: 100%; max-width: 350px;">
+            <option value="">-- Select Option --</option>
+            <option value="Overview">Overview</option>
+            <option value="Cross-tenant access settings">Cross-tenant access settings</option>
+            <option value="All identity providers">All identity providers</option>
+            <option value="External collaboration settings">External collaboration settings</option>
+            <option value="Diagnose and solve problems">Diagnose and solve problems</option>
+            <option value="Linked subscriptions">Linked subscriptions</option>
+          </select>
+
+          <label for="feature2" style="font-weight: bold;">Monthly active users (MAU)-based pricing:</label>
+          <select class="inline-select" id="feature2" data-key="feature2" style="padding: 6px; border-radius: 4px; border: 1px solid #ccc; width: 100%; max-width: 350px;">
+            <option value="">-- Select Option --</option>
+            <option value="Overview">Overview</option>
+            <option value="Cross-tenant access settings">Cross-tenant access settings</option>
+            <option value="All identity providers">All identity providers</option>
+            <option value="External collaboration settings">External collaboration settings</option>
+            <option value="Diagnose and solve problems">Diagnose and solve problems</option>
+            <option value="Linked subscriptions">Linked subscriptions</option>
+          </select>
+
+        </div>
+      </div>
+    </div>
+  `,
+  answer: {
+    feature1: "External collaboration settings",
+    feature2: "Linked subscriptions"
+  },
+  explanation: `
+    <div style="white-space: pre-line; text-align: left;">
+      1. External collaboration settings: You go here to control how guest users interact with your tenant. This includes guest user access restrictions, guest invite restrictions, and collaboration restrictions (setting up an "Allow" or "Deny" list for specific domains).
+      
+      2. Linked subscriptions: This is used for billing configuration. Microsoft Entra External ID uses a "Monthly Active Users" (MAU) billing model linked to an Azure subscription.
+    </div>
+  `
+},
+{
+  id: 65,
+  type: "single",
+  question: `
+    <div style="margin-bottom: 15px; text-align: left;">
+      <p>You have an Azure AD tenant that contains the external user shown in the following exhibit.</p>
+      
+      <div style="margin: 12px 0; text-align: center;">
+        <img src="images/q65_identity.jpg" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" alt="External User Exhibit" />
+      </div>
+
+      <p>You update the email address of the user.</p>
+      <p>You need to ensure that the user can authenticate by using the updated email address.</p>
+      <p>What should you do for the user?</p>
+    </div>
+  `,
+  options: [
+    "A. Modify the Authentication methods settings.",
+    "B. Reset the password.",
+    "C. Revoke the active sessions.",
+    "D. Reset the redemption status."
+  ],
+  answer: 3,
+  explanation: `
+    <div style="white-space: pre-line; text-align: left;">
+      D. Reset the redemption status.
+      
+      You can update the guest user's sign-in information after they've redeemed your invitation for B2B collaboration. There might be times when you'll need to update their sign-in information, for example when the user wants to sign in using a different email.
+      
+      Previously, you had to manually delete the guest user's account from your directory and reinvite the user. Now you can use the Microsoft Entra admin center, PowerShell or the Microsoft Graph invitation API to reset the user's redemption status and reinvite the user while keeping the user's object ID, group memberships, and app assignments.
+    </div>
+  `
+},
+{
+  id: 66,
+  type: "single",
+  question: `
+    <div style="margin-bottom: 15px; text-align: left;">
+      <p>You have an Azure AD tenant.</p>
+      <p>You need to ensure that only users from specific external domains can be invited as guests to the tenant.</p>
+      <p>Which settings should you configure?</p>
+    </div>
+  `,
+  options: [
+    "A. External collaboration settings",
+    "B. All identity providers",
+    "C. Cross-tenant access settings",
+    "D. Linked subscriptions"
+  ],
+  answer: 0,
+  explanation: `
+    <div style="white-space: pre-line; text-align: left;">
+      The correct answer is A.
+      External collaboration settings. External collaboration settings allow you to control who can collaborate with your Azure AD tenant. You can use external collaboration settings to specify which external domains are allowed to be invited as guests to your tenant.
+    </div>
+  `
+},
+{
+  id: 67,
+  type: "single",
+  question: `
+    <div style="margin-bottom: 15px; text-align: left;">
+      <p>You have an Azure AD tenant that contains a user named User1 and a Microsoft365 group named Group1. User1 is the owner of Group1.</p>
+      <p>You need to ensure that User1 is notified every three months to validate the guest membership of Group1.</p>
+      <p>What should you do?</p>
+    </div>
+  `,
+  options: [
+    "A. Configure the External collaboration settings.",
+    "B. Create an access review.",
+    "C. Configure an access package.",
+    "D. Create a group expiration policy."
+  ],
+  answer: 1,
+  explanation: `
+    <div style="white-space: pre-line; text-align: left;">
+      B. Create an access review. In Microsoft Entra (AzureAD), an Access Review is the specific tool designed to automate the periodic re-validation of group memberships or application access.
+    </div>
+  `
+},
+{
+  id: 68,
+  type: "matrix",
+  question: `
+    <div style="margin-bottom: 15px; text-align: left;">
+      <p>You have a Microsoft Entra tenant that contains a group named Group3 and an administrative unit named Department1.</p>
+      <p>Department1 has the users shown in the Users exhibit. (Click the Users tab.)</p>
+      
+      <div style="margin: 10px 0; text-align: center;">
+        <img src="images/q68_user_exhibit.jpg" alt="Users Exhibit" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+      </div>
+
+      <p>Department1 has the groups shown in the Groups exhibit. (Click the Groups tab.)</p>
+      
+      <div style="margin: 10px 0; text-align: center;">
+        <img src="images/q68_groups.jpg" alt="Groups Exhibit" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+      </div>
+
+      <p>The User Administrator role assignments are shown in the Assignments exhibit. (Click the Assignments tab.)</p>
+      
+      <div style="margin: 10px 0; text-align: center;">
+        <img src="images/q68_admin.jpg" alt="Assignments Exhibit" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+      </div>
+
+      <p>The members of Group2 are shown in the Group2 exhibit. (Click the Group2 tab.)</p>
+      
+      <div style="margin: 10px 0; text-align: center;">
+        <img src="images/q68_group2.1.jpg" alt="Group2 Exhibit" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+      </div>
+
+      <p>For each of the following statements, select Yes if the statement is true. Otherwise, select No.</p>
+      <p><em>NOTE: Each correct selection is worth one point.</em></p>
+    </div>
+  `,
+  rows: [
+    { id: "stmt1", label: "Admin1 can reset the passwords of User3 and User4." },
+    { id: "stmt2", label: "Admin1 can add User1 to Group3." },
+    { id: "stmt3", label: "Admin3 can reset the password of User1." }
+  ],
+  answer: {
+    stmt1: 1,
+    stmt2: 1,
+    stmt3: 0
+  },
+  explanation: `
+    <div style="white-space: pre-line; text-align: left;">
+      1. Admin1 can reset the passwords of User3 and User4. - <strong>No</strong>: This implies that User3 and User4 are either not within Admin1's assigned Administrative Unit or Admin1 lacks the specific Password Administrator role for the scope those users belong to.
+      
+      2. Admin1 can add User1 to Group3. - <strong>No</strong>: Even if Admin1 has permissions over User1, they cannot add them to Group3 unless they also have the Groups Administrator role or specific "Member" management permissions over Group3 itself.
+      
+      3. Admin3 can reset the password of User1. - <strong>Yes</strong>: Admin3 has permissions that encompass the scope where User1 resides, allowing password management actions.
+    </div>
+  `
+},
+{
+  id: 69,
+  type: "matrix",
+  question: `
+    <div style="margin-bottom: 15px; text-align: left;">
+      <p>Your network contains an on-premises Active Directory Domain Services (AD DS) domain named fabrikam.com. The domain contains an Active Directory Federation Services (AD FS) instance and a member server named Server1 that runs Windows Server.</p>
+      <p>The domain contains the users shown in the following table.</p>
+      
+      <div style="margin: 10px 0; text-align: center;">
+        <img src="images/q69_table.jpg" alt="Users Table Exhibit" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+      </div>
+
+      <p>You have a Microsoft Entra tenant named contoso.com that is linked to a Microsoft 365 subscription.</p>
+      <p>You establish federation between fabrikam.com and contoso.com by using a Microsoft Entra Connect instance that is configured as shown in the following exhibit.</p>
+      
+      <div style="margin: 10px 0; text-align: center;">
+        <img src="images/q69_exhibit.jpg" alt="Optional Features Exhibit" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+      </div>
+
+      <p>You perform the following tasks in contoso.com:</p>
+      <ul style="margin-top: 5px; margin-bottom: 10px;">
+        <li>Create a group named Group1.</li>
+        <li>Disable User2.</li>
+        <li>Enable User3.</li>
+      </ul>
+
+      <p>For each of the following statements, select Yes if the statement is true. Otherwise, select No.</p>
+      <p><em>NOTE: Each correct selection is worth one point.</em></p>
+    </div>
+  `,
+  rows: [
+    { id: "stmt1", label: "You can add User1 to Group1." },
+    { id: "stmt2", label: "User2 can sign in to Server1." },
+    { id: "stmt3", label: "User3 can sign in to Microsoft 365." }
+  ],
+  answer: {
+    stmt1: 1,
+    stmt2: 1,
+    stmt3: 0
+  },
+  explanation: `
+    <div style="white-space: pre-line; text-align: left;">
+      You can add User1 to Group1 — <strong>No</strong>: This usually happens if Group1 is a synchronized group from an on-premises Active Directory. In this case, you cannot manage its membership in the cloud; any additions must be made on-premises and synced up. Alternatively, User1's account might be in a "Deleted" or "Soft-deleted" state.
+
+      User2 can sign in to Server1 — <strong>No</strong>: This is often because User2 is a cloud-only user and Server1 is an on-premises server. Without specialized configuration like Azure AD Kerberos or a trust relationship, cloud identities cannot natively log into traditional on-premises Windows servers.
+
+      User3 can sign in to Microsoft 365 — <strong>Yes</strong>: User3 is likely a synchronized user or a cloud-native user with an active account and a valid license. As long as their account is not "Disabled" in the Entra admin center, they can access the M365 portal.
+    </div>
+  `
+},
+{
+  id: 70,
+  type: "matrix",
+  question: `
+    <div style="margin-bottom: 15px; text-align: left;">
+      <p>You have a Microsoft Entra tenant that has a Microsoft Entra ID P2 service plan. The tenant contains the users shown in the following table.</p>
+      
+      <div style="margin: 10px 0; text-align: center;">
+        <img src="images/q70_table1.jpg" alt="Users Table Exhibit" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+      </div>
+
+      <p>You have the Device settings shown in the following exhibit.</p>
+      
+      <div style="margin: 10px 0; text-align: center;">
+        <img src="images/q70_exhibit.jpg" alt="Device Settings Exhibit" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+      </div>
+
+      <p>User1 has the devices shown in the following table.</p>
+      
+      <div style="margin: 10px 0; text-align: center;">
+        <img src="images/q70_table2.jpg" alt="User1 Devices Exhibit" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+      </div>
+
+      <p>For each of the following statements, select Yes if the statement is true. Otherwise, select No.</p>
+      <p><em>NOTE: Each correct selection is worth one point.</em></p>
+    </div>
+  `,
+  rows: [
+    { id: "stmt1", label: "User1 can join four additional Windows 10 devices to Microsoft Entra ID." },
+    { id: "stmt2", label: "Admin1 can set Devices to be Microsoft Entra joined or Microsoft Entra registered require Multi-Factor Authentication to Yes." },
+    { id: "stmt3", label: "Admin2 is a local administrator on Device3." }
+  ],
+  answer: {
+    stmt1: 1,
+    stmt2: 0,
+    stmt3: 1
+  },
+  explanation: `
+    <div style="white-space: pre-line; text-align: left;">
+      User1 can join four additional Windows 10 devices to Microsoft Entra ID — <strong>No</strong>: This is typically based on the Maximum number of devices per user setting in Entra ID (default is 50 but often set to a lower number like 5 or 10 in exam scenarios). If User1 has already reached this limit, they are blocked from joining more.
+
+      Admin1 can set Devices to be Microsoft Entra joined or Microsoft Entra registered require Multi-Factor Authentication to Yes — <strong>Yes</strong>: This indicates that Admin1 holds a privileged role, such as Cloud Device Administrator or Global Administrator, which grants the authority to modify tenant-wide device registration policies.
+
+      Admin2 is a local administrator on Device3 — <strong>No</strong>: By default, only the user who joins the device and members of the Cloud Device Administrator or Global Administrator roles are added to the local administrators group on Entra joined devices. If Admin2 is a "User Administrator" or has no specific device-related role, they will not automatically have local admin rights on user's devices.
+    </div>
+  `
+},{
+  id: 71,
+  type: "single",
+  question: `
+    <div style="margin-bottom: 15px; text-align: left;">
+      <p>You have an Azure subscription named Sub1 that contains a user named User1.</p>
+      <p>You need to ensure that User1 can purchase a Microsoft Entra Permissions Management license for Sub1. The solution must follow the principle of least privilege.</p>
+      <p>Which role should you assign to User1?</p>
+    </div>
+  `,
+  options: [
+    "A. Global Administrator",
+    "B. Billing Administrator",
+    "C. Permissions Management Administrator",
+    "D. User Access Administrator"
+  ],
+  answer: 1,
+  explanation: `
+    <div style="white-space: pre-line; text-align: left;">
+      B. Billing Administrator.
+      
+      This scenario evaluates your understanding of the Principle of Least Privilege (PoLP) when managing financial transactions and subscription extensions within a Microsoft Entra ID tenant.
+
+      To evaluate this correctly, you must isolate the intent of the task (purchasing a license) from the subject matter of the product (Permissions Management):
+
+      The Core Action: Purchasing a license or starting a trial for any Microsoft Entra enterprise service principal requires data-plane authority over commerce and billing pipelines.
+
+      Role Alignment: The Billing Administrator role possesses the explicit, bounded authority to handle payment information, manage organizational subscriptions, log support tickets, and execute product purchases across the tenant.
+
+      Applying Least Privilege: While a Global Administrator can also purchase licenses, that role grants unrestricted control-plane access over every configuration in the identity platform, which explicitly violates the principle of least privilege. Why the Other Options are Incorrect:
+      
+      A. Global Administrator: This role has full, omnipotent access to all directory administrative features. It would easily allow the purchase, but assigning it introduces massive unnecessary security risks and violates the strict constraint of choosing the role with the least privilege.
+      
+      C. Permissions Management Administrator: This role is designed for functional administration after the license has already been acquired and provisioned. It grants complete access to manage permission remediation, discovery settings, and multi-cloud infrastructure mapping within the Permissions Management UI, but it possesses no commerce capabilities and cannot authorize a monetary license purchase transaction.
+      
+      D. User Access Administrator: This role is an Azure RBAC role used at the resource tier to manage user role assignments, access conditions, and permissions boundaries (such as assigning Owner/Contributor rights to subscriptions or resource groups). It does not hold commerce or billing delegation authority within the Microsoft Entra tenant framework.
+    </div>
+  `
+},
+{
+  id: 72,
+  type: "single",
+  question: `
+    <div style="margin-bottom: 15px; text-align: left;">
+      <p>You have an Azure subscription that contains a user named User1 and two resource groups named RG1 and RG2. You need to ensure that User1 can perform the following tasks:</p>
+      <ul style="margin-top: 5px; margin-bottom: 10px;">
+        <li>View all resources.</li>
+        <li>Restart virtual machines.</li>
+        <li>Create virtual machines in RG1 only.</li>
+        <li>Create storage accounts in RG1 only.</li>
+      </ul>
+      <p>What is the minimum number of role-based access control (RBAC) role assignments required?</p>
+    </div>
+  `,
+  options: [
+    "A. 1",
+    "B. 2",
+    "C. 3",
+    "D. 4"
+  ],
+  answer: 2,
+  explanation: `
+    <div style="white-space: pre-line; text-align: left;">
+      Minimum Number of Role Assignments:
+      
+      To meet these requirements, User1 needs a combination of Reader, Virtual Machine Contributor, and Storage Account Contributor roles. Since there is overlap in the roles that allow User1 to restart VMs and create VMs, we can optimize the number of role assignments.
+
+      Reader role at the subscription level.
+      
+      Virtual Machine Contributor role at RG1 (to allow both VM creation and VM restart in RG1). Storage Account Contributor role at RG1.
+      
+      Conclusion:
+      
+      The minimum number of role assignments required is 3. the correct answer is:
+      C. 3
+    </div>
+  `
+},{
+  id: 73,
+  type: "single",
+  question: `
+    <div style="margin-bottom: 15px; text-align: left;">
+      <p>You work for a company named Contoso, Ltd. that has a Microsoft Entra tenant named contoso.com. Contoso is working on a project with the following two partner companies:</p>
+      <ul style="margin-top: 5px; margin-bottom: 10px;">
+        <li>A company named A. Datum Corporation that has a Microsoft Entra tenant named adatum.com.</li>
+        <li>A company named Fabrikam, Inc. that has a Microsoft Entra tenant named fabrikam.com.</li>
+      </ul>
+      <p>When you attempt to invite a new guest user from adatum.com to contoso.com, you receive an error message. You can successfully invite a new guest user from fabrikam.com to contoso.com.</p>
+      <p>You need to be able to invite new guest users from adatum.com to contoso.com. What should you configure?</p>
+    </div>
+  `,
+  options: [
+    "A. Guest invite settings",
+    "B. Verifiable credentials",
+    "C. Named locations",
+    "D. Collaboration restrictions"
+  ],
+  answer: 3,
+  explanation: `
+    <div style="white-space: pre-line; text-align: left;">
+      D. Collaboration restrictions.
+      
+      To control which external domains your organization can collaborate with via B2B collaboration (guest invitations), Microsoft Entra ID uses External collaboration settings. Within these settings, the specific feature responsible for explicitly allowing or blocking invitations to specific target domains is Collaboration restrictions.
+    </div>
+  `
+},
+{
+  id: 74,
+  type: "single",
+  question: `
+    <div style="margin-bottom: 15px; text-align: left;">
+      <p>You have an Azure subscription that contains a user-assigned managed identity named Managed1 in the East US Azure region. The subscription contains the resources shown in the following table.</p>
+      
+      <div style="margin: 10px 0; text-align: center;">
+        <img src="images/q74_table.jpg" alt="Resources Table Exhibit" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+      </div>
+
+      <p>Which resource can use Managed1 as their identity?</p>
+    </div>
+  `,
+  options: [
+    "A. WebApp1 only",
+    "B. storage1 and WebApp1 only",
+    "C. VM1 and WebApp1 only",
+    "D. VM1, storage1, and WebApp1"
+  ],
+  answer: 2,
+  explanation: `
+    <div style="white-space: pre-line; text-align: left;">
+      C. VM1 and WebApp1 only. Reasoning Managed Identities are designed to provide an identity for compute resources so they can authenticate to other services. VM1 (Virtual Machine): This is a compute resource. It can be assigned a managed identity (Managed1) to allow the OS or applications running inside it to access other Azure resources. WebApp1 (App Service): This is also a compute resource.
+
+      It can use a managed identity to securely connect to back-end services like databases or key vaults without storing credentials in code.
+    </div>
+  `
+},
+{
+  id: 75,
+  type: "dragdrop",
+  question: `
+    <div style="margin-bottom: 15px; text-align: left;">
+      <p>Your network contains an on-premises Active Directory domain named contoso.com that syncs with Microsoft Entra ID by using Microsoft Entra Connect.</p>
+      <p>The domain contains the users shown in the following table.</p>
+      
+      <div style="margin: 10px 0; text-align: center;">
+        <img src="images/q75_table1.jpg" alt="Users Table Exhibit" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+      </div>
+
+      <p>From Active Directory Users and Computers, you add the following user:</p>
+      <ul style="margin-top: 5px; margin-bottom: 10px;">
+        <li>Name: User3</li>
+        <li>UPN: user3@contoso.com</li>
+        <li>Proxy addresses: smtp:user3@contoso.com, smtp:user3@contoso.onmicrosoft.com</li>
+      </ul>
+      
+      <p>From Active Directory Users and Computers, you update the proxyAddresses attribute for each user as shown in the following table.</p>
+      
+      <div style="margin: 10px 0; text-align: center;">
+        <img src="images/q75_table2.jpg" alt="Proxy Addresses Table Exhibit" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+      </div>
+
+      <p>You trigger a manual synchronization.</p>
+      <p>Which sync status will Microsoft Entra Connect sync return for each user? To answer, drag the appropriate status to the correct users.</p>
+      <p><em>NOTE: Each correct selection is worth one point.</em></p>
+    </div>
+  `,
+  items: [
+    { id: "status1", text: "AttributeValueMustBeUnique error occurs" },
+    { id: "status2", text: "InvalidSoftMatch error occurs." },
+    { id: "status3", text: "ObjectTypeMismatch error occurs." },
+    { id: "status4", text: "Successfully synced" }
+  ],
+  targets: [
+    { id: "target1", label: "User1@contoso.com" },
+    { id: "target2", label: "User2@contoso.com" },
+    { id: "target3", label: "User3@contoso.com" }
+  ],
+  answer: {
+    target1: "status4", // Successfully synced
+    target2: "status1", // AttributeValueMustBeUnique error occurs
+    target3: "status2"  // InvalidSoftMatch error occurs.
+  },
+  explanation: `
+    <div style="white-space: pre-line; text-align: left;">
+      User1: Successfully synced — This user had a perfect match between their on-premises attributes and the cloud object (or they were a brand new user), allowing the sync engine to link or create the account without conflict.
+
+      User2: AttributeValueMustBeUnique error occurs — This happens when an attribute that must be unique (like ProxyAddresses or UserPrincipalName) is already being used by another object in the cloud. For example, if User2 on-premises has the email sales@contoso.com, but a shared mailbox in the cloud already uses that same address, the sync will fail for User2.
+
+      User3: InvalidSoftMatch error occurs — A "Soft Match" happens when the sync engine tries to join an on-premises user to an existing cloud-only user based on their Primary SMTP address or UserPrincipalName. An InvalidSoftMatch typically means the ImmutableID (the unique anchor) is already set on the cloud object and doesn't match the on-premises user, or the account types are incompatible (e.g., trying to soft-match a user to a group).
+    </div>
+  `
 }
 ];

@@ -1662,4 +1662,162 @@ https://docs.microsoft.com/en-us/azure/active-directory/enterprise-users/users-b
       </a>
     </p>
   `
-}];
+},
+{
+  id: 38,
+  type: "single",
+
+  question: `
+    <p>
+      You have an Azure Active Directory (AzureAD) tenant that contains the users shown in the following table:
+    </p>
+
+    <div style="margin:15px 0; text-align:center;">
+      <img src="images/q38_name_location.jpg" alt="Users Table" style="max-width:100%; height:auto; border:1px solid #ccc; border-radius:4px;" />
+    </div>
+
+    <p>
+     You create a dynamic user group and configure the following rule syntax:
+    </p>
+
+    <p>
+      <code>user.usageLocation -in ["US","AU"] -and (user.department -eq "Sales") -and -not (user.jobTitle -eq "Manager") –or (user.jobTitle -eq "SalesRep")</code>
+    </p>
+
+    <p>
+      Which users will be added to the group?
+    </p>
+  `,
+
+  options: [
+    "User1 only",
+    "User2 only",
+    "User3 only",
+    "User1 and User2 only",
+    "User1 and User3 only",
+    "User1, User2, and User3"
+  ],
+
+  answer: 3, // Index 3 corresponds to "User1 and User2 only"
+
+  explanation: `
+    <p>
+      <strong>Correct Answer: D (User1 and User2 only)</strong>
+    </p>
+    <p>
+      According to operators precedence we can consider the following parenthesis: (statement1 -and statement2 - and statement3) -or (statement4). So, the results is the sub-result of the first parenthesis plus the results of the second one. So, it's D.
+    </p>
+  `
+},
+{
+  id: 39,
+  type: "single",
+
+  question: `
+    <p>
+      You have an Azure AD tenant that contains a user named User1.
+    </p>
+    <p>
+      User1 needs to manage license assignments and reset user passwords.
+    </p>
+    <p>
+      Which role should you assign to User1?
+    </p>
+  `,
+
+  options: [
+    "A. Helpdesk Administrator",
+    "B. License Administrator",
+    "C. User Administrator",
+    "D. User administrator",
+  ],
+
+  answer: 3, // Index 3 corresponds to D
+
+  explanation: `
+    <p>
+      <strong>Correct Answer: D</strong>
+    </p>
+    <p>
+      D. Is Correct - Neither of the other Roles have permissions to handle all of the statements.
+    </p>
+  `
+},
+{
+  id: 40,
+  type: "single",
+
+  question: `
+    <p>
+      You have 2,500 users who are assigned Microsoft Office 365 Enterprise E3 licenses. The licenses are assigned to individual users.
+    </p>
+    <p>
+      From the Groups blade in the Azure Active Directory admin center, you assign Microsoft Office 365 Enterprise E5 licenses to a group that includes all users.
+    </p>
+    <p>
+      You need to remove the Office 365 Enterprise E3 licenses from the users by using the least amount of administrative effort.
+    </p>
+    <p>
+      What should you use?
+    </p>
+  `,
+
+  options: [
+    "the Set-MsolUserLicense cmdlet",
+    "the Set-AzureADGroup cmdlet",
+    "the Set-WindowsProductKey cmdlet",
+    "the Administrative units blade in the Azure Active Directory admin center"
+  ],
+
+  answer: 0, // Index 0 corresponds to A
+
+  explanation: `
+    <p>
+      <strong>Correct Answer: A</strong>
+    </p>
+    <p>
+      The Set-MsolUserLicense and New-MsolUser (-LicenseAssignment) cmdlets are scheduled to be retired. Please migrate your scripts to the Microsoft Graph SDK's Set-MgUserLicense cmdlet as described above. For more information, see Migrate your apps to access the license managements APIs from Microsoft Graph
+    </p>
+  `
+},
+{
+  id: 41,
+  type: "single",
+
+  question: `
+    <p>
+      You have 2,500 users who are assigned Microsoft Office 365 Enterprise E3 licenses. The licenses are assigned to individual users.
+    </p>
+    <p>
+      From the Groups blade in the Azure Active Directory admin center, you assign Microsoft 365 Enterprise E5 licenses to a group that includes all the users.
+    </p>
+    <p>
+      You need to remove the Office 365 Enterprise E3 licenses from the users by using the least amount of administrative effort.
+    </p>
+    <p>
+      What should you use?
+    </p>
+  `,
+
+  options: [
+    "the Set-AzureADGroup cmdlet",
+    "the Identity Governance blade in the Azure Active Directory admin center",
+    "the Set-WindowsProductKey cmdlet",
+    "the Set-MsolUserLicense cmdlet"
+  ],
+
+  answer: 3, // Index 3 corresponds to D
+
+  explanation: `
+    <p>
+      <strong>Correct Answer: D</strong>
+    </p>
+    <p>
+      D. the Set-MsolUserLicense cmdlet. Why this is the best approach: While you can manage licenses through the GUI, using PowerShell with the Set-MsolUserLicense cmdlet is the most efficient way to perform a bulk removal with least administrative effort. You can pipe a list of all users (or the group members directly into this command to remove the E3 license string globally in one go.
+    </p>
+    <p>
+      The command would look something like this: Set-MsolUserLicense -UserPrincipalName $User -RemoveLicenses "reseller-account:ENTERPRISEPACK" (where ENTERPRISEPACK is the technical name for E3).
+    </p>
+  `
+}
+];

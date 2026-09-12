@@ -382,17 +382,21 @@ function initClickToAssign() {
 
   dropZones.forEach(zone => {
     const handleZoneClick = () => {
-      if (!selectedDragCardId) return;
+      if (!selectedDragCardId || zone.id === "source-pool") return;
 
       const selectedCard = document.getElementById(selectedDragCardId);
       if (!selectedCard) return;
 
-      if (zone.id !== "source-pool" && zone.children.length > 0) {
-        const sourcePool = document.getElementById("source-pool");
-        if (sourcePool) sourcePool.appendChild(zone.children[0]);
-      }
+      // Clear existing answer in target slot
+      zone.innerHTML = "";
 
-      zone.appendChild(selectedCard);
+      // Clone the card so the original remains selectable in the pool
+      const clonedCard = selectedCard.cloneNode(true);
+      clonedCard.style.outline = "none";
+      clonedCard.removeAttribute("tabindex");
+
+      zone.appendChild(clonedCard);
+
       selectedCard.style.outline = "none";
       selectedDragCardId = null;
     };

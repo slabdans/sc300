@@ -7,7 +7,6 @@ let timerSeconds = 0;
 let timerInterval = null;
 let isPaused = false;
 let selectedDragCardId = null;
-let secretKeyCount = 0;
 
 document.addEventListener("DOMContentLoaded", function () {
   const safeAddListener = (id, event, handler) => {
@@ -25,9 +24,6 @@ document.addEventListener("DOMContentLoaded", function () {
     currentIndex = parseInt(savedIndex, 10);
   }
 
-  // Cover Screen button listener
-  safeAddListener("proceedToSetupBtn", "click", handleCoverProceed);
-
   safeAddListener("startBtn", "click", startExam);
   safeAddListener("pauseBtn", "click", togglePause);
   safeAddListener("bookmarkBtn", "click", toggleBookmark);
@@ -37,62 +33,9 @@ document.addEventListener("DOMContentLoaded", function () {
   safeAddListener("submitBtn", "click", handleSubmit);
   safeAddListener("finishBtn", "click", finishExam);
   safeAddListener("restartBtn", "click", restartExam);
-  
-  // Button to download/view the candidate logs
-  safeAddListener("viewLogsBtn", "click", exportLogsToCSV);
-
-  // Secret admin unlock listener (Press 'L' 3 times on the results screen)
-  document.addEventListener("keydown", function(e) {
-    const resultsScreen = document.getElementById("results-screen");
-    if (resultsScreen && resultsScreen.style.display !== "none" && (e.key === "l" || e.key === "L")) {
-      secretKeyCount++;
-      if (secretKeyCount >= 3) {
-        const logsBtn = document.getElementById("viewLogsBtn");
-        if (logsBtn) {
-          logsBtn.style.display = "block";
-          alert("Admin Mode Unlocked: Log download button is now visible.");
-        }
-        secretKeyCount = 0;
-      }
-    } else {
-      secretKeyCount = 0;
-    }
-  });
 });
 
-// Handler to validate candidate name, log them as "Started", and switch screens
-function handleCoverProceed() {
-  const candidateNameInput = document.getElementById("candidateName");
-  const candidateName = candidateNameInput ? candidateNameInput.value.trim() : "";
-  
-  if (!candidateName) {
-    alert("Please enter your full name to proceed.");
-    return;
-  }
-  
-  const sessionId = "session_" + Date.now();
-  localStorage.setItem("sc300_candidate_name", candidateName);
-  localStorage.setItem("sc300_session_id", sessionId);
-
-  let existingLogs = JSON.parse(localStorage.getItem("sc300_assessment_logs") || "[]");
-  existingLogs.push({
-    sessionId: sessionId,
-    name: candidateName,
-    startTime: new Date().toISOString(),
-    status: "Started",
-    score: "N/A",
-    percentage: "N/A",
-    details: "N/A"
-  });
-  localStorage.setItem("sc300_assessment_logs", JSON.stringify(existingLogs));
-
-  const coverScreen = document.getElementById("cover-screen");
-  const setupScreen = document.getElementById("setup-screen");
-  
-  if (coverScreen) coverScreen.style.display = "none";
-  if (setupScreen) setupScreen.style.display = "block";
-}
-
+// Helper function to randomly shuffle an array in-place
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -123,10 +66,14 @@ function startExam() {
   const questionCount = (endNum - startNum) + 1;
 
   if (shuffleToggle && shuffleToggle.checked) {
+    // 1. Shuffle a shallow copy of ALL available questions
     const allQuestionsCopy = [...questions];
     shuffleArray(allQuestionsCopy);
+
+    // 2. Select the requested quantity from the entire randomized pool
     activeQuestions = allQuestionsCopy.slice(0, questionCount);
   } else {
+    // Sequential range selection
     activeQuestions = questions.slice(startNum - 1, endNum);
   }
 
@@ -212,10 +159,10 @@ function updateBookmarkButtonState() {
 
   const qId = activeQuestions[currentIndex].id;
   if (bookmarkedQuestions.has(qId)) {
-    btn.textContent = "🔖 Bookmarked";
+    btn.textContent = "📌 Bookmarked";
     btn.classList.add("bookmarked");
   } else {
-    btn.textContent = "🔖 Bookmark";
+    btn.textContent = "📌 Bookmark";
     btn.classList.remove("bookmarked");
   }
 }
@@ -226,7 +173,7 @@ function populateQuestionDropdown() {
 
   select.innerHTML = "";
   activeQuestions.forEach((q, idx) => {
-    const isBookmarked = bookmarkedQuestions.has(q.id) ? " 🔖" : "";
+    const isBookmarked = bookmarkedQuestions.has(q.id) ? " 📌" : "";
     const option = document.createElement("option");
     option.value = idx;
     option.textContent = `Question ${idx + 1} (ID: #${q.id})${isBookmarked}`;
@@ -268,10 +215,12 @@ function hasUserAnswered() {
     if (!Array.isArray(q.rows)) return false;
     return q.rows.every(row => document.querySelector(`input[name="matrix_row_${row.id}"]:checked`) !== null);
   } else if (q.type === "hotspot") {
+    // Check if hotspot uses inline select dropdowns
     const selects = document.querySelectorAll(".inline-select");
     if (selects.length > 0) {
       return Array.from(selects).every(s => s.value !== "");
     }
+    // Fall back to radio inputs
     if (!q.answer || typeof q.answer !== "object") return false;
     return Object.keys(q.answer).every(key => document.querySelector(`input[name="${key}"]:checked`) !== null);
   }
@@ -348,7 +297,7 @@ function loadQuestion() {
   else if (q.type === "dragdrop" && Array.isArray(q.items)) {
     let html = `
       <p style="font-size:13px; color:#555; margin-bottom:10px;">
-        💡 <strong>Instruction:</strong> Click an action below to select it, then click an answer step to place it (or press Enter/Space).
+        👉 <strong>Instruction:</strong> Click an action below to select it, then click an answer step to place it (or press Enter/Space).
       </p>
       <div class="drag-drop-wrapper" style="display:flex; gap:20px; align-items:flex-start;">
         <div class="drag-panel" style="flex:1;">
@@ -438,8 +387,10 @@ function initClickToAssign() {
       const selectedCard = document.getElementById(selectedDragCardId);
       if (!selectedCard) return;
 
+      // Clear existing answer in target slot
       zone.innerHTML = "";
 
+      // Clone the card so the original remains selectable in the pool
       const clonedCard = selectedCard.cloneNode(true);
       clonedCard.style.outline = "none";
       clonedCard.removeAttribute("tabindex");
@@ -576,6 +527,7 @@ function handleSubmit(e) {
     const selects = document.querySelectorAll(".inline-select");
 
     if (selects.length > 0) {
+      // Evaluate dropdown-based hotspots
       selects.forEach(selectEl => {
         const key = selectEl.getAttribute("data-key");
         const containerCell = selectEl.closest("td") || selectEl.closest("tr");
@@ -591,6 +543,7 @@ function handleSubmit(e) {
         }
       });
     } else {
+      // Evaluate radio-based hotspots
       for (let key in q.answer) {
         const selected = document.querySelector(`input[name="${key}"]:checked`);
         const rowContainer = selected ? selected.closest("tr") : null;
@@ -642,81 +595,18 @@ function finishExam() {
 
   const percentage = totalQuestions > 0 ? Math.round((correctCount / totalQuestions) * 100) : 0;
 
-  saveAssessmentLog(percentage, percentage, totalQuestions, correctCount);
-
   const percentageEl = document.getElementById("score-percentage");
   const detailsEl = document.getElementById("score-details");
 
   if (percentageEl) percentageEl.textContent = `${percentage}%`;
-  
-  const candidateName = localStorage.getItem("sc300_candidate_name") || "Candidate";
-  if (detailsEl) {
-    detailsEl.textContent = `${candidateName}, you answered ${correctCount} out of ${totalQuestions} questions correctly.`;
-  }
-}
-
-function saveAssessmentLog(score, percentage, totalQuestions, correctCount) {
-  const sessionId = localStorage.getItem("sc300_session_id");
-  let existingLogs = JSON.parse(localStorage.getItem("sc300_assessment_logs") || "[]");
-  
-  const logIndex = existingLogs.findIndex(log => log.sessionId === sessionId);
-  
-  const completedData = {
-    sessionId: sessionId || "unknown",
-    name: localStorage.getItem("sc300_candidate_name") || "Anonymous",
-    startTime: logIndex !== -1 ? existingLogs[logIndex].startTime : new Date().toISOString(),
-    endTime: new Date().toISOString(),
-    status: "Completed",
-    score: score,
-    percentage: percentage,
-    details: `${correctCount}/${totalQuestions}`
-  };
-
-  if (logIndex !== -1) {
-    existingLogs[logIndex] = completedData;
-  } else {
-    existingLogs.push(completedData);
-  }
-
-  localStorage.setItem("sc300_assessment_logs", JSON.stringify(existingLogs));
-}
-
-function exportLogsToCSV() {
-  const logs = JSON.parse(localStorage.getItem("sc300_assessment_logs") || "[]");
-  
-  if (logs.length === 0) {
-    alert("No assessment logs found yet.");
-    return;
-  }
-
-  let csvContent = "Candidate Name,Start Time,Status,Score (%),Correct/Total\n";
-  logs.forEach(log => {
-    csvContent += `"${log.name}","${log.startTime}","${log.status}",${log.percentage},"${log.details}"\n`;
-  });
-
-  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.setAttribute('href', url);
-  a.setAttribute('download', `assessment_logs_${new Date().toISOString().slice(0,10)}.csv`);
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
+  if (detailsEl) detailsEl.textContent = `You answered ${correctCount} out of ${totalQuestions} questions correctly.`;
 }
 
 function restartExam() {
   const resultsScreen = document.getElementById("results-screen");
-  const coverScreen = document.getElementById("cover-screen");
+  const setupScreen = document.getElementById("setup-screen");
 
   if (resultsScreen) resultsScreen.style.display = "none";
-  if (coverScreen) {
-    coverScreen.style.display = "block";
-  } else {
-    const setupScreen = document.getElementById("setup-screen");
-    if (setupScreen) setupScreen.style.display = "block";
-  }
-  
+  if (setupScreen) setupScreen.style.display = "block";
   localStorage.removeItem("sc300_current_index");
-  localStorage.removeItem("sc300_candidate_name");
-  localStorage.removeItem("sc300_session_id");
 }

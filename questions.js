@@ -106,37 +106,44 @@ const questions = [
   }, 
 
 {
-    id: 3,
-    type: "single",
-    question: `
-      <p>You have a Microsoft 365 tenant that uses the domain named fabrikam.com. The Guest invite settings for Azure Active Directory (Azure AD) are configured as shown in the exhibit. (Click the Exhibit tab.)</p>
-      <div style="margin: 15px 0; text-align: center;">
-        <img src="guest_user.png" alt="Exhibit" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
-        <p style="margin-top: 10px;">A user named <strong>bsmith@fabrikam.com</strong> shares a Microsoft SharePoint Online document library to the users shown in the following table.</p>
-      </div>
-      <p>Which users will receive a one-time passcode (OTP)?</p>
-    `,
-    options: [
-      "User2 only",
-      "User1 and User2 only",
-      "User1, User2, and User3",
-      "User3 only"
-    ],
-    answer: 0, // Index 0 correlates to Option A
-    explanation: `
-      <p><strong>Correct Answer: A (User2 only)</strong></p>
-      <p><em>Reference User Email: bsmith@fabrikam.com</em></p>
-      <p>According to Microsoft documentation on email one-time passcode (OTP) authentication:</p>
-      <blockquote>
-        "When the email one-time passcode feature is enabled, newly invited users who meet certain conditions will use one-time passcode authentication. Guest users who redeemed an invitation before email one-time passcode was enabled will continue to use their same authentication method."
-      </blockquote>
-      <ul>
-        <li><strong>User 1:</strong> Already a registered guest user in fabrikam.com, so they will not receive an additional OTP.</li>
-        <li><strong>User 2:</strong> Has never accessed fabrikam.com, so they <strong>WILL</strong> receive an OTP each time they sign in.</li>
-        <li><strong>User 3:</strong> Is a internal domain user, so they will not receive a guest OTP.</li>
-      </ul>
-    `
-  },
+  id: 3,
+  type: "single",
+  question: `
+    <p>You have a Microsoft 365 tenant that uses the domain named fabrikam.com. The Guest invite settings for Azure Active Directory (Azure AD) are configured as shown in the exhibit. (Click the Exhibit tab.)</p>
+    
+    <div style="margin: 15px 0; text-align: center;">
+      <img src="guest_user.png" alt="Exhibit" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+    </div>
+
+    <p style="text-align: left; margin-top: 10px;">A user named <strong>bsmith@fabrikam.com</strong> shares a Microsoft SharePoint Online document library to the users shown in the following table.</p>
+
+    <div style="margin-bottom: 15px; text-align: center;">
+      <img src="images/q3_table1.jpg" alt="q3 table 1" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+    </div>
+
+    <p style="text-align: left;">Which users will receive a one-time passcode (OTP)?</p>
+  `,
+  options: [
+    "User2 only",
+    "User1 and User2 only",
+    "User1, User2, and User3",
+    "User3 only"
+  ],
+  answer: 0,
+  explanation: `
+    <p><strong>Correct Answer: A (User2 only)</strong></p>
+    <p><em>Reference User Email: bsmith@fabrikam.com</em></p>
+    <p>According to Microsoft documentation on email one-time passcode (OTP) authentication:</p>
+    <blockquote>
+      "When the email one-time passcode feature is enabled, newly invited users who meet certain conditions will use one-time passcode authentication. Guest users who redeemed an invitation before email one-time passcode was enabled will continue to use their same authentication method."
+    </blockquote>
+    <ul>
+      <li><strong>User 1:</strong> Already a registered guest user in fabrikam.com, so they will not receive an additional OTP.</li>
+      <li><strong>User 2:</strong> Has never accessed fabrikam.com, so they <strong>WILL</strong> receive an OTP each time they sign in.</li>
+      <li><strong>User 3:</strong> Is an internal domain user, so they will not receive a guest OTP.</li>
+    </ul>
+  `
+},
 
   // Question 4: Single Choice
   {

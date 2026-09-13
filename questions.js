@@ -1734,8 +1734,8 @@ https://docs.microsoft.com/en-us/azure/active-directory/enterprise-users/users-b
 
   options: [
     "A. Helpdesk Administrator",
-    "B. License Administrator",
-    "C. User Administrator",
+    "B. Billing Administrator",
+    "C. License Administrator",
     "D. User administrator",
   ],
 

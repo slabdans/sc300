@@ -1,3 +1,6 @@
+// PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL BELOW:
+const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycby5tMHc93VCTe0Yf29rNi9n5dioKtm0mnn7AqV9eALjEgr78ooSSxooGfxbW0AwxXZN/exec";
+
 let activeQuestions = [];
 let currentIndex = 0;
 let bookmarkedQuestions = new Set();
@@ -8,9 +11,6 @@ let initialTimerSeconds = 0; // Track starting time to compute duration taken
 let timerInterval = null;
 let isPaused = false;
 let selectedDragCardId = null;
-
-// PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL BELOW:
-const GOOGLE_SHEET_WEB_APP_URL = "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
 
 document.addEventListener("DOMContentLoaded", function () {
   const safeAddListener = (id, event, handler) => {

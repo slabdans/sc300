@@ -63,7 +63,7 @@ function startExam() {
     return;
   }
 
-  // Log that the user started the exam immediately
+  // Silently log that the user started the exam immediately
   const startPayload = {
     name: participantNameEl.value.trim(),
     email: participantEmailEl.value.trim(),
@@ -639,9 +639,22 @@ function finishExam() {
     timeTakenStr = `${minsTaken}m ${secsTaken}s`;
   }
 
- sendExamLogToGoogleSheets
+  // Silently send result log to Google Sheets in the background
+  sendExamLogToGoogleSheets(`${percentage}%`, timeTakenStr);
+}
+
+function sendExamLogToGoogleSheets(scorePercentage, timeTakenStr) {
+  const nameVal = document.getElementById("participantName").value.trim() || "Anonymous";
+  const emailVal = document.getElementById("participantEmail").value.trim() || "N/A";
+
+  const payload = {
+    name: nameVal,
+    email: emailVal,
+    score: scorePercentage,
+    timeTaken: timeTakenStr
+  };
+
   if (!GOOGLE_SHEET_WEB_APP_URL || GOOGLE_SHEET_WEB_APP_URL.includes("YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE")) {
-    if (logStatusEl) logStatusEl.textContent = "Warning: Google Sheet Web App URL is not configured.";
     return;
   }
 
@@ -652,13 +665,8 @@ function finishExam() {
       "Content-Type": "application/json"
     },
     body: JSON.stringify(payload)
-  })
-  .then(() => {
-    if (logStatusEl) logStatusEl.textContent = "✓ Score successfully logged to Google Sheets!";
-  })
-  .catch(error => {
+  }).catch(error => {
     console.error("Error logging exam results:", error);
-    if (logStatusEl) logStatusEl.textContent = "⚠️ Could not save score to Google Sheets.";
   });
 }
 

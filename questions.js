@@ -5500,17 +5500,14 @@ By using this cmdlet, you can set the appropriate parameters to block self-servi
   type: "dropdown",
 
   question: `
-    <div style="border: 1px solid #b8daff; background-color: #e8f4f8; padding: 12px; border-radius: 4px; margin-bottom: 15px; font-size: 13px; color: #004085;">
-      This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.<br><br>
-      After you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.
-    </div>
     <p style="text-align: left;">You have a Microsoft 365 tenant.</p>
     <p style="text-align: left;">You need to identify users who have leaked credentials. The solution must meet the following requirements:</p>
-    <ul style="margin-top: 5px; margin-bottom: 15px;">
-      <li style="text-align: left;">Identify sign-ins by users who are suspected of having leaked credentials.</li>
-      <li style="text-align: left;">Flag the sign-ins as a high-risk event.</li>
-      <li style="text-align: left;">Immediately enforce a control to mitigate the risk, while still allowing the user to access applications. What should you use? To answer, select the appropriate options in the answer area.</li>
-    </ul>
+    <div style="margin: 10px 0; padding: 10px 15px; background: #fff; border-left: 4px solid #0078d4; border: 1px solid #e1dfdd; border-radius: 2px;">
+      <p style="margin: 0; text-align: left;">Identify sign-ins by users who are suspected of having leaked credentials.<br>
+      Flag the sign-ins as a high-risk event.<br>
+      Immediately enforce a control to mitigate the risk, while still allowing the user to access applications.</p>
+    </div>
+    <p style="text-align: left;">What should you use? <br>To answer, select the appropriate options in the answer area.</p>
 
     <div style="margin-top: 15px; background: #f9f9f9; padding: 15px; border: 1px solid #ddd; border-radius: 4px;">
       <div style="display: flex; flex-direction: column; gap: 12px;">
@@ -5551,7 +5548,7 @@ By using this cmdlet, you can set the appropriate parameters to block self-servi
 
   answer: {
     dropdown_1: "Azure Active Directory (Azure AD) Identity Protection",
-    dropdown_2: "Sign-in risk",
+    dropdown_2: "User risk",
     dropdown_3: "Grant access but require password change"
   },
 
@@ -5559,8 +5556,8 @@ By using this cmdlet, you can set the appropriate parameters to block self-servi
     <p><strong>Explanation:</strong></p>
     <ul>
       <li><strong>Azure Active Directory (Azure AD) Identity Protection:</strong> Used to detect risks such as leaked credentials.</li>
-      <li><strong>Sign-in risk:</strong> Used to flag sign-in attempts as high-risk events based on conditions like leaked credentials during sign-in policies.</li>
-      <li><strong>Grant access but require password change:</strong> Mitigates the risk by enforcing a control while still allowing the user to access applications securely via password remediation.</li>
+      <li><strong>User risk:</strong> Leaked credentials represent a user risk condition (as opposed to sign-in risk, which evaluates the real-time sign-in attempt properties).</li>
+      <li><strong>Grant access but require password change:</strong> Mitigates the risk by forcing a secure password reset upon the next sign-in while still allowing authorized access, satisfying the requirement to allow users to continue accessing applications safely.</li>
     </ul>
     <p>
       <strong>References:</strong><br>

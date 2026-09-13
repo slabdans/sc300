@@ -1820,7 +1820,7 @@ https://docs.microsoft.com/en-us/azure/active-directory/enterprise-users/users-b
     </p>
   `
 },
-	{
+{
   id: 42,
   type: "dropdown",
   question: `
@@ -3392,7 +3392,7 @@ By using this cmdlet, you can set the appropriate parameters to block self-servi
     </div>
   `
 },
-	{
+{
   id: 76,
   type: "single",
   question: `
@@ -4404,4 +4404,3 @@ By using this cmdlet, you can set the appropriate parameters to block self-servi
 },
 ];
 ///*SIMULATION QUESTION FROM 81 - 84 IS SKIPT*///
-];

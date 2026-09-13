@@ -4,9 +4,13 @@ let bookmarkedQuestions = new Set();
 let userAnswers = {};
 let questionResults = {};
 let timerSeconds = 0;
+let initialTimerSeconds = 0; // Track starting time to compute duration taken
 let timerInterval = null;
 let isPaused = false;
 let selectedDragCardId = null;
+
+// PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL BELOW:
+const GOOGLE_SHEET_WEB_APP_URL = "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
 
 document.addEventListener("DOMContentLoaded", function () {
   const safeAddListener = (id, event, handler) => {
@@ -44,6 +48,21 @@ function shuffleArray(array) {
 }
 
 function startExam() {
+  // Validate participant details before launching exam
+  const participantNameEl = document.getElementById("participantName");
+  const participantEmailEl = document.getElementById("participantEmail");
+
+  if (participantNameEl && !participantNameEl.value.trim()) {
+    alert("Please enter your full name before starting the exam.");
+    participantNameEl.focus();
+    return;
+  }
+  if (participantEmailEl && !participantEmailEl.value.trim()) {
+    alert("Please enter your email address before starting the exam.");
+    participantEmailEl.focus();
+    return;
+  }
+
   if (typeof questions === "undefined" || !Array.isArray(questions) || questions.length === 0) {
     alert("Error: questions array is not defined or empty.");
     return;
@@ -66,14 +85,10 @@ function startExam() {
   const questionCount = (endNum - startNum) + 1;
 
   if (shuffleToggle && shuffleToggle.checked) {
-    // 1. Shuffle a shallow copy of ALL available questions
     const allQuestionsCopy = [...questions];
     shuffleArray(allQuestionsCopy);
-
-    // 2. Select the requested quantity from the entire randomized pool
     activeQuestions = allQuestionsCopy.slice(0, questionCount);
   } else {
-    // Sequential range selection
     activeQuestions = questions.slice(startNum - 1, endNum);
   }
 
@@ -91,9 +106,12 @@ function startExam() {
 
   if (timeInput > 0) {
     timerSeconds = timeInput * 60;
+    initialTimerSeconds = timerSeconds;
     if (pauseBtn) pauseBtn.style.display = "inline-block";
     startTimer();
   } else {
+    timerSeconds = 0;
+    initialTimerSeconds = 0;
     if (timerDisplay) timerDisplay.textContent = "Untimed";
   }
 
@@ -159,10 +177,10 @@ function updateBookmarkButtonState() {
 
   const qId = activeQuestions[currentIndex].id;
   if (bookmarkedQuestions.has(qId)) {
-    btn.textContent = "📌 Bookmarked";
+    btn.textContent = "🔖 Bookmarked";
     btn.classList.add("bookmarked");
   } else {
-    btn.textContent = "📌 Bookmark";
+    btn.textContent = "🔖 Bookmark";
     btn.classList.remove("bookmarked");
   }
 }
@@ -173,7 +191,7 @@ function populateQuestionDropdown() {
 
   select.innerHTML = "";
   activeQuestions.forEach((q, idx) => {
-    const isBookmarked = bookmarkedQuestions.has(q.id) ? " 📌" : "";
+    const isBookmarked = bookmarkedQuestions.has(q.id) ? " 🔖" : "";
     const option = document.createElement("option");
     option.value = idx;
     option.textContent = `Question ${idx + 1} (ID: #${q.id})${isBookmarked}`;
@@ -215,12 +233,10 @@ function hasUserAnswered() {
     if (!Array.isArray(q.rows)) return false;
     return q.rows.every(row => document.querySelector(`input[name="matrix_row_${row.id}"]:checked`) !== null);
   } else if (q.type === "hotspot") {
-    // Check if hotspot uses inline select dropdowns
     const selects = document.querySelectorAll(".inline-select");
     if (selects.length > 0) {
       return Array.from(selects).every(s => s.value !== "");
     }
-    // Fall back to radio inputs
     if (!q.answer || typeof q.answer !== "object") return false;
     return Object.keys(q.answer).every(key => document.querySelector(`input[name="${key}"]:checked`) !== null);
   }
@@ -297,7 +313,7 @@ function loadQuestion() {
   else if (q.type === "dragdrop" && Array.isArray(q.items)) {
     let html = `
       <p style="font-size:13px; color:#555; margin-bottom:10px;">
-        👉 <strong>Instruction:</strong> Click an action below to select it, then click an answer step to place it (or press Enter/Space).
+        💡 <strong>Instruction:</strong> Click an action below to select it, then click an answer step to place it (or press Enter/Space).
       </p>
       <div class="drag-drop-wrapper" style="display:flex; gap:20px; align-items:flex-start;">
         <div class="drag-panel" style="flex:1;">
@@ -387,10 +403,8 @@ function initClickToAssign() {
       const selectedCard = document.getElementById(selectedDragCardId);
       if (!selectedCard) return;
 
-      // Clear existing answer in target slot
       zone.innerHTML = "";
 
-      // Clone the card so the original remains selectable in the pool
       const clonedCard = selectedCard.cloneNode(true);
       clonedCard.style.outline = "none";
       clonedCard.removeAttribute("tabindex");
@@ -527,7 +541,6 @@ function handleSubmit(e) {
     const selects = document.querySelectorAll(".inline-select");
 
     if (selects.length > 0) {
-      // Evaluate dropdown-based hotspots
       selects.forEach(selectEl => {
         const key = selectEl.getAttribute("data-key");
         const containerCell = selectEl.closest("td") || selectEl.closest("tr");
@@ -543,7 +556,6 @@ function handleSubmit(e) {
         }
       });
     } else {
-      // Evaluate radio-based hotspots
       for (let key in q.answer) {
         const selected = document.querySelector(`input[name="${key}"]:checked`);
         const rowContainer = selected ? selected.closest("tr") : null;
@@ -600,6 +612,52 @@ function finishExam() {
 
   if (percentageEl) percentageEl.textContent = `${percentage}%`;
   if (detailsEl) detailsEl.textContent = `You answered ${correctCount} out of ${totalQuestions} questions correctly.`;
+
+  // Compute time taken
+  let timeTakenStr = "Untimed";
+  if (initialTimerSeconds > 0) {
+    const elapsedSeconds = initialTimerSeconds - timerSeconds;
+    const minsTaken = Math.floor(elapsedSeconds / 60);
+    const secsTaken = elapsedSeconds % 60;
+    timeTakenStr = `${minsTaken}m ${secsTaken}s`;
+  }
+
+  // Send result log to Google Sheets automatically
+  sendExamLogToGoogleSheets(`${percentage}%`, timeTakenStr);
+}
+
+function sendExamLogToGoogleSheets(scorePercentage, timeTakenStr) {
+  const logStatusEl = document.getElementById("log-status");
+  const nameVal = document.getElementById("participantName").value.trim() || "Anonymous";
+  const emailVal = document.getElementById("participantEmail").value.trim() || "N/A";
+
+  const payload = {
+    name: nameVal,
+    email: emailVal,
+    score: scorePercentage,
+    timeTaken: timeTakenStr
+  };
+
+  if (!GOOGLE_SHEET_WEB_APP_URL || GOOGLE_SHEET_WEB_APP_URL.includes("YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE")) {
+    if (logStatusEl) logStatusEl.textContent = "Warning: Google Sheet Web App URL is not configured.";
+    return;
+  }
+
+  fetch(GOOGLE_SHEET_WEB_APP_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(payload)
+  })
+  .then(() => {
+    if (logStatusEl) logStatusEl.textContent = "✓ Score successfully logged to Google Sheets!";
+  })
+  .catch(error => {
+    console.error("Error logging exam results:", error);
+    if (logStatusEl) logStatusEl.textContent = "⚠️ Could not save score to Google Sheets.";
+  });
 }
 
 function restartExam() {

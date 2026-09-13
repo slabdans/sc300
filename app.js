@@ -1,6 +1,3 @@
-// PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL BELOW:
-const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycby5tMHc93VCTe0Yf29rNi9n5dioKtm0mnn7AqV9eALjEgr78ooSSxooGfxbW0AwxXZN/exec";
-
 let activeQuestions = [];
 let currentIndex = 0;
 let bookmarkedQuestions = new Set();
@@ -11,6 +8,9 @@ let initialTimerSeconds = 0; // Track starting time to compute duration taken
 let timerInterval = null;
 let isPaused = false;
 let selectedDragCardId = null;
+
+// PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL BELOW:
+const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycby5tMHc93VCTe0Yf29rNi9n5dioKtm0mnn7AqV9eALjEgr78ooSSxooGfxbW0AwxXZN/exec";
 
 document.addEventListener("DOMContentLoaded", function () {
   const safeAddListener = (id, event, handler) => {
@@ -61,6 +61,23 @@ function startExam() {
     alert("Please enter your email address before starting the exam.");
     participantEmailEl.focus();
     return;
+  }
+
+  // Log that the user started the exam immediately
+  const startPayload = {
+    name: participantNameEl.value.trim(),
+    email: participantEmailEl.value.trim(),
+    score: "Started Exam",
+    timeTaken: "0m 0s"
+  };
+
+  if (GOOGLE_SHEET_WEB_APP_URL && !GOOGLE_SHEET_WEB_APP_URL.includes("YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE")) {
+    fetch(GOOGLE_SHEET_WEB_APP_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(startPayload)
+    }).catch(err => console.error("Error logging start:", err));
   }
 
   if (typeof questions === "undefined" || !Array.isArray(questions) || questions.length === 0) {

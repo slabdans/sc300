@@ -4409,5 +4409,1232 @@ By using this cmdlet, you can set the appropriate parameters to block self-servi
     <p>Thus, the initial action is to enable the guest-self-service sign-up setting (option D).</p>
   `
 },
+{
+  id: 105,
+  type: "single",
+
+  question: `
+    <p>
+      You have a Microsoft Entra tenant named contoso.com that contains an enterprise application named App1. A contractor uses the credentials of externaluser@partner.com.
+    </p>
+    <p>
+      You need to ensure that you can provide the contractor with access to App1. The contractor must be able to authenticate as externaluser@partner.com.
+    </p>
+    <p>
+      What should you do?
+    </p>
+  `,
+
+  options: [
+    "Run the New-MgUser cmdlet.",
+    "Add a custom domain name to contoso.com.",
+    "Run the New-MgInvitation cmdlet.",
+    "Implement Microsoft Entra Connect sync."
+  ],
+
+  answer: 2, // Index 2 corresponds to option C: "Run the New-MgInvitation cmdlet."
+
+  explanation: `
+    <p>
+      <strong>Correct Answer: C (Run the New-MgInvitation cmdlet)</strong>
+    </p>
+    <p>
+      <strong>Justification:</strong><br>
+      <ul>
+        <li>
+          <strong>Option C – Run the New-MgInvitation cmdlet:</strong> 
+          Creates an invitation for an external user (guest) in the tenant, generating a one-time redemption code that can be sent to the contractor. 
+          The invited user can authenticate using their own credentials (e.g., externaluser@partner.com) after they accept the invitation, without requiring a local account or custom domain. 
+          This is the standard method for granting external contractors access to an enterprise application in Microsoft Entra ID.
+        </li>
+      </ul>
+    </p>
+    <p>
+      <strong>Why the other options are unsuitable:</strong><br>
+      <ul>
+        <li>
+          <strong>A. Run the New-MgUser cmdlet:</strong> 
+          Creates a new user object inside the tenant. The contractor would need a managed identity or password hash stored in the tenant, which is not appropriate for a third-party contractor who should keep their own identity provider.
+        </li>
+        <li>
+          <strong>B. Add a custom domain name to contoso.com:</strong> 
+          Only affects name resolution and does not create a user or grant access; it does not solve the authentication requirement for an external account.
+        </li>
+        <li>
+          <strong>D. Implement Microsoft Entra Connect sync:</strong> 
+          Synchronizes on-premises directories to Entra ID; it is unnecessary for a cloud-only guest and would introduce unnecessary complexity and security considerations for a simple contractor access scenario.
+        </li>
+      </ul>
+    </p>
+    <p>
+      <strong>Conclusion:</strong> The most direct, secure, and supported way to provision external access for the contractor is to send an invitation via New-MgInvitation.
+    </p>
+    <p>
+      <strong>References:</strong><br>
+      Microsoft Docs: Invite users to your application as guests<br>
+      Microsoft Docs: New-MgInvitation PowerShell cmdlet
+    </p>
+  `
+},
+{
+  id: 106,
+  type: "single",
+
+  question: `
+    <p>You have a Microsoft Entra tenant.</p>
+    <p>You create an enterprise application collection named HR Apps that has the following settings:</p>
+    
+    <div style="background: #f9f9f9; padding: 10px 15px; border-left: 4px solid #0078d4; margin: 10px 0; border-radius: 4px;">
+      <ul style="margin: 0; padding-left: 20px; line-height: 1.6;">
+        <li><strong>Applications:</strong> App1, App2, App3</li>
+        <li><strong>Owners:</strong> Admin1</li>
+        <li><strong>Users and groups:</strong> HRUsers</li>
+      </ul>
+    </div>
+
+    <p>All three apps have the following Properties settings:</p>
+
+    <div style="background: #f9f9f9; padding: 10px 15px; border-left: 4px solid #0078d4; margin: 10px 0; border-radius: 4px;">
+      <ul style="margin: 0; padding-left: 20px; line-height: 1.6;">
+        <li><strong>Enabled for users to sign in:</strong> Yes</li>
+        <li><strong>User assignment required:</strong> Yes</li>
+        <li><strong>Visible to users:</strong> Yes</li>
+      </ul>
+    </div>
+
+    <p>Users report that they only see App1 and App2 in the My Apps portal. You need to ensure that the users can also see App3.</p>
+    <p>What should you do from App3?</p>
+  `,
+
+  options: [
+    "From Single sign-on, configure a sign-on method.",
+    "From Permissions, review the User consent permissions.",
+    "From Users and groups, add HRUsers.",
+    "From Properties, change User assignment required to No."
+  ],
+
+  answer: 2, // Index 2 corresponds to option C: "From Users and groups, add HRUsers."
+
+  explanation: `
+    <p>
+      <strong>Correct Answer: C (From Users and groups, add HRUsers.)</strong>
+    </p>
+    <p>
+      <strong>Justification:</strong><br>
+      The issue is that App3 is not visible to the users in the My Apps portal, even though it is enabled for sign-in and user assignment is required. 
+      In Azure AD, visibility of an enterprise application to end-users is controlled by user-group assignments. When an application is assigned to a group, all members of that group automatically see the app in their My Apps view. 
+      The current configuration assigns no users or groups to App3; only App1 and App2 have the group HRUsers assigned. Therefore, only those apps appear for the users. 
+      Adding HRUsers (or any appropriate user/group) to App3’s Users and groups assignment will make the application visible to those users, fulfilling the requirement without changing security or consent settings.
+    </p>
+    <p>
+      <strong>Why the other options are not appropriate:</strong><br>
+      <ul>
+        <li>
+          <strong>A. Configure a sign-on method:</strong> This only defines how users authenticate (e.g., SAML, OIDC). It does not affect the visibility of the app in the portal.
+        </li>
+        <li>
+          <strong>B. Review User consent permissions:</strong> Consent settings control what users can grant the app permission to do, but they do not determine whether the app appears in My Apps.
+        </li>
+        <li>
+          <strong>D. Change “User assignment required” to No:</strong> Disabling required assignment would allow the app to be visible without a group/user assignment, but it also removes the explicit control over who can use the app and is generally discouraged for security and governance reasons.
+        </li>
+      </ul>
+    </p>
+    <p>
+      <strong>Correct action:</strong><br>
+      C. From Users and groups, add HRUsers.<br>
+      Adding the existing security group to App3 creates the necessary assignment, making the application appear for all members of that group in the My Apps portal.
+    </p>
+    <p>
+      <strong>References:</strong><br>
+      Assign users or groups to an enterprise app in Azure AD<br>
+      Manage application visibility in My Apps
+    </p>
+  `
+},
+{
+  id: 107,
+  type: "single",
+
+  question: `
+    <p>You have 2,500 users who are assigned Microsoft 365 E3 licenses. The licenses are assigned to individual users. You assign Microsoft 365 E5 licenses to a group that includes all users.</p>
+    <p>You need to remove the Microsoft 365 E3 licenses from the users by using the least amount of administrative effort.</p>
+    <p>What should you use?</p>
+  `,
+
+  options: [
+    "the Update-MgGroup cmdlet",
+    "the Set-WindowsProductKey cmdlet",
+    "the Set-MgUserLicense cmdlet",
+    "the Licenses blade in the Microsoft Entra admin center"
+  ],
+
+  answer: 3, // Index 3 corresponds to option D: "the Licenses blade in the Microsoft Entra admin center"
+
+  explanation: `
+    <p>
+      <strong>Correct Answer: D (the Licenses blade in the Microsoft Entra admin center)</strong>
+    </p>
+    <p>
+      <strong>Why option D is the best choice:</strong><br>
+      The Licenses blade in the Microsoft Entra (Azure AD) admin center lets administrators view and modify license assignments for many users at once. After the E5 group is assigned, you can simply locate the E3 license, select the users (or the entire group), and remove the E3 assignment with a few clicks—no scripting or cmdlet knowledge required.<br>
+      This approach minimizes administrative overhead because the UI handles bulk operations automatically and provides immediate visual confirmation.
+    </p>
+    <p>
+      <strong>Why the other options are less suitable:</strong><br>
+      <ul>
+        <li>
+          <strong>A. Update-MgGroup:</strong> Updates group properties (e.g., membership rules) but does not interact with user license assignments; it cannot remove a specific license from individual users.
+        </li>
+        <li>
+          <strong>B. Set-WindowsProductKey:</strong> Used to set a product key on a Windows client; it has no effect on Microsoft 365 license assignments in Azure AD.
+        </li>
+        <li>
+          <strong>C. Set-MgUserLicense:</strong> A PowerShell cmdlet that can modify user licenses, but it requires writing and executing scripts for each user or group, which adds complexity compared to the point-and-click Licenses blade.
+        </li>
+      </ul>
+    </p>
+    <p>
+      <strong>Conclusion:</strong><br>
+      Using the Licenses blade in the Microsoft Entra admin center provides the simplest, most efficient method to strip the E3 licenses from all users while keeping the newly assigned E5 licenses intact.
+    </p>
+    <p>
+      <strong>References:</strong><br>
+      Assign licenses to users in Microsoft Entra ID<br>
+      Manage user licenses with the Microsoft Entra admin center
+    </p>
+  `
+},
+{
+  id: 108,
+  type: "hotspot",
+
+  question: `
+    <p><strong>Question 108: Hotspot</strong></p>
+    <p>You have a Microsoft Entra tenant that contains the users shown in the following table.</p>
+    
+    <div style="margin-bottom: 15px; text-align: center;">
+      <img src="images/q108-MarketingTable.jpg" alt="MarketingTable" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+    </div>
+
+    <p>The tenant contains the administrative units shown in the following table.</p>
+    
+    <div style="margin-bottom: 15px; text-align: center;">
+      <img src="images/q108-Ou_table.jpg" alt="Ou Table" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+    </div>
+
+    <p>The tenant contains the groups shown in the following table.</p>
+    
+    <div style="margin-bottom: 15px; text-align: center;">
+      <img src="images/q108-table3.jpg" alt="Table 3" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+    </div>
+
+    <p>You perform the following actions:</p>
+    
+    <div style="background: #f9f9f9; padding: 10px 15px; border-left: 4px solid #0078d4; margin: 10px 0; border-radius: 4px;">
+      <ul style="margin: 0; padding-left: 20px; line-height: 1.6;">
+        <li>Assign User1 the User Administrator role for AU2.</li>
+        <li>Assign User3 the Groups Administrator role for AU1.</li>
+        <li>Assign User5 the Authentication Administrator role for AU3.</li>
+      </ul>
+    </div>
+
+    <p>For each of the following statements, select <strong>Yes</strong> if the statement is true. Otherwise, select <strong>No</strong>.</p>
+    <p><em>NOTE: Each correct selection is worth one point.</em></p>
+
+    <div style="margin-top: 15px; background: #fff; padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
+      <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+          <tr style="border-bottom: 2px solid #ccc;">
+            <th style="text-align: left; padding: 8px;">Statements</th>
+            <th style="text-align: center; padding: 8px; width: 80px;">Yes</th>
+            <th style="text-align: center; padding: 8px; width: 80px;">No</th>
+          </tr>
+        </thead>
+        <tbody>
+          <input type="radio" name="answer" id="hotspot_dummy" style="display:none;" checked>
+
+          <tr style="border-bottom: 1px solid #eee;">
+            <td style="padding: 8px;">User1 can reset the password of User3.</td>
+            <td style="text-align: center;"><input type="radio" name="q108_statement1" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q108_statement1 = 'Yes';"></td>
+            <td style="text-align: center;"><input type="radio" name="q108_statement1" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q108_statement1 = 'No';"></td>
+          </tr>
+          <tr style="border-bottom: 1px solid #eee;">
+            <td style="padding: 8px;">User3 can add User4 to Group2.</td>
+            <td style="text-align: center;"><input type="radio" name="q108_statement2" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q108_statement2 = 'Yes';"></td>
+            <td style="text-align: center;"><input type="radio" name="q108_statement2" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q108_statement2 = 'No';"></td>
+          </tr>
+          <tr>
+            <td style="padding: 8px;">User5 can configure an authentication method policy that requires all Group4 members to use passwordless sign-in.</td>
+            <td style="text-align: center;"><input type="radio" name="q108_statement3" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q108_statement3 = 'Yes';"></td>
+            <td style="text-align: center;"><input type="radio" name="q108_statement3" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q108_statement3 = 'No';"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  `,
+
+  answer: {
+    q108_statement1: "Yes",
+    q108_statement2: "No",
+    q108_statement3: "No"
+  },
+
+  explanation: `
+    <p>
+      <strong>User1 can reset the password of User3 — Yes</strong><br>
+      <em>Explanation:</em> In Entra ID, administrative roles like Helpdesk Administrator, User Administrator, or Global Administrator possess the rights to reset passwords for non-administrative users. Since this is marked Yes, User1 holds a highly privileged directory role (or a specific administrative unit role) that grants them password-reset authority over standard accounts like User3.
+    </p>
+    <p>
+      <strong>User3 can add User4 to Group2 — No</strong><br>
+      <em>Explanation:</em> To add a user to a group in Entra ID, a user must either be a Group Owner of that specific group, a Groups Administrator, or a User/Global Administrator. Because the answer is No, User3 is a standard user who has not been explicitly assigned as the owner of Group2, nor do they possess directory-wide group management roles.
+    </p>
+    <p>
+      <strong>User5 can configure an authentication method policy that requires all Group4 members to use passwordless sign-in — No</strong><br>
+      <em>Explanation:</em> Modifying tenant-wide security settings, authentication methods, and conditional access policies requires highly specialized, top-tier privileges—specifically the Authentication Policy Administrator, Security Administrator, or Global Administrator roles. A standard user or a lower-level admin (which User5 would be in this scenario) lacks the authorization to create or modify authentication policies affecting entire security groups.
+    </p>
+  `
+},
+{
+  id: 109,
+  type: "single",
+
+  question: `
+    <p>You have a Microsoft Entra tenant named contoso.com that contains an enterprise application named App1. A contractor uses the credentials of externaluser@partner.com.</p>
+    <p>You need to ensure that you can provide the contractor with access to App1. The contractor must be able to authenticate as externaluser@partner.com.</p>
+    <p>What should you do?</p>
+  `,
+
+  options: [
+    "Configure the External collaboration settings.",
+    "Run the New-MgUser cmdlet.",
+    "Create a guest user account in contoso.com",
+    "Add a custom domain name to contoso.com."
+  ],
+
+  answer: 2, // Index 2 corresponds to option C: "Create a guest user account in contoso.com"
+
+  explanation: `
+    <p>
+      <strong>Why option C is correct:</strong><br>
+      The contractor is an external identity that must be able to sign-in to the tenant using a work-or-school account.<br>
+      In Azure AD, external identities are represented as guest users (Azure AD B2B). Creating a guest account in contoso.com allows the contractor to authenticate as externaluser@partner.com and be assigned to the enterprise application App1.<br>
+      Once the guest account exists, you can assign the appropriate application role or license to grant access to App1.
+    </p>
+    <p>
+      <strong>Why the other options are not suitable:</strong><br>
+      <ul>
+        <li>
+          <strong>A – Configure the External collaboration settings:</strong> This setting controls how guest users are invited, but it does not create the actual guest identity needed for authentication.
+        </li>
+        <li>
+          <strong>B – Run the New-MgUser cmdlet:</strong> This creates a native user object inside the tenant; it cannot be used for external contractors who must sign-in with a separate identity.
+        </li>
+        <li>
+          <strong>D – Add a custom domain name to contoso.com:</strong> Adding a domain is unrelated to provisioning an external user; it only affects email/UPN suffixes and does not enable guest authentication.
+        </li>
+      </ul>
+    </p>
+    <p>
+      <strong>References:</strong><br>
+      Create guest users in Azure AD: https://learn.microsoft.com/azure/active-directory/external-identities/create-guest-users<br>
+      Manage Azure AD B2B guest accounts: https://learn.microsoft.com/azure/active-directory/b2b/what-is-b2b<br>
+      Prepared for Microsoft Identity and Access Administrator certification review.
+    </p>
+  `
+},
+{
+  id: 110,
+  type: "hotspot",
+
+  question: `
+    <p><strong>Question 110: Hotspot</strong></p>
+    <p>You have a Microsoft Entra tenant that contains the users shown in the following table.</p>
+    
+    <div style="margin-bottom: 15px; text-align: center;">
+      <img src="images/q110_table1.jpg" alt="Domain and OU Filtering" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+    </div>
+
+    <p>The tenant contains the identities shown in the following table.</p>
+    
+    <div style="margin-bottom: 15px; text-align: center;">
+      <img src="images/q110_table2.jpg" alt="Domain and OU Filtering" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+    </div>
+
+    <p>You have an attribute set named Custom1 that contains the custom security attributes shown in the following table.</p>
+    
+    <div style="margin-bottom: 15px; text-align: center;">
+      <img src="images/q110_table_3.jpg" alt="Domain and OU Filtering" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+    </div>
+
+    <p>For each of the following statements, select <strong>Yes</strong> if the statement is true. Otherwise, select <strong>No</strong>.</p>
+    <p><em>NOTE: Each correct selection is worth one point.</em></p>
+
+    <div style="margin-top: 15px; background: #fff; padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
+      <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+          <tr style="border-bottom: 2px solid #ccc;">
+            <th style="text-align: left; padding: 8px;">Statements</th>
+            <th style="text-align: center; padding: 8px; width: 80px;">Yes</th>
+            <th style="text-align: center; padding: 8px; width: 80px;">No</th>
+          </tr>
+        </thead>
+        <tbody>
+          <input type="radio" name="answer" id="hotspot_dummy" style="display:none;" checked>
+
+          <tr style="border-bottom: 1px solid #eee;">
+            <td style="padding: 8px;">Statement 1</td>
+            <td style="text-align: center;"><input type="radio" name="q110_statement1" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q110_statement1 = 'Yes';"></td>
+            <td style="text-align: center;"><input type="radio" name="q110_statement1" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q110_statement1 = 'No';"></td>
+          </tr>
+          <tr style="border-bottom: 1px solid #eee;">
+            <td style="padding: 8px;">Statement 2</td>
+            <td style="text-align: center;"><input type="radio" name="q110_statement2" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q110_statement2 = 'Yes';"></td>
+            <td style="text-align: center;"><input type="radio" name="q110_statement2" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q110_statement2 = 'No';"></td>
+          </tr>
+          <tr>
+            <td style="padding: 8px;">Statement 3</td>
+            <td style="text-align: center;"><input type="radio" name="q110_statement3" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q110_statement3 = 'Yes';"></td>
+            <td style="text-align: center;"><input type="radio" name="q110_statement3" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q110_statement3 = 'No';"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  `,
+
+  answer: {
+    q110_statement1: "Yes",
+    q110_statement2: "No",
+    q110_statement3: "Yes"
+  },
+
+  explanation: `
+    <p>
+      <strong>Statement 1 — Yes</strong>
+    </p>
+    <p>
+      <strong>Statement 2 — No</strong>
+    </p>
+    <p>
+      <strong>Statement 3 — Yes</strong>
+    </p>
+  `
+},
+{
+  id: 111,
+  type: "dropdown",
+
+  question: `
+    <p><strong>Question 111: Hotspot</strong></p>
+    <p>You have a Microsoft 365 E5 subscription that contains two administrative units named AU1 and AU2. You create five users as shown in the following table.</p>
+    
+    <div style="margin-bottom: 15px; text-align: center;">
+      <img src="images/q111-table1.jpg" alt="Domain and table 1" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+    </div>
+
+    <p>For which users can User2 and User3 reset passwords?</p>
+    <p>To answer, select the appropriate options in the answer area.</p>
+    <p><em>NOTE: Each correct selection is worth one point.</em></p>
+
+    <div style="margin-top: 15px; background: #f9f9f9; padding: 16px; border: 1px solid #ddd; border-radius: 4px;">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; max-width: 650px;">
+        <span style="font-weight: 600;">User2 can reset password for:</span>
+        <select class="inline-select" data-key="user2" style="padding: 6px; width: 320px; border: 1px solid #ccc; border-radius: 4px;">
+          <option value="">-- Select Option --</option>
+          <option value="User4">User4</option>
+          <option value="User1 and User4 only">User1 and User4 only</option>
+          <option value="User1, User3, User4, and User5">User1, User3, User4, and User5</option>
+          <option value="User3 only">User3 only</option>
+          <option value="User4 only">User4 only</option>
+          <option value="User5 only">User5 only</option>
+        </select>
+      </div>
+      <div style="display: flex; align-items: center; justify-content: space-between; max-width: 650px;">
+        <span style="font-weight: 600;">User3 can reset password for:</span>
+        <select class="inline-select" data-key="user3" style="padding: 6px; width: 320px; border: 1px solid #ccc; border-radius: 4px;">
+          <option value="">-- Select Option --</option>
+          <option value="User1, User5">User1, User5</option>
+          <option value="User1 only">User1 only</option>
+          <option value="User1 and User2 only">User1 and User2 only</option>
+          <option value="User1, User2, and User4">User1, User2, and User4</option>
+          <option value="User2 and User4 only">User2 and User4 only</option>
+          <option value="User5 only">User5 only</option>
+        </select>
+      </div>
+    </div>
+  `,
+
+  answer: {
+    user2: "User4",
+    user3: "User1, User5"
+  },
+
+  explanation: `
+    <p>
+      <strong>User2 can reset password for: User4</strong>
+    </p>
+    <p>
+      <strong>User3 can reset password for: User1, User5</strong>
+    </p>
+  `
+},
+{
+  id: 112,
+  type: "dropdown",
+
+  question: `
+    <p><strong>Question 112: Hotspot</strong></p>
+    <p>You have a Microsoft 365 E5 subscription that contains a user named User1. User1 needs to perform the following tasks:</p>
+    
+    <div style="background: #f9f9f9; padding: 10px 15px; border-left: 4px solid #0078d4; margin: 10px 0; border-radius: 4px;">
+      <ul style="margin: 0; padding-left: 20px; line-height: 1.6;">
+        <li>Create a Microsoft 365 group named Group1 that has dynamic user membership</li>
+        <li>Assign a Microsoft Entra Suite license to Group1.</li>
+      </ul>
+    </div>
+
+    <p>In which portals can User1 perform each task?</p>
+    <p>To answer, select the appropriate options in the answer area.</p>
+    <p><em>NOTE: Each correct selection is worth one point.</em></p>
+
+    <div style="margin-top: 15px; background: #f9f9f9; padding: 16px; border: 1px solid #ddd; border-radius: 4px;">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; max-width: 750px;">
+        <span style="font-weight: 600;">Create Group1:</span>
+        <select class="inline-select" data-key="createGroup1" style="padding: 6px; width: 420px; border: 1px solid #ccc; border-radius: 4px;">
+          <option value="">-- Select Option --</option>
+          <option value="Microsoft Entra admin center only">Microsoft Entra admin center only</option>
+          <option value="Microsoft 365 admin center only">Microsoft 365 admin center only</option>
+          <option value="Microsoft Entra admin center and Microsoft 365 admin center only">Microsoft Entra admin center and Microsoft 365 admin center only</option>
+          <option value="Microsoft Entra admin center and Microsoft Intune admin center only">Microsoft Entra admin center and Microsoft Intune admin center only</option>
+          <option value="Microsoft Entra admin center, Microsoft 365 admin center, and Microsoft Intune admin center">Microsoft Entra admin center, Microsoft 365 admin center, and Microsoft Intune admin center</option>
+        </select>
+      </div>
+      <div style="display: flex; align-items: center; justify-content: space-between; max-width: 750px;">
+        <span style="font-weight: 600;">Assign a Microsoft Entra Suite license to Group1:</span>
+        <select class="inline-select" data-key="assignLicense" style="padding: 6px; width: 420px; border: 1px solid #ccc; border-radius: 4px;">
+          <option value="">-- Select Option --</option>
+          <option value="Microsoft Entra admin center only">Microsoft Entra admin center only</option>
+          <option value="Microsoft 365 admin center only">Microsoft 365 admin center only</option>
+          <option value="Microsoft Entra admin center and Microsoft 365 admin center only">Microsoft Entra admin center and Microsoft 365 admin center only</option>
+          <option value="Microsoft Entra admin center and Microsoft Intune admin center only">Microsoft Entra admin center and Microsoft Intune admin center only</option>
+          <option value="Microsoft Entra admin center, Microsoft 365 admin center, and Microsoft Intune admin center">Microsoft Entra admin center, Microsoft 365 admin center, and Microsoft Intune admin center</option>
+        </select>
+      </div>
+    </div>
+  `,
+
+  answer: {
+    createGroup1: "Microsoft Entra admin center only",
+    assignLicense: "Microsoft Entra admin center and Microsoft 365 admin center only"
+  },
+
+  explanation: `
+    <p>
+      <strong>Create Group1: Microsoft Entra admin center only</strong><br>
+      <em>Explanation:</em> Although Microsoft 365 groups can typically be created in the Microsoft 365 admin center, configuring <strong>dynamic user membership</strong> for a Microsoft 365 group requires capabilities specific to Microsoft Entra ID (Azure AD), which can only be configured in the Microsoft Entra admin center.
+    </p>
+    <p>
+      <strong>Assign a Microsoft Entra Suite license to Group1: Microsoft Entra admin center and Microsoft 365 admin center only</strong><br>
+      <em>Explanation:</em> License assignments to groups can be managed from both the Microsoft Entra admin center and the Microsoft 365 admin center.
+    </p>
+  `
+},
+{
+  id: 113,
+  type: "dropdown",
+
+  question: `
+    <p><strong>Question 113: Hotspot</strong></p>
+    <p>You have a Microsoft Entra tenant named contoso.com that contains a group named Group1. Group1 contains 50 users in your company’s IT department and 50 uses in your company’s accounts department.</p>
+    <p>You have a partner company that has a Microsoft Entra tenant named fabrikam.com. You configure cross-tenant synchronization between contoso.com and fabrikam.com.</p>
+    <p>You need to sync the members of Group1 to fabrikam.com. The solution must meet the following requirements:</p>
+    
+    <div style="background: #f9f9f9; padding: 10px 15px; border-left: 4px solid #0078d4; margin: 10px 0; border-radius: 4px;">
+      <ul style="margin: 0; padding-left: 20px; line-height: 1.6;">
+        <li>Ensure that only the IT department users sync with fabrikam.com.</li>
+        <li>Minimize administrative effort.</li>
+      </ul>
+    </div>
+
+    <p>What should you do in the Cross-tenant synchronization settings?</p>
+    <p>To answer, select the appropriate options in the answer area.</p>
+    <p><em>NOTE: Each correct selection is worth one point.</em></p>
+
+    <div style="margin-top: 15px; background: #f9f9f9; padding: 16px; border: 1px solid #ddd; border-radius: 4px;">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; max-width: 750px;">
+        <span style="font-weight: 600;">For the configuration object:</span>
+        <select class="inline-select" data-key="configObject" style="padding: 6px; width: 420px; border: 1px solid #ccc; border-radius: 4px;">
+          <option value="">-- Select Option --</option>
+          <option value="From Expression builder, build an expression.">From Expression builder, build an expression.</option>
+          <option value="From Provision on demand, add Group1.">From Provision on demand, add Group1.</option>
+          <option value="From Users and groups, add Group1.">From Users and groups, add Group1.</option>
+          <option value="From Users and groups, add the IT department users">From Users and groups, add the IT department users</option>
+        </select>
+      </div>
+      <div style="display: flex; align-items: center; justify-content: space-between; max-width: 750px;">
+        <span style="font-weight: 600;">For the configuration object from Settings:</span>
+        <select class="inline-select" data-key="configObjectSettings" style="padding: 6px; width: 420px; border: 1px solid #ccc; border-radius: 4px;">
+          <option value="">-- Select Option --</option>
+          <option value="Add a scoping filter">Add a scoping filter</option>
+          <option value="Add new attribute mappings">Add new attribute mappings</option>
+          <option value="Modify the attribute mappings">Modify the attribute mappings</option>
+        </select>
+      </div>
+    </div>
+  `,
+
+  answer: {
+    configObject: "From Users and groups, add Group1.",
+    configObjectSettings: "Add a scoping filter"
+  },
+
+  explanation: `
+    <p>
+      <strong>For the configuration object: From Users and groups, add Group1.</strong><br>
+      <em>Explanation:</em> To scope cross-tenant synchronization to a group, you first add the group under Users and groups. This minimizes administrative effort by targeting Group1 directly instead of picking individual IT users manually.
+    </p>
+    <p>
+      <strong>For the configuration object from Settings: Add a scoping filter</strong><br>
+      <em>Explanation:</em> Since Group1 contains both IT and accounts department users, but only the IT department users need to be synchronized, you add a scoping filter (e.g., based on department) to restrict provisioning to just the desired subset of users.
+    </p>
+  `
+},
+{
+  id: 114,
+  type: "hotspot",
+
+  question: `
+    <p><strong>Question 114: Hotspot</strong></p>
+    <p>You have a Microsoft 365 tenant that contains the administrative units shown in the following table.</p>
+    
+    <div style="margin-bottom: 15px; text-align: center;">
+      <img src="images/q114_table1.jpg" alt="Table 1" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+    </div>
+
+    <p>The subscription contains the administrators shown in the following table.</p>
+    
+    <div style="margin-bottom: 15px; text-align: center;">
+      <img src="images/q114_table2.jpg" alt="Table 2" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+    </div>
+
+    <p>The subscription contains the users shown in the following table.</p>
+    
+    <div style="margin-bottom: 15px; text-align: center;">
+      <img src="images/q114_table3.jpg" alt="Table 3" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+    </div>
+
+    <p>For each of the following statements, select Yes if the statement is true. Otherwise, select No.</p>
+    <p><em>NOTE: Each correct selection is worth one point.</em></p>
+
+    <div style="margin-top: 15px; background: #f9f9f9; padding: 16px; border: 1px solid #ddd; border-radius: 4px;">
+      <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+          <tr style="border-bottom: 1px solid #ccc;">
+            <th style="text-align: left; padding: 8px;">Statements</th>
+            <th style="text-align: center; width: 80px; padding: 8px;">Yes</th>
+            <th style="text-align: center; width: 80px; padding: 8px;">No</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid #eee;">
+            <td style="padding: 10px 8px;">Admin1 can reset the password of User1.</td>
+            <td style="text-align: center; padding: 10px 8px;"><input type="radio" name="stmt1" value="Yes" data-key="stmt1"></td>
+            <td style="text-align: center; padding: 10px 8px;"><input type="radio" name="stmt1" value="No" data-key="stmt1"></td>
+          </tr>
+          <tr style="border-bottom: 1px solid #eee;">
+            <td style="padding: 10px 8px;">Admin2 can reset the password of User2.</td>
+            <td style="text-align: center; padding: 10px 8px;"><input type="radio" name="stmt2" value="Yes" data-key="stmt2"></td>
+            <td style="text-align: center; padding: 10px 8px;"><input type="radio" name="stmt2" value="No" data-key="stmt2"></td>
+          </tr>
+          <tr>
+            <td style="padding: 10px 8px;">Admin3 can reset the password of User3.</td>
+            <td style="text-align: center; padding: 10px 8px;"><input type="radio" name="stmt3" value="Yes" data-key="stmt3"></td>
+            <td style="text-align: center; padding: 10px 8px;"><input type="radio" name="stmt3" value="No" data-key="stmt3"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  `,
+
+  answer: {
+    stmt1: "Yes",
+    stmt2: "Yes",
+    stmt3: "No"
+  },
+
+  explanation: `
+    <p>
+      <strong>Admin1 can reset the password of User1: Yes</strong><br>
+      <em>Explanation:</em> Admin1 is scoped with the appropriate permissions over administrative units containing User1, allowing them to perform password resets.
+    </p>
+    <p>
+      <strong>Admin2 can reset the password of User2: Yes</strong><br>
+      <em>Explanation:</em> Admin2 has the correct role scope assigned over the administrative unit containing User2.
+    </p>
+    <p>
+      <strong>Admin3 can reset the password of User3: No</strong><br>
+      <em>Explanation:</em> Admin3 lacks the necessary administrative unit scoped role or permissions for User3's specific administrative unit context.
+    </p>
+  `
+},
+{
+  id: 117,
+  type: "single",
+
+  question: `
+    <p><strong>Question 117</strong></p>
+    <p>You have a Microsoft Entra tenant that uses Microsoft Entra ID Protection and contains the users shown in the following table.</p>
+    
+    <div style="margin-bottom: 15px; text-align: center;">
+      <img src="images/q17_table1.jpg" alt="table 1" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+    </div>
+
+    <p>You need to implement a Conditional Access policy that enforces a remediation requirement for risky users. Which users can create the policy?</p>
+  `,
+
+  options: [
+    "User1 only",
+    "User1 and User2 only",
+    "User1 and User3 only",
+    "User1, User2, and User3"
+  ],
+
+  answer: 1,
+
+  explanation: `
+    <p>
+      <strong>Correct Answer: B (User1 and User2 only)</strong>
+    </p>
+    <p>
+      <em>Explanation:</em> Creating and managing Conditional Access policies requires appropriate administrative privileges (such as the Conditional Access Administrator or Security Administrator role), which are assigned to User1 and User2. User3 does not possess the required permissions.
+    </p>
+  `
+},
+{
+  id: 119,
+  type: "single",
+
+  question: `
+    <p>You configure a new Microsoft 365 tenant to use a default domain name of contoso.com.</p>
+    <p>You need to ensure that you can control access to Microsoft 365 resources by using conditional access policies.</p>
+    <p>What should you do first?</p>
+  `,
+
+  options: [
+    "Disable the User consent settings.",
+    "Disable Security defaults.",
+    "Configure a multi-factor authentication (MFA) registration policy.",
+    "Configure password protection for Windows Server Active Directory."
+  ],
+
+  answer: 1,
+
+  explanation: `
+    <p>
+      <strong>Why option B is correct:</strong><br>
+      Taken from article in answer: “If your tenant was created on or after October 22, 2019, it is possible security defaults are already enabled in your tenant. To protect all of our users, security defaults are being rolled out to all new tenants created.”<br>
+      To enable Conditional Access Policies (CAP), you have to disable Security defaults.
+    </p>
+    <p>
+      <strong>References:</strong><br>
+      https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/concept-fundamentals-security-defaults
+    </p>
+  `
+},
+{
+  id: 120,
+  type: "single",
+
+  question: `
+    <p>Your company has a Microsoft 365 tenant.</p>
+    <p>The company has a call center that contains 300 users. In the call center, the users share desktop computers and might use a different computer every day.</p>
+    <p>The call center computers are NOT configured for biometric identification.</p>
+    <p>The users are prohibited from having a mobile phone in the call center.</p>
+    <p>You need to require multi-factor authentication (MFA) for the call center users when they access Microsoft 365 services.</p>
+    <p>What should you include in the solution?</p>
+  `,
+
+  options: [
+    "a named network location",
+    "the Microsoft Authenticator app",
+    "Windows Hello for Business authentication",
+    "FIDO2 tokens"
+  ],
+
+  answer: 3,
+
+  explanation: `
+    <p>
+      <strong>Why option D is correct:</strong><br>
+      <ul>
+        <li><strong>A. a named network location:</strong> Not an MFA option.</li>
+        <li><strong>B. the Microsoft Authenticator app:</strong> No mobile phones are allowed in the call center.</li>
+        <li><strong>C. Windows Hello for Business authentication:</strong> There are no biometric options in the office, and the data is stored locally on the device, whereas users switch PCs every day.</li>
+        <li><strong>D. FIDO2 tokens:</strong> Ideal for shared workstation scenarios where users don't have phones and move between different computers daily, providing a secure hardware-based passwordless MFA method.</li>
+      </ul>
+    </p>
+    <p>
+      <strong>References:</strong><br>
+      https://docs.microsoft.com/en-us/azure/active-directory/authentication/concept-authentication-passwordless
+    </p>
+  `
+},
+{
+  id: 121,
+  type: "single",
+
+  question: `
+    <p>You have an Azure Active Directory (Azure AD) tenant named contoso.com.</p>
+    <p>All users who run applications registered in Azure AD are subject to conditional access policies. You need to prevent the users from using legacy authentication.</p>
+    <p>What should you include in the conditional access policies to filter out legacy authentication attempts?</p>
+  `,
+
+  options: [
+    "a cloud apps or actions condition",
+    "a user risk condition",
+    "a client apps condition",
+    "a sign-in risk condition"
+  ],
+
+  answer: 2,
+
+  explanation: `
+    <p>
+      <strong>Directly blocking legacy authentication:</strong><br>
+      The easiest way to block legacy authentication across your entire organization is by configuring a Conditional Access policy that applies specifically to legacy authentication clients and blocks access.
+    </p>
+    <p>
+      <strong>Client apps:</strong><br>
+      By default, all newly created Conditional Access policies will apply to all client app types even if the client apps condition is not configured.
+    </p>
+    <p>
+      <strong>References:</strong><br>
+      https://docs.microsoft.com/en-us/azure/active-directory/conditional-access/block-legacy-authentication
+    </p>
+  `
+},
+{
+  id: 122,
+  type: "single",
+
+  question: `
+    <p>You have an Azure Active Directory (Azure AD) tenant. You open the risk detections report.</p>
+    <p>Which risk detection type is classified as a user risk?</p>
+  `,
+
+  options: [
+    "impossible travel",
+    "anonymous IP address",
+    "atypical travel",
+    "leaked credentials"
+  ],
+
+  answer: 3,
+
+  explanation: `
+    <p>
+      <strong>Leaked credentials</strong> indicates that the user's valid credentials have been leaked.<br>
+      <em>Note:</em> There are several versions of this question in the exam. The question can have other incorrect answer options, including the following:<br>
+      • password spray<br>
+      • malicious IP address<br>
+      • unfamiliar sign-in properties
+    </p>
+    <p>
+      <strong>References:</strong><br>
+      https://docs.microsoft.com/en-us/azure/active-directory/identity-protection/concept-identity-protection-risks
+    </p>
+  `
+},
+{
+  id: 123,
+  type: "single",
+
+  question: `
+    <p>You have a Microsoft 365 tenant.</p>
+    <p>All users have computers that run Windows 10. Most computers are company-owned and joined to Azure Active Directory (Azure AD). Some computers are user- owned and are only registered in Azure AD.</p>
+    <p>You need to prevent users who connect to Microsoft SharePoint Online on their user-owned computer from downloading or syncing files. Other users must NOT be restricted.</p>
+    <p>Which policy type should you create?</p>
+  `,
+
+  options: [
+    "a Microsoft Cloud App Security activity policy that has Microsoft Office 365 governance actions configured",
+    "an Azure AD conditional access policy that has session controls configured",
+    "an Azure AD conditional access policy that has client apps conditions configured",
+    "a Microsoft Cloud App Security app discovery policy that has governance actions configured"
+  ],
+
+  answer: 2,
+
+  explanation: `
+    <p>
+      <strong>Why option C is correct:</strong><br>
+      After review this on a real tenant first you need to select SPO in Cloud apps or actions.<br>
+      That action will enable in session settings. App enforced restrictions might require additional admin configurations within the cloud apps. The restrictions will only take effect for new sessions.<br>
+      So because first action is configure the application that will be affected by sessions settings, choosing C, instead B can the option to select.
+    </p>
+    <p>
+      <em>Note on phrasing:</em> This is not worded properly enough. In CA, if you go into session controls and select 'Use Conditional Access App Control', you can monitor or block downloads. However, options like restricting downloads/syncs based on device state (such as user-owned devices) point towards utilizing conditional access controls.
+    </p>
+  `
+},
+{
+  id: 124,
+  type: "single",
+
+  question: `
+    <p>You have an Active Directory domain that syncs to an Azure Active Directory (Azure AD) tenant.</p>
+    <p>The on-premises network contains a VPN server that authenticates to the on-premises Active Directory domain. The VPN server does NOT support Azure Multi-Factor Authentication (MFA).</p>
+    <p>You need to recommend a solution to provide Azure MFA for VPN connections. What should you include in the recommendation?</p>
+  `,
+
+  options: [
+    "Azure AD Application Proxy",
+    "an Azure AD Password Protection proxy",
+    "Network Policy Server (NPS)",
+    "a pass-through authentication proxy"
+  ],
+
+  answer: 2,
+
+  explanation: `
+    <p>
+      <strong>The correct answer is C. Network Policy Server (NPS).</strong>
+    </p>
+    <p>
+      Network Policy Server (NPS) is a server role that allows you to implement RADIUS authentication, authorization, and accounting. You can use NPS to integrate Azure MFA with your VPN server.
+    </p>
+  `
+},
+{
+  id: 125,
+  type: "single",
+
+  question: `
+    <p>You have a Microsoft 365 tenant.</p>
+    <p>The Azure Active Directory (Azure AD) tenant is configured to sync with an on-premises Active Directory domain.</p>
+    <p>The domain contains the servers shown in the following table.</p>
+    
+    <div style="margin-bottom: 15px; text-align: center;">
+      <img src="images/q125_table1.jpg" alt="table 1" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+    </div>
+
+    <p>The domain controllers are prevented from communicating to the internet. You implement Azure AD Password Protection on Server1 and Server2.</p>
+    <p>You deploy a new server named Server4 that runs Windows Server 2019.</p>
+    <p>You need to ensure that Azure AD Password Protection will continue to work if a single server fails. What should you implement on Server4?</p>
+  `,
+
+  options: [
+    "Azure AD Connect",
+    "Azure AD Application Proxy",
+    "Password Change Notification Service (PCNS)",
+    "the Azure AD Password Protection proxy service"
+  ],
+
+  answer: 3,
+
+  explanation: `
+    <p>
+      <strong>The Azure AD Password Protection proxy service</strong> initiates an outbound connection (Port 443) to Azure to pull the banned password list.<br>
+      The downloaded banned password list is pulled by the agent installed on DCs.
+    </p>
+    <p>
+      <strong>References:</strong><br>
+      https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-password-ban-bad-on-premises-deploy
+    </p>
+  `
+},
+{
+  id: 126,
+  type: "dragdrop",
+
+  question: `
+    <p><strong>Question 126: Drag and Drop</strong></p>
+    <p>You have a Microsoft 365 E5 tenant. You purchase a cloud app named App1.</p>
+    <p>You need to enable real-time session-level monitoring of App1 by using Microsoft Cloud App Security.</p>
+    <p>In which order should you perform the actions? To answer, move the appropriate actions from the list of actions to the answer area and arrange them in the correct order.</p>
+  `,
+
+  items: [
+    { id: "act1", text: "From Microsoft Cloud App Security, create a session policy." },
+    { id: "act2", text: "Publish App1 in Azure Active Directory (Azure AD)." },
+    { id: "act3", text: "Create a conditional access policy that has session controls configured." },
+    { id: "act4", text: "From Microsoft Cloud App Security, modify the Connected apps settings for App1." }
+  ],
+
+  targets: [
+    { id: "step1", label: "Step 1" },
+    { id: "step2", label: "Step 2" },
+    { id: "step3", label: "Step 3" },
+    { id: "step4", label: "Step 4" }
+  ],
+
+  answer: {
+    step1: "act2",
+    step2: "act3",
+    step3: "act4",
+    step4: "act1"
+  },
+
+  explanation: `
+    <p>
+      <strong>Steps breakdown for real-time session monitoring with Microsoft Cloud App Security (MCAS):</strong>
+    </p>
+    <ol>
+      <li><strong>Publish App1 in Azure Active Directory (Azure AD):</strong> The application must first be integrated and published within Azure AD so it can be managed.</li>
+      <li><strong>Create a conditional access policy that has session controls configured:</strong> Route user traffic to MCAS using Conditional Access session controls (Conditional Access App Control).</li>
+      <li><strong>From Microsoft Cloud App Security, modify the Connected apps settings for App1:</strong> You need to connect the app via Conditional Access App Control within MCAS.</li>
+      <li><strong>From Microsoft Cloud App Security, create a session policy:</strong> Define specific real-time monitoring and control behaviors for the session.</li>
+    </ol>
+    <p>
+      <strong>References:</strong><br>
+      https://techcommunity.microsoft.com/t5/itops-talk-blog/step-by-step-blocking-data-downloads-via-microsoft-cloud-app/ba-p/326357
+    </p>
+  `
+},
+{
+  id: 127,
+  type: "single",
+
+  question: `
+    <p>You have a Microsoft 365 tenant.</p>
+    <p>All users have mobile phones and laptops.</p>
+    <p>The users frequently work from remote locations that do not have Wi-Fi access or mobile phone connectivity. While working from the remote locations, the users connect their laptop to a wired network that has internet access.</p>
+    <p>You plan to implement multi-factor authentication (MFA).</p>
+    <p>Which MFA authentication method can the users use from the remote location?</p>
+  `,
+
+  options: [
+    "a notification through the Microsoft Authenticator app",
+    "an app password",
+    "Windows Hello for Business",
+    "SMS"
+  ],
+
+  answer: 2,
+
+  explanation: `
+    <p>
+      In Windows 10, Windows Hello for Business replaces passwords with strong two-factor authentication on PCs and mobile devices. This authentication consists of a new type of user credential that is tied to a device and uses a biometric or PIN.
+    </p>
+    <p>
+      After an initial two-step verification of the user during enrollment, Windows Hello is set up on the user's device and Windows asks the user to set a gesture, which can be a biometric, such as a fingerprint, or a PIN. The user provides the gesture to verify their identity. Windows then uses Windows Hello to authenticate users.
+    </p>
+    <p>
+      <strong>Incorrect Answers:</strong><br>
+      • <strong>A:</strong> A notification through the Microsoft Authenticator app requires connectivity to send the verification code to the device requesting the logon.<br>
+      • <strong>B:</strong> An app password can be used to open an application but it cannot be used to sign in to a computer.<br>
+      • <strong>D:</strong> SMS requires a mobile phone.
+    </p>
+    <p>
+      <strong>References:</strong><br>
+      https://docs.microsoft.com/en-us/azure/active-directory/authentication/concept-authentication-methods<br>
+      https://docs.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/hello-overview
+    </p>
+  `
+},
+  {
+    id: 128,
+    type: "single",
+    question: `
+      <div style="border: 1px solid #b8daff; background-color: #e8f4f8; padding: 12px; border-radius: 4px; margin-bottom: 15px; font-size: 13px; color: #004085;">
+        This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.<br><br>
+        After you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.
+      </div>
+      <p style="text-align: left;">You have a Microsoft 365 tenant.</p><br>
+      <p style="text-align: left;">All users must use the Microsoft Authenticator app for multi-factor authentication (MFA) when accessing Microsoft 365 services.</p><br>
+      <p style="text-align: left;">Some users report that they received an MFA prompt on their Microsoft Authenticator app without initiating a sign-in request.</p><br>
+      <p style="text-align: left;">You need to block the users automatically when they report an MFA request that they did not initiate.</p><br>
+      <p style="text-align: left;"><strong>Solution:</strong> From the Azure portal, you configure the Notifications settings for multi-factor authentication (MFA). Does this meet the goal?</p>
+    `,
+    options: ["Yes", "No"],
+    answer: 1, // B = No
+    explanation: `
+      <p>You need to configure the fraud alert settings.</p>
+      <p><strong>Reference:</strong> https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-mfa-mfasettings</p>
+    `
+  },
+  {
+    id: 129,
+    type: "single",
+    question: `
+      <div style="border: 1px solid #b8daff; background-color: #e8f4f8; padding: 12px; border-radius: 4px; margin-bottom: 15px; font-size: 13px; color: #004085;">
+        This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.<br><br>
+        After you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.
+      </div>
+      <p style="text-align: left;">You have a Microsoft 365 tenant.</p><br>
+      <p style="text-align: left;">All users must use the Microsoft Authenticator app for multi-factor authentication (MFA) when accessing Microsoft 365 services.</p><br>
+      <p style="text-align: left;">Some users report that they received an MFA prompt on their Microsoft Authenticator app without initiating a sign-in request.</p><br>
+      <p style="text-align: left;">You need to block the users automatically when they report an MFA request that they did not initiate.</p><br>
+      <p style="text-align: left;"><strong>Solution:</strong> From the Azure portal, you configure the Account lockout settings for multi-factor authentication (MFA). Does this meet the goal?</p>
+    `,
+    options: ["Yes", "No"],
+    answer: 1, // B = No
+    explanation: `
+      <p>The account lockout settings are applied only when a PIN code is entered for the MFA prompt. To automatically block users who report fraud, you need to configure Fraud Alert settings.</p>
+      <p><strong>Reference:</strong> https://learn.microsoft.com/en-us/azure/active-directory/authentication/howto-mfa-mfasettings</p>
+    `
+  },
+  {
+    id: 130,
+    type: "single",
+    question: `
+      <div style="border: 1px solid #b8daff; background-color: #e8f4f8; padding: 12px; border-radius: 4px; margin-bottom: 15px; font-size: 13px; color: #004085;">
+        This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.<br><br>
+        After you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.
+      </div>
+      <p style="text-align: left;">You have a Microsoft 365 tenant.</p><br>
+      <p style="text-align: left;">All users must use the Microsoft Authenticator app for multi-factor authentication (MFA) when accessing Microsoft 365 services.</p><br>
+      <p style="text-align: left;">Some users report that they received an MFA prompt on their Microsoft Authenticator app without initiating a sign-in request.</p><br>
+      <p style="text-align: left;">You need to block the users automatically when they report an MFA request that they did not initiate.</p><br>
+      <p style="text-align: left;"><strong>Solution:</strong> From the Azure portal, you configure the Block/unblock users settings for multi-factor authentication (MFA). Does this meet the goal?</p>
+    `,
+    options: ["Yes", "No"],
+    answer: 1, // B = No
+    explanation: `
+      <p>You need to configure the fraud alert settings under Azure Active Directory > Security > Multifactor authentication > Fraud alert to automatically block users when they submit fraud alerts.</p>
+      <p><strong>Reference:</strong> https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-mfa-mfasettings</p>
+    `
+  },
+{
+  id: 131,
+  type: "dropdown",
+
+  question: `
+    <div style="border: 1px solid #b8daff; background-color: #e8f4f8; padding: 12px; border-radius: 4px; margin-bottom: 15px; font-size: 13px; color: #004085;">
+      This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.<br><br>
+      After you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.
+    </div>
+    <p style="text-align: left;">You have a Microsoft 365 tenant.</p>
+    <p style="text-align: left;">You need to identify users who have leaked credentials. The solution must meet the following requirements:</p>
+    <ul style="margin-top: 5px; margin-bottom: 15px;">
+      <li style="text-align: left;">Identify sign-ins by users who are suspected of having leaked credentials.</li>
+      <li style="text-align: left;">Flag the sign-ins as a high-risk event.</li>
+      <li style="text-align: left;">Immediately enforce a control to mitigate the risk, while still allowing the user to access applications. What should you use? To answer, select the appropriate options in the answer area.</li>
+    </ul>
+
+    <div style="margin-top: 15px; background: #f9f9f9; padding: 15px; border: 1px solid #ddd; border-radius: 4px;">
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <label style="text-align: left; font-weight: 500;">To classify leaked credentials as high-risk, use:</label>
+          <select class="inline-select" data-key="dropdown_1" style="padding: 6px; width: 100%;">
+            <option value="">-- Select Option --</option>
+            <option value="Azure Active Directory (Azure AD) Identity Protection">Azure Active Directory (Azure AD) Identity Protection</option>
+            <option value="Azure Active Directory (Azure AD) Privileged Identity Management (PIM)">Azure Active Directory (Azure AD) Privileged Identity Management (PIM)</option>
+            <option value="Identity Governance">Identity Governance</option>
+            <option value="Self-service password reset (SSPR)">Self-service password reset (SSPR)</option>
+          </select>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <label style="text-align: left; font-weight: 500;">To trigger remediation, use:</label>
+          <select class="inline-select" data-key="dropdown_2" style="padding: 6px; width: 100%;">
+            <option value="">-- Select Option --</option>
+            <option value="Client apps not using Modern authentication">Client apps not using Modern authentication</option>
+            <option value="Device state">Device state</option>
+            <option value="Sign-in risk">Sign-in risk</option>
+            <option value="User location">User location</option>
+            <option value="User risk">User risk</option>
+          </select>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <label style="text-align: left; font-weight: 500;">To mitigate the risk, select:</label>
+          <select class="inline-select" data-key="dropdown_3" style="padding: 6px; width: 100%;">
+            <option value="">-- Select Option --</option>
+            <option value="Apply app enforced restrictions">Apply app enforced restrictions</option>
+            <option value="Block access">Block access</option>
+            <option value="Grant access but require app protection policy">Grant access but require app protection policy</option>
+            <option value="Grant access but require password change">Grant access but require password change</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  `,
+
+  answer: {
+    dropdown_1: "Azure Active Directory (Azure AD) Identity Protection",
+    dropdown_2: "Sign-in risk",
+    dropdown_3: "Grant access but require password change"
+  },
+
+  explanation: `
+    <p><strong>Explanation:</strong></p>
+    <ul>
+      <li><strong>Azure Active Directory (Azure AD) Identity Protection:</strong> Used to detect risks such as leaked credentials.</li>
+      <li><strong>Sign-in risk:</strong> Used to flag sign-in attempts as high-risk events based on conditions like leaked credentials during sign-in policies.</li>
+      <li><strong>Grant access but require password change:</strong> Mitigates the risk by enforcing a control while still allowing the user to access applications securely via password remediation.</li>
+    </ul>
+    <p>
+      <strong>References:</strong><br>
+      https://docs.microsoft.com/en-us/azure/active-directory/identity-protection/concept-identity-protection-risks
+    </p>
+  `
+},
+{
+  id: 132,
+  type: "dropdown",
+
+  question: `
+    <p><strong>Question 132: Hotspot</strong></p>
+    <p>You have an Azure Active Directory (Azure AD) tenant that contains the users shown in the following table.</p>
+    
+    <div style="margin-bottom: 15px; text-align: center;">
+      <img src="images/q132_table1.jpg" alt="q132 table 1" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+    </div>
+
+    <p style="text-align: left;">You plan to implement Azure AD Identity Protection.</p>
+    <p style="text-align: left;">Which users can configure the user risk policy, and which users can view the risky users report? To answer, select the appropriate options in the answer area.</p>
+    <p style="text-align: left;"><em>NOTE: Each correct selection is worth one point.</em></p>
+
+    <div style="margin-top: 15px; background: #f9f9f9; padding: 15px; border: 1px solid #ddd; border-radius: 4px;">
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <label style="text-align: left; font-weight: 500;">Configure the user risk policy:</label>
+          <select class="inline-select" data-key="dropdown_1" style="padding: 6px; width: 100%;">
+            <option value="">-- Select Option --</option>
+            <option value="User3 only">User3 only</option>
+            <option value="User3 and User4 only">User3 and User4 only</option>
+            <option value="User1, User2, and User3 only">User1, User2, and User3 only</option>
+            <option value="User1, User3, and User4 only">User1, User3, and User4 only</option>
+            <option value="User1, User2, User3, and User4">User1, User2, User3, and User4</option>
+          </select>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <label style="text-align: left; font-weight: 500;">View the risky users report:</label>
+          <select class="inline-select" data-key="dropdown_2" style="padding: 6px; width: 100%;">
+            <option value="">-- Select Option --</option>
+            <option value="User3 only">User3 only</option>
+            <option value="User3 and User4 only">User3 and User4 only</option>
+            <option value="User1, User2, and User3 only">User1, User2, and User3 only</option>
+            <option value="User1, User3, and User4 only">User1, User3, and User4 only</option>
+            <option value="User1, User2, User3, and User4">User1, User2, User3, and User4</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  `,
+
+  answer: {
+    dropdown_1: "User3 only",
+    dropdown_2: "User3 and User4 only"
+  },
+
+  explanation: `
+    <p><strong>Explanation:</strong></p>
+    <ul>
+      <li><strong>Configure the user risk policy:</strong> <strong>User3 only</strong> (Security Administrator). Security Administrators have update access to Identity Protection policies like the user risk policy.</li>
+      <li><strong>View the risky users report:</strong> <strong>User3 and User4 only</strong> (Security Administrator and Security Operator). Both roles have permissions to read/view Identity Protection reports such as the Risky Users Report.</li>
+    </ul>
+    <p>
+      <strong>References:</strong><br>
+      https://docs.microsoft.com/en-us/azure/active-directory/identity-protection/overview-identity-protection
+    </p>
+  `
+}
 ];
-///*SIMULATION QUESTION FROM 81 - 84 IS SKIPT*///
+///*SIMULATION QUESTION FROM 81 - 84 IS SKIPT* question: 111 needs clarifications for its corresponding answer ///
+///* question 3 missing table*///
+
+///* question 112 needs clarification for its answer*///
+///* question 113 needs clarification for its answer*///
+///* question 115, 116 ,118 simulation well get back later*///
+///* question 115, 116 , simulation well get back later*///
+///* question 123 , explanation is confusing*///

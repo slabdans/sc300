@@ -639,22 +639,7 @@ function finishExam() {
     timeTakenStr = `${minsTaken}m ${secsTaken}s`;
   }
 
-  // Send result log to Google Sheets automatically
-  sendExamLogToGoogleSheets(`${percentage}%`, timeTakenStr);
-}
-
-function sendExamLogToGoogleSheets(scorePercentage, timeTakenStr) {
-  const logStatusEl = document.getElementById("log-status");
-  const nameVal = document.getElementById("participantName").value.trim() || "Anonymous";
-  const emailVal = document.getElementById("participantEmail").value.trim() || "N/A";
-
-  const payload = {
-    name: nameVal,
-    email: emailVal,
-    score: scorePercentage,
-    timeTaken: timeTakenStr
-  };
-
+ sendExamLogToGoogleSheets
   if (!GOOGLE_SHEET_WEB_APP_URL || GOOGLE_SHEET_WEB_APP_URL.includes("YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE")) {
     if (logStatusEl) logStatusEl.textContent = "Warning: Google Sheet Web App URL is not configured.";
     return;

@@ -3391,5 +3391,1017 @@ By using this cmdlet, you can set the appropriate parameters to block self-servi
       User3: InvalidSoftMatch error occurs — A "Soft Match" happens when the sync engine tries to join an on-premises user to an existing cloud-only user based on their Primary SMTP address or UserPrincipalName. An InvalidSoftMatch typically means the ImmutableID (the unique anchor) is already set on the cloud object and doesn't match the on-premises user, or the account types are incompatible (e.g., trying to soft-match a user to a group).
     </div>
   `
-}
+},
+	{
+  id: 76,
+  type: "single",
+  question: `
+    <p>You have a Microsoft 365 tenant that uses the domain name fabrikam.com.</p>
+    <p>The External collaboration settings are configured as shown in the Collaboration exhibit. (Click the Collaboration tab.)</p>
+    
+    <p>&lt;insert clickable image named: collaboration tab here&gt;</p> 
+    
+    <p>The Email one-time passcode for guests setting is enabled for the tenant.</p>
+    <p>A user named bsmith@fabrikam.com shares a Microsoft SharePoint Online document library to the users shown in the following table.</p>
+    
+    <p>&lt;insert table here&gt;</p>
+    
+    <p>Which users will be emailed a passcode?</p>
+  `,
+  options: [
+    "User1 only",
+    "User2 only",
+    "User1 and User2 only",
+    "User1, User2, and User3"
+  ],
+  answer: 1, // Index 1 correlates to "User2 only"
+  explanation: `
+    <p><strong>Correct Answer: B (User2 only)</strong></p>
+    <p>Here, bsmith@fabrikam.com is an internal user of the tenant domain fabrikam.com.</p><br>
+    <p><strong>User3 (Internal User):</strong> Belongs to the same tenant domain (fabrikam.com), so they authenticate natively and do not trigger the guest passcode flow.</p><br>
+    <p><strong>User1 (Existing Guest / Account Holder):</strong> Authenticates via their existing Microsoft Entra account, Microsoft account (MSA), or federated identity provider rather than needing a one-time passcode.</p><br>
+    <p><strong>User2 (External Guest):</strong> Lacks a pre-existing Microsoft Entra account, Microsoft account, or federated social login. Because the Email one-time passcode for guests feature is enabled, they will receive a one-time passcode via email.</p>
+  `
+},
+{
+  id: 77,
+  type: "single",
+  question: `
+    <p>You have an Azure subscription named Sub1 that contains a virtual machine named VM1.</p>
+    <p>You need to enable Microsoft Entra login for VM1 and configure VM1 to access the resources in Sub1. Which type of identity should you assign to VM1?</p>
+  `,
+  options: [
+    "Microsoft Entra user account",
+    "user-assigned managed identity",
+    "Azure Automation account",
+    "system-assigned managed identity"
+  ],
+  answer: 3, // Index 3 correlates to "system-assigned managed identity"
+  explanation: `
+    <p><strong>Correct Answer: D (system-assigned managed identity)</strong></p>
+    <p>System-assigned managed identity: This type of managed identity is enabled directly on an Azure resource. In this case, enabling a system-assigned managed identity on VM1 would allow VM1 to authenticate with other Azure resources within Sub1, using the identity associated with VM1.</p>
+  `
+},
+{
+  id: 78,
+  type: "single",
+  question: `
+    <div style="border: 1px solid #b8daff; background-color: #e8f4f8; padding: 12px; border-radius: 4px; margin-bottom: 15px; font-size: 13px; color: #004085;">
+      <strong>Scenario (Questions 78-80):</strong><br>
+      This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.<br><br>
+      <em>After you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.</em><br><br>
+      You have 2,500 users who are assigned Microsoft Office 365 Enterprise E3 licenses. The licenses are assigned to individual users.<br>
+      From the Groups blade in the Microsoft Entra admin center, you assign Microsoft Office 365 Enterprise E5 licenses to a group that includes all users.
+    </div>
+    <p><strong>Question 78</strong></p>
+    <p>You need to remove the Office 365 Enterprise E3 licenses from the users by using the least amount of administrative effort.</p>
+    <p><strong>Solution:</strong> You use the the Set-MgUserLicense cmdlet.</p>
+  `,
+  options: [
+    "the Set-WindowsProductKey cmdlet",
+    "the Update-MgGroup cmdlet",
+    "the Set-MgUserLicense cmdlet",
+    "the Update-MgUser cmdlet"
+  ],
+  answer: 2, // Index 2 correlates to "the Set-MgUserLicense cmdlet"
+  explanation: `
+    <p><strong>Correct Answer: C (the Set-MgUserLicense cmdlet)</strong></p>
+    <p>To remove the Office 365 Enterprise E3 licenses from the users who are now part of a group with Office 365 Enterprise E5 licenses assigned, you should use the Set-MgUserLicense cmdlet. This cmdlet allows you to modify the licenses assigned to a user. By using this cmdlet, you can remove the Office 365 Enterprise E3 licenses from all users who are part of the group where you assigned the Office 365 Enterprise E5 licenses.</p>
+  `
+},
+{
+  id: 79,
+  type: "single",
+  question: `
+    <div style="border: 1px solid #b8daff; background-color: #e8f4f8; padding: 12px; border-radius: 4px; margin-bottom: 15px; font-size: 13px; color: #004085;">
+      <strong>Scenario (Questions 78-80):</strong><br>
+      This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.<br><br>
+      <em>After you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.</em><br><br>
+      You have 2,500 users who are assigned Microsoft Office 365 Enterprise E3 licenses. The licenses are assigned to individual users.<br>
+      From the Groups blade in the Microsoft Entra admin center, you assign Microsoft Office 365 Enterprise E5 licenses to a group that includes all users.
+    </div>
+    <p><strong>Question 79</strong></p>
+    <p>You need to remove the Office 365 Enterprise E3 licenses from the users by using the least amount of administrative effort.</p>
+    <p><strong>Solution:</strong> You use the Licenses blade in the Microsoft Entra admin center.</p>
+  `,
+  options: [
+    "the Licenses blade in the Microsoft Entra admin center",
+    "the Administrative units blade in the Microsoft Entra admin center",
+    "the Identity Governance blade in the Microsoft Entra admin center",
+    "the Update-MgUser cmdlet"
+  ],
+  answer: 0, // Index 0 correlates to "the Licenses blade in the Microsoft Entra admin center"
+  explanation: `
+    <p><strong>Correct Answer: A (the Licenses blade in the Microsoft Entra admin center)</strong></p>
+    <p>To remove the Office 365 Enterprise E3 licenses from the users who are now part of a group with Office 365 Enterprise E5 licenses assigned, you should use the "Licenses" blade in the Microsoft Entra admin center. This allows you to manage license assignments at a group level, making it easier to apply and remove licenses for multiple users simultaneously.</p>
+  `
+},
+{
+  id: 80,
+  type: "single",
+  question: `
+    <div style="border: 1px solid #b8daff; background-color: #e8f4f8; padding: 12px; border-radius: 4px; margin-bottom: 15px; font-size: 13px; color: #004085;">
+      <strong>Scenario (Questions 78-80):</strong><br>
+      This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.<br><br>
+      <em>After you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.</em><br><br>
+      You have 2,500 users who are assigned Microsoft Office 365 Enterprise E3 licenses. The licenses are assigned to individual users.<br>
+      From the Groups blade in the Microsoft Entra admin center, you assign Microsoft Office 365 Enterprise E5 licenses to a group that includes all users.
+    </div>
+    <p><strong>Question 80</strong></p>
+    <p>You need to remove the Office 365 Enterprise E3 licenses from the users by using the least amount of administrative effort.</p>
+    <p><strong>Solution:</strong> You use the Set-MgUserLicense cmdlet.</p>
+  `,
+  options: [
+    "the Identity Governance blade in the Microsoft Entra admin center",
+    "the Update-MgGroup cmdlet",
+    "the Set-MgUserLicense cmdlet",
+    "the Administrative units blade in the Microsoft Entra admin center"
+  ],
+  answer: 2, // Index 2 correlates to "the Set-MgUserLicense cmdlet"
+  explanation: `
+    <p><strong>Correct Answer: C (the Set-MgUserLicense cmdlet)</strong></p>
+    <p>The Set-MgUserLicense cmdlet (part of Microsoft Graph PowerShell) allows you to add or remove licenses for a user programmatically.</p><br>
+    <p>You can automate the removal of the E3 license from all 2,500 users by scripting the process.</p><br>
+    <p>This approach avoids manual removal and provides the least administrative effort compared to doing it through the GUI.</p>
+  `
+},
+{
+  id: 85,
+  type: "dropdown",
+  question: `
+    <p><strong>Question 85: Hotspot</strong></p>
+    <p>You have a Microsoft Entra tenant named contoso.com that contains an administrative unit named AU1 and two users named User1 and User2. User1 is a member of AU1.</p>
+    <p>You need to perform the following role assignments:</p>
+    <ul>
+      <li>User1: Security Administrator</li>
+      <li>User2: User Administrator</li>
+    </ul>
+    <p>For which scopes can each user be assigned the role?</p>
+    <p>To answer, select the appropriate options in the answer area.</p>
+    <p><em>NOTE: Each correct selection is worth one point.</em></p>
+
+    <div style="margin-top: 15px; background: #f9f9f9; padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
+      <p style="margin-bottom: 8px;"><strong>User1:</strong> 
+        <select class="inline-select" data-key="user1" style="padding: 6px; margin-left: 10px;">
+          <option value="">-- Select Option --</option>
+          <option value="AU1 only">AU1 only</option>
+          <option value="contoso.com only">contoso.com only</option>
+          <option value="AU1 and contoso.com">AU1 and contoso.com</option>
+        </select>
+      </p>
+      <p style="margin-bottom: 0;"><strong>User2:</strong> 
+        <select class="inline-select" data-key="user2" style="padding: 6px; margin-left: 10px;">
+          <option value="">-- Select Option --</option>
+          <option value="AU1 only">AU1 only</option>
+          <option value="contoso.com only">contoso.com only</option>
+          <option value="AU1 and contoso.com">AU1 and contoso.com</option>
+        </select>
+      </p>
+    </div>
+  `,
+  answer: {
+    user1: "contoso.com only",
+    user2: "AU1 and contoso.com"
+  },
+  explanation: `
+    <p><strong>User1 : contoso.com only.</strong></p>
+    <p>This means User1 has administrative privileges for the entire domain but not specifically for AU1. They can manage all users and resources under contoso.com, except for any AU-specific restrictions.</p>
+    <p><strong>User2 : AU1 and contoso.com.</strong></p>
+    <p>User2 has access to both AU1 and the entire domain (contoso.com).</p>
+    <p>They can manage users in AU1 and also work with global settings for the domain. This is the most powerful access level compared to the other options.</p>
+  `
+},
+{
+  id: 86,
+  type: "single",
+  question: `
+    <p><strong>Question 86</strong></p>
+    <p>You have 2,500 users who are assigned Microsoft Office 365 Enterprise E3 licenses. The licenses are assigned to individual users.</p>
+    <p>From the Groups blade in the Microsoft Entra admin center, you assign Microsoft Office 365 Enterprise E5 licenses to a group that includes all users.</p>
+    <p>You need to remove the Office 365 Enterprise E3 licenses from the users by using the least amount of administrative effort.</p>
+    <p>What should you use?</p>
+  `,
+  options: [
+    "the Set-MgUserLicense cmdlet",
+    "the Identity Governance blade in the Microsoft Entra admin center",
+    "the Groups blade in the Microsoft Entra admin center",
+    "the Update-MgGroup cmdlet"
+  ],
+  answer: 0, // Corresponds to "the Set-MgUserLicense cmdlet"
+  explanation: `
+    <p><strong>Correct Answer: A (the Set-MgUserLicense cmdlet)</strong></p>
+    <p><strong>Direct license reassignment:</strong> Set-MgUserLicense lets you add or remove specific SKUs (e.g., E5) from individual user objects in Microsoft Graph. Because the 2,500 users are already licensed with E3, you can target each user and replace the E3 SKU with E5 in a single PowerShell operation, achieving the removal of E3 with minimal manual steps.</p>
+    <p><strong>Automation-friendly:</strong> The cmdlet accepts pipeline input and can be scripted to process many accounts, which is essential when dealing with thousands of users.</p>
+    <p><strong>Least administrative overhead:</strong> No additional blades or UI navigation are required; the operation is performed from a PowerShell session that can be run once and left unattended.</p>
+  `
+},
+{
+  id: 87,
+  type: "single",
+  question: `
+    <p><strong>Question 87</strong></p>
+    <p>You have an Azure subscription that contains a storage account named storage1.</p>
+    <p>You plan to deploy an app named App1 that will be hosted on multiple virtual machines. The virtual machines will authenticate to a third-party API by using secrets.</p>
+    <p>You need to recommend an authentication solution for the virtual machines. The solution must meet the following requirements:</p>
+    <ul>
+      <li>Securely store secrets.</li>
+      <li>Ensure that credentials do NOT need to be stored in the App1 code.</li>
+      <li>Ensure that the virtual machines can access Azure resources by using Microsoft Entra authentication.</li>
+      <li>Minimize administrative effort.</li>
+    </ul>
+    <p>What should you include in the recommendation?</p>
+  `,
+  options: [
+    "user accounts and Storage Service Encryption",
+    "user-assigned managed identities and Azure Key Vault",
+    "user accounts and Azure Key Vault",
+    "system assigned managed identities and Storage Service Encryption"
+  ],
+  answer: 1, // Corresponds to "user-assigned managed identities and Azure Key Vault"
+  explanation: `
+    <p><strong>Correct Answer: B (user-assigned managed identities and Azure Key Vault)</strong></p>
+    <p><strong>Securely store secrets:</strong> Azure Key Vault is the dedicated service for securely storing and controlling access to tokens, passwords, certificates, and API keys.</p>
+    <p><strong>No credentials in App1 code:</strong> By using a Managed Identity, the application requests a token from the Azure Instance Metadata Service (IMDS). The code never sees or stores a password or client secret.</p>
+  `
+},{
+  id: 88,
+  type: "matrix",
+  question: `
+    <p><strong>Question 88: Hot Spot</strong></p>
+    <p>You have an Azure subscription named Sub1 that contains the resources shown in the following table.</p>
+    <div style="margin-bottom: 15px; text-align: center;">
+        <img src="images/q88_table1.jpg" alt="table1" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+
+    <p>Sub1 contains the managed identities shown in the following table.</p>
+    <div style="margin-bottom: 15px; text-align: center;">
+        <img src="images/q88_table2.jpg" alt="table2" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+    <p>Sub1 has the role-based access control (RBAC) role assignments shown in the following table.</p>
+    <div style="margin-bottom: 15px; text-align: center;">
+        <img src="images/q88_table3.jpg" alt="table3" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+
+    <p>For each of the following statements, select Yes if the statement is true. Otherwise, select No.</p>
+    <p><em>NOTE: Each correct selection is worth one point.</em></p>
+  `,
+  rows: [
+    { id: "stmt1", label: "Automation1 can access the contents of the secrets stored in Vault1." },
+    { id: "stmt2", label: "Identity2 can be assigned to Automation2 to gain access to the contents of the secrets stored in Vault1." },
+    { id: "stmt3", label: "VM1 can access the contents of the secrets stored in Vault1." }
+  ],
+  answer: {
+    stmt1: 1, // No (Index 1: Yes=0, No=1)
+    stmt2: 0, // Yes (Index 0: Yes=0, No=1)
+    stmt3: 0  // Yes (Index 0: Yes=0, No=1)
+  },
+  explanation: `
+    <p><strong>Automation1 can access the contents of the secrets stored in Vault1. No:</strong> Even if Automation1 is an established resource, it cannot access Key Vault secrets unless an Access Policy or Azure RBAC role (like Key Vault Secrets User) has been explicitly granted to its identity.</p>
+    
+    <p><strong>Identity2 can be assigned to Automation2 to gain access to the contents of the secrets stored in Vault1. Yes:</strong> This refers to using a User-Assigned Managed Identity. You can create an identity (Identity2), grant it permissions to the Key Vault, and then "assign" it to a resource like Automation2 so that the resource inherits those permissions.</p>
+    
+    <p><strong>VM1 can access the contents of the secrets stored in Vault1. Yes:</strong> This assumes VM1 has a System-Assigned Managed Identity enabled and that this specific identity has been added to the Key Vault's access control list.</p>
+  `
+},
+{
+  id: 89,
+  type: "single",
+  question: `
+    <p><strong>Question 89</strong></p>
+    <p>You have an Azure subscription that contains an Azure Automation account named Automation1.</p>
+    <p>You need to grant Automation1 access to Azure resources. The solution must meet the following requirements:</p>
+    <ul>
+      <li>Ensure that any permissions granted to Automation1 are removed when the account is deleted.</li>
+      <li>Minimize administrative effort.</li>
+    </ul>
+    <p>What should you use?</p>
+  `,
+  options: [
+    "a client secret",
+    "a system-assigned managed identity",
+    "a certificate",
+    "user-assigned managed identity"
+  ],
+  answer: 1, // Corresponds to "a system-assigned managed identity"
+  explanation: `
+    <p><strong>Correct Answer: B (a system-assigned managed identity)</strong></p>
+    <p><strong>System-Assigned Managed Identity Lifecycle:</strong> Created and managed by Azure. The identity is tied to the lifecycle of the Azure resource. When the resource is deleted, the identity is automatically deleted as well.</p>
+    <p><strong>Scope:</strong> Each system-assigned managed identity is unique to a single Azure resource. It cannot be shared across multiple resources.</p>
+    <p><strong>Use Case:</strong> IIdeal for scenarios where you want the identity to be automatically managed and deleted with the resource1.
+</p>
+  `
+},
+{
+  id: 90,
+  type: "single",
+  question: `
+    <p><strong>Question 90</strong></p>
+    <p>You have a Microsoft Entra tenant named contoso.com that contains an enterprise application named App1. A contractor uses the credentials of contractor@fabrikam.com.</p>
+    <p>You need to ensure that you can provide the contractor with access to App1. The contractor must be able to authenticate as contractor@fabrikam.com.</p>
+    <p>What should you do?</p>
+  `,
+  options: [
+    "Add a custom domain name to contoso.com.",
+    "Configure the External collaboration settings.",
+    "Create a guest user account in contoso.com.",
+    "Add a WS-Fed identity provider."
+  ],
+  answer: 2, // Corresponds to "Create a guest user account in contoso.com."
+  explanation: `
+    <p><strong>Correct option: C – Create a guest user account in contoso.com</strong></p>
+    <p>The contractor’s identity is external to the tenant; Azure AD supports guest (external) identities that can be added as users in the tenant.</p>
+    <p>Adding the contractor as a guest user creates a directory object (e.g., contractor@contoso.com) that can be assigned licenses, roles, and access to enterprise applications such as App1.</p>
+    <p>Once the guest account exists, you can assign the appropriate application role (or assign the user directly) so the contractor can authenticate to App1 using their own credentials (contractor@fabrikam.com).</p>
+    <p>Guest accounts are managed through the Azure AD portal or Graph API, allowing you to control consent, conditional access, and lifecycle (e.g., expiration) – all required for secure external collaboration.</p>
+    <p><strong>Why the other options are not appropriate</strong></p>
+    <p><strong>A – Add a custom domain name to contoso.com:</strong> Adding a domain only enables you to verify ownership of the domain and route email; it does not create a user identity or grant application access.</p>
+    <p><strong>B – Configure the External collaboration settings:</strong> While external collaboration settings control how guests can be invited, they do not themselves create the guest account or provide authentication to a specific application.</p>
+    <p><strong>D – Add a WS-Fed identity provider:</strong> Introducing a WS-Fed IdP is useful for federation scenarios where you want to authenticate against an external identity system, but it does not directly create a user record in Azure AD or allow the contractor to sign-in with their existing email address.</p>
+    <p>Therefore, the most direct and compliant method to enable the contractor to authenticate as contractor@fabrikam.com and access App1 is to create a guest user account in the tenant.</p>
+  `
+},
+{
+  id: 91,
+  type: "matrix",
+  question: `
+    <p><strong>Question 91</strong></p>
+    <p>You have two Microsoft Entra tenants named <code>contoso.com</code> and <code>fabrikam.com</code>. Contoso.com contains the users shown in the following table.</p>
+
+<div style="margin-bottom: 15px; text-align: center;">
+        <img src="images/q91_table1.jpg" alt="user & Ou" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+      </div>
+    
+    
+    <p>Contoso.com contains the groups shown in the following table.</p>
+
+<div style="margin-bottom: 15px; text-align: center;">
+        <img src="images/q91_table2.jpg" alt="Group Members" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+      </div>
+   
+    <p>You configure cross-tenant synchronization from <code>contoso.com</code> to <code>fabrikam.com</code> and enable cross-tenant synchronization for User3 and Group2.</p>
+    <p>For each of the following statements, select Yes if the statement is true. Otherwise, select No.</p>
+  `,
+  rows: [
+    { id: "stmt1", label: "User1 will sync to fabrikam.com." },
+    { id: "stmt2", label: "User2 will sync to fabrikam.com." },
+    { id: "stmt3", label: "User3 will sync to fabrikam.com." }
+  ],
+  answer: {
+    stmt1: 1, // No (assuming 1 represents No / index or boolean mapping depending on schema, let's look at index: Yes=0, No=1 based on typical matrix format where columns are Yes, No)
+    stmt2: 0, // Yes
+    stmt3: 0  // Yes
+  },
+  explanation: `
+    <p><strong>User1 will sync: No</strong> - This user is typically located in an unselected OU (e.g., a "Disabled Users" or "Staging" folder) that has been unchecked in the Entra Connect configuration wizard. Alternatively, they may lack a required attribute (like a valid UPN or mail nickname) that the sync rules use as a filter.</p>
+    <p><strong>User2 and User3 will sync: Yes</strong> - These users are located within the included OUs. Even if they are in different sub-folders, as long as the parent OU is selected for synchronization and they don't have any specific "do not sync" flags on their account, they will appear in the fabrikam.com tenant.</p>
+  `
+},
+{
+  id: 92,
+  type: "single",
+  question: `
+    <p><strong>Question 92</strong></p>
+    <p>You have a Microsoft Exchange organization that uses an SMTP address space of contoso.com. Several users use their contoso.com email address for self-service sign-up to Microsoft Entra.</p>
+    <p>You gain global administrator privileges to the Microsoft Entra tenant that contains the self-signed users.</p>
+    <p>You need to prevent the users from creating user accounts in the contoso.com Microsoft Entra tenant for self-service sign-up to Microsoft 365 services.</p>
+    <p>Which PowerShell cmdlet should you run?</p>
+  `,
+  options: [
+    "Update-MgPolicyAuthorizationPolicy",
+    "Update-MgDomain",
+    "Update-MgPolicyPermissionGrantPolicyExclude",
+    "Update-MgDomainFederationConfiguration"
+  ],
+  answer: 0, // Corresponds to "Update-MgPolicyAuthorizationPolicy"
+  explanation: `
+    <p><strong>Correct Answer: A – Update-MgPolicyAuthorizationPolicy</strong></p>
+    <p>To prevent self-service sign-up to Microsoft 365 services for users with the contoso.com domain, you need to modify the authorization policy of the tenant. The Update-MgPolicyAuthorizationPolicy cmdlet is used to update the authorization policies, including enabling or disabling self-service sign-up options.</p>
+    <p>This approach allows you to control the self-service registration feature at the tenant level, ensuring that users cannot create accounts using the contoso.com email domain.</p>
+  `
+},
+{
+  id: 93,
+  type: "single",
+  question: `
+    <p><strong>Question 93</strong></p>
+    <p>You have a Microsoft Entra tenant that contains the users shown in the following table.</p>
+<div style="margin-bottom: 15px; text-align: center;">
+
+        <img src="images/q93_table1.jpg" alt="members group" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+      </div>
+    
+    <ul>
+      <li>Allow users to request access to this application: Yes</li>
+      <li>To which group should assigned users be added: Group1</li>
+      <li>Require approval before granting access to this application: Yes</li>
+      <li>Who is allowed to approve access to this application: User2</li>
+    </ul>
+    <p>Which users can request access to App1?</p>
+  `,
+  options: [
+    "User3 only",
+    "User2 and User3 only",
+    "User1 and User3 only",
+    "User1, User2, and User3"
+  ],
+  answer: 3, // Corresponds to "User1, User2, and User3"
+  explanation: `
+    <p><strong>Allow users to request access to this application: Yes</strong>: This setting allows any user in the tenant to request access to App1.</p>
+    <p><strong>Require approval before granting access to this application: Yes</strong>: This setting means that access requests need approval.</p>
+    <p><strong>Who is allowed to approve access to this application: User2</strong>: This setting designates User2 as the approver for access requests.</p>
+    <p>Since the setting "Allow users to request access to this application" is set to "Yes," any user in the tenant can request access to App1. This includes User1, User2, and User3.</p>
+    <p><strong>Correct Answer: D. User1, User2, and User3</strong></p>
+  `
+},
+{
+  id: 94,
+  type: "dropdown",
+  question: `
+    <p><strong>Question 94: Hotspot</strong></p>
+    <p>You have a Microsoft Entra tenant that contains the users shown in the following table.</p>
+<div style="margin-bottom: 15px; text-align: center;">
+        <img src="images/q94_user_role.jpg" alt="User Role" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+      </div>
+
+    <p>The tenant contains the identities shown in the following table.</p>
+<div style="margin-bottom: 15px; text-align: center;">
+        <img src="images/q94_group.jpg" alt="Group Identities" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+      </div>
+
+    <p>Which users can create custom security attributes, and to which identities can the attributes be assigned?</p>
+    <p>To answer, select the appropriate options in the answer area.</p>
+    <p><em>NOTE: Each correct selection is worth one point.</em></p>
+
+    <div style="margin-top: 15px; background: #f9f9f9; padding: 12px; border: 1px solid #ddd; border-radius: 4px; display: grid; grid-template-columns: auto 1fr; gap: 12px 15px; align-items: center;">
+      <strong>Can create custom security attributes:</strong>
+      <select class="inline-select" data-key="attributeCreation" style="padding: 6px; width: 100%; max-width: 300px;">
+        <option value="">-- Select Option --</option>
+        <option value="User1 only">User1 only</option>
+        <option value="User2 only">User2 only</option>
+        <option value="User1 and User2 only">User1 and User2 only</option>
+        <option value="User1, User2, and User3">User1, User2, and User3</option>
+      </select>
+
+      <strong>Custom security attributes can be assigned to:</strong>
+      <select class="inline-select" data-key="attributeAssignment" style="padding: 6px; width: 100%; max-width: 300px;">
+        <option value="">-- Select Option --</option>
+        <option value="MI only">MI only</option>
+        <option value="Service1 only">Service1 only</option>
+        <option value="MI and Service1 only">MI and Service1 only</option>
+        <option value="All identities">All identities</option>
+      </select>
+    </div>
+  `,
+  answer: {
+    attributeCreation: "User2 only",
+    attributeAssignment: "MI and Service1 only"
+  },
+  explanation: `
+    <p><strong>User2 only.</strong></p>
+    <p>This setting dictates which specific user(s) or entity has the permission to define or create new custom security attributes within the directory.</p>
+    <p><strong>MI and Service1 only.</strong></p>
+    <p>This setting determines which types of objects in the directory can have custom security attributes applied to them.</p>
+  `
+},
+{
+  id: 95,
+  type: "single",
+  question: `
+    <p><strong>Question 95</strong></p>
+    <p>You have two Microsoft Entra tenants named contoso.com and fabrikam.com. Contoso.com contains the identities shown in the following table.</p>
+    <p>&lt;insert table named: user type&gt;</p>
+    <p>You configure cross-tenant synchronization from contoso.com to fabrikam.com.</p>
+    <p>Which identities will sync with fabrikam.com?</p>
+  `,
+  options: [
+    "User1 only",
+    "User1 and Group1 only",
+    "User1 and Group2 only",
+    "User1, Group1, and Group2"
+  ],
+  answer: 0, // Corresponds to "User1 only"
+  explanation: `
+    <p><strong>Correct Answer: A – User1 only</strong></p>
+    <p><strong>Reasoning:</strong> In Microsoft Entra cross-tenant synchronization, the service is specifically designed to synchronize User objects across tenants to facilitate collaboration.</p>
+    <p><strong>User Synchronization:</strong> When you configure the sync from contoso.com to fabrikam.com, individual users (like User1) are provisioned as B2B collaboration users in the target tenant.</p>
+    <p><strong>Groups are NOT Synced:</strong> Cross-tenant synchronization does not synchronize groups (Group1 or Group2) themselves.</p>
+    <p>While a user's membership attributes might influence their access, the actual group object and its membership list do not move between tenants.</p>
+  `
+},
+{
+  id: 96,
+  type: "hotspot",
+  question: `
+    <p><strong>Question 96: Hotspot</strong></p>
+    <p>You have a Microsoft 365 E5 subscription that contains two groups named Group1 and Group2 and the users shown in the following table.</p>
+<div style="margin-bottom: 15px; text-align: center;">
+        <img src="images/q96_department.jpg" alt="Domain and OU Filtering" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+      </div>
+
+    <p>Group2 is a member of Group1.</p>
+    <p>You configure cross-tenant synchronization with a partner organization named fabrikam.com by using the following configurations:</p>
+    
+    <div style="background: #f9f9f9; padding: 10px 15px; border-left: 4px solid #0078d4; margin: 10px 0; border-radius: 4px;">
+      <ul style="margin: 0; padding-left: 20px; line-height: 1.6;">
+        <li><strong>Provisioning status:</strong> On</li>
+        <li><strong>Users and groups:</strong> Group1</li>
+        <li><strong>Prevent accidental deletion:</strong> 500</li>
+        <li><strong>Scope:</strong> Sync only assigned users and groups</li>
+        <li><strong>Scoping filter:</strong> Department EQUALS Marketing</li>
+      </ul>
+    </div>
+
+    <p>From the Cross-tenant synchronization settings, you set Provisioning Mode to Automatic.</p>
+    <p>For each of the following statements, select <strong>Yes</strong> if the statement is true. Otherwise, select <strong>No</strong>.</p>
+    <p><em>NOTE: Each correct selection is worth one point.</em></p>
+
+    <div style="margin-top: 15px; background: #fff; padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
+      <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+          <tr style="border-bottom: 2px solid #ccc;">
+            <th style="text-align: left; padding: 8px;">Statements</th>
+            <th style="text-align: center; padding: 8px; width: 80px;">Yes</th>
+            <th style="text-align: center; padding: 8px; width: 80px;">No</th>
+          </tr>
+        </thead>
+        <tbody>
+          <input type="radio" name="answer" id="hotspot_dummy" style="display:none;" checked>
+
+          <tr style="border-bottom: 1px solid #eee;">
+            <td style="padding: 8px;">User1 will be provisioned in the Microsoft Entra tenant of fabrikam.com.</td>
+            <td style="text-align: center;"><input type="radio" name="q96_statement1" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q96_statement1 = 'Yes';"></td>
+            <td style="text-align: center;"><input type="radio" name="q96_statement1" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q96_statement1 = 'No';"></td>
+          </tr>
+          <tr style="border-bottom: 1px solid #eee;">
+            <td style="padding: 8px;">User2 will be provisioned in the Microsoft Entra tenant of fabrikam.com.</td>
+            <td style="text-align: center;"><input type="radio" name="q96_statement2" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q96_statement2 = 'Yes';"></td>
+            <td style="text-align: center;"><input type="radio" name="q96_statement2" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q96_statement2 = 'No';"></td>
+          </tr>
+          <tr>
+            <td style="padding: 8px;">User3 will be provisioned in the Microsoft Entra tenant of fabrikam.com.</td>
+            <td style="text-align: center;"><input type="radio" name="q96_statement3" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q96_statement3 = 'Yes';"></td>
+            <td style="text-align: center;"><input type="radio" name="q96_statement3" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q96_statement3 = 'No';"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  `,
+  answer: {
+    q96_statement1: "Yes",
+    q96_statement2: "No",
+    q96_statement3: "No"
+  },
+  explanation: `
+    <p><strong>User1 will be provisioned in the Microsoft Entra tenant of fabrikam.com — Yes</strong><br>
+    <em>Reasoning:</em> User1 is likely included in the scoping filters of the synchronization configuration in the source tenant (contoso.com). This means the sync engine has identified them as a user who should be automatically created as a guest/B2B account in the target (fabrikam.com).</p>
+    <p><strong>User2 will be provisioned in the Microsoft Entra tenant of fabrikam.com — No</strong></p>
+    <p><strong>User3 will be provisioned in the Microsoft Entra tenant of fabrikam.com — No</strong></p>
+  `
+},
+{
+  id: 97,
+  type: "hotspot",
+  question: `
+    <p><strong>Question 97: Hotspot</strong></p>
+    <p>Your network contains an on-premises Active Directory Domain Services (AD DS) domain named contoso.com. Contoso.com contains the identities shown in the following table.</p>
+    <p>&lt;insert table named: membership ou here&gt;</p>
+    <p>You have a Microsoft Entra tenant that contains a user named User1.</p>
+    <p>You deploy Microsoft Entra Cloud Sync and configure a scoping filter by using the following string: CN=Group1,OU=OU1,DC=contoso,DC=com.</p>
+    <p>For each of the following statements, select <strong>Yes</strong> if the statement is true. Otherwise, select <strong>No</strong>.</p>
+    <p><em>NOTE: Each correct selection is worth one point.</em></p>
+
+    <div style="margin-top: 15px; background: #fff; padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
+      <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+          <tr style="border-bottom: 2px solid #ccc;">
+            <th style="text-align: left; padding: 8px;">Statements</th>
+            <th style="text-align: center; padding: 8px; width: 80px;">Yes</th>
+            <th style="text-align: center; padding: 8px; width: 80px;">No</th>
+          </tr>
+        </thead>
+        <tbody>
+          <input type="radio" name="answer" id="hotspot_dummy" style="display:none;" checked>
+
+          <tr style="border-bottom: 1px solid #eee;">
+            <td style="padding: 8px;">Contoso\\User1 syncs from contoso.com to the tenant.</td>
+            <td style="text-align: center;"><input type="radio" name="q97_statement1" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q97_statement1 = 'Yes';"></td>
+            <td style="text-align: center;"><input type="radio" name="q97_statement1" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q97_statement1 = 'No';"></td>
+          </tr>
+          <tr style="border-bottom: 1px solid #eee;">
+            <td style="padding: 8px;">Contoso\\User2 syncs from contoso.com to the tenant.</td>
+            <td style="text-align: center;"><input type="radio" name="q97_statement2" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q97_statement2 = 'Yes';"></td>
+            <td style="text-align: center;"><input type="radio" name="q97_statement2" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q97_statement2 = 'No';"></td>
+          </tr>
+          <tr>
+            <td style="padding: 8px;">Contoso\\Group1 syncs from contoso.com to the tenant.</td>
+            <td style="text-align: center;"><input type="radio" name="q97_statement3" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q97_statement3 = 'Yes';"></td>
+            <td style="text-align: center;"><input type="radio" name="q97_statement3" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q97_statement3 = 'No';"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  `,
+  answer: {
+    q97_statement1: "Yes",
+    q97_statement2: "No",
+    q97_statement3: "Yes"
+  },
+  explanation: `
+    <p><strong>Contoso\\User1 syncs from contoso.com to the tenant — Yes</strong><br>
+    <em>Reasoning:</em> This user is located in an OU that is "selected" for synchronization, or they meet the attribute criteria (like having a specific department or city) set in the sync rules.</p>
+    
+    <p><strong>Contoso\\User2 syncs from contoso.com to the tenant — No</strong><br>
+    <em>Reasoning:</em> This is the critical "filter" point. User2 is likely in an unselected OU (like a "Disabled Users" OU) or they lack a required attribute (like an email address or a specific "sync" flag) that the sync engine is looking for.</p>
+    
+    <p><strong>Contoso\\Group1 syncs from contoso.com to the tenant — Yes</strong><br>
+    <em>Reasoning:</em> Similar to User1, this group is located within the sync scope. Note that for a group to sync effectively, its members must also be within the sync scope for those memberships to appear in the cloud.</p>
+  `
+},
+{
+  id: 98,
+  type: "single",
+  question: `
+    <p><strong>Question 98</strong></p>
+    <p>You have a Microsoft 365 E5 subscription that contains a Microsoft SharePoint Online site named Site1 and a Microsoft Teams team named Team1. The subscription contains five security groups named Group1, Group2, Group3, Group4, and Group5.</p>
+    <p>You need to implement access packages for Site1 and Team1. The solution must meet the following requirements:</p>
+    
+    <div style="background: #f9f9f9; padding: 10px 15px; border-left: 4px solid #0078d4; margin: 10px 0; border-radius: 4px;">
+      <ul style="margin: 0; padding-left: 20px; line-height: 1.6;">
+        <li>Members of Group3 must be able to request access to Site1 only.</li>
+        <li>Members of Group1 must be able to request access to Site1 and Team1.</li>
+        <li>Members of Group4 must be able to request access to Site1 and Team1.</li>
+        <li>Only members of Group2 must be able to approve access package requests from Group1 members.</li>
+        <li>Only members of Group5 must be able to approve access package requests from Group3 and Group4 members.</li>
+      </ul>
+    </div>
+
+    <p>What is the minimum number of access packages you should create?</p>
+  `,
+  options: [
+    "2",
+    "3",
+    "4",
+    "5"
+  ],
+  answer: 1, // Corresponds to option B ("3")
+  explanation: `
+    <p><strong>Correct Answer: B – 3</strong></p>
+    <p><strong>Justification:</strong></p>
+    <p>An access package can be scoped to multiple resources, but a single package cannot have different sets of approvers for different requestors.</p>
+    <p>Group3 must be limited to Site1 only and have its own approvers (Group5). This requires a dedicated package that includes only Site1 and assigns Group5 as the approver group.</p>
+    <p>Group1 and Group4 both need access to Site1 and Team1, but only Group1’s requests are approved by Group2, while Group4’s requests are approved by Group5. Because the approver set differs, these two requestor groups cannot share the same package. Hence they each need a separate package that includes both Site1 and Team1 and assigns the appropriate approvers.</p>
+    <p>Consequently the minimum set of packages is:</p>
+    <ul>
+      <li><strong>PackageA:</strong> Site1 only, approvers = Group5 (covers Group3 requests).</li>
+      <li><strong>PackageB:</strong> Site1+Team1, approvers = Group2 (covers Group1 requests).</li>
+      <li><strong>PackageC:</strong> Site1+Team1, approvers = Group5 (covers Group4 requests).</li>
+    </ul>
+    <p>Creating only two packages would force either Group3 or Group4 to share an approver that is not allowed, violating the requirement. Four or five packages would satisfy the functional needs but are not minimal.</p>
+    <p>Therefore, the minimum number of access packages required is 3 (option B).</p>
+    <p><strong>References:</strong><br>
+    Azure AD Entitlement Management – Access packages overview: https://learn.microsoft.com/entra/identity-governance/entitlement-management-access-packages<br>
+    Plan access packages in Azure AD entitlement management: https://learn.microsoft.com/entra/identity-governance/entitlement-management-how-to-plan-access-packages</p>
+  `
+},
+{
+  id: 99,
+  type: "dropdown",
+  question: `
+    <p><strong>Question 99: Hotspot</strong></p>
+    <p>You have a Microsoft 365 E5 subscription that contains the groups shown in the following table.</p>
+<div style="margin-bottom: 15px; text-align: center;">
+        <img src="images/q99_GroupType.jpg" alt="Group Type" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+      </div>
+
+    <p>You plan to manage the lifecycles of the groups.</p>
+    <p>Which groups can be set to expire, and what is the shortest group lifetime you can set? To answer, select the appropriate options in the answer area.</p>
+    <p><em>NOTE: Each correct selection is worth one point.</em></p>
+
+    <div style="margin-top: 15px; background: #f9f9f9; padding: 12px; border: 1px solid #ddd; border-radius: 4px; display: grid; grid-template-columns: auto 1fr; gap: 12px 15px; align-items: center;">
+      <strong>Can expire:</strong>
+      <select class="inline-select" data-key="canExpire" style="padding: 6px; width: 100%; max-width: 350px;">
+        <option value="">-- Select Option --</option>
+        <option value="Group1 only">Group1 only</option>
+        <option value="Group2 only">Group2 only</option>
+        <option value="Group1 and Group3 only">Group1 and Group3 only</option>
+        <option value="Group3 and Group4 only">Group3 and Group4 only</option>
+        <option value="Group2, Group3, and Group4 only">Group2, Group3, and Group4 only</option>
+      </select>
+
+      <strong>Shortest lifetime:</strong>
+      <select class="inline-select" data-key="shortestLifetime" style="padding: 6px; width: 100%; max-width: 350px;">
+        <option value="">-- Select Option --</option>
+        <option value="3 days">3 days</option>
+        <option value="7 days">7 days</option>
+        <option value="14 days">14 days</option>
+        <option value="30 days">30 days</option>
+        <option value="45 days">45 days</option>
+      </select>
+    </div>
+  `,
+  answer: {
+    canExpire: "Group2 only",
+    shortestLifetime: "30 days"
+  },
+  explanation: `
+    <p><strong>Can expire: Group2 only</strong></p>
+    <p>In Microsoft 365, Expiration Policies only apply to Microsoft 365 Groups. If Group 1 is a Security Group and Group 3 is a Mail-enabled Security Group, they cannot have an expiration policy applied to them. Therefore, if Group 2 is the only Microsoft 365 Group in the scenario, it is the only one that "can expire."</p>
+    
+    <p><strong>Shortest lifetime: 30 days</strong></p>
+    <p>This usually refers to the Access Review or Guest Access settings described in the prompt's case study. When multiple policies or review periods are mentioned (e.g., one review every 30 days and another every 180 days), the "shortest lifetime" for a user's access before it must be re-validated is the smallest increment—in this case, 30 days.</p>
+  `
+},
+{
+  id: 100,
+  type: "hotspot",
+  question: `
+    <p><strong>Question 100: Hotspot</strong></p>
+    <p>You have two Microsoft Entra tenants named contoso.com and fabrikam.com. Contoso.com contains the users shown in the following table.</p>
+    
+    <div style="margin-bottom: 15px; text-align: center;">
+      <img src="images/q100_MembersLocation.jpg" alt="members location" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+    </div>
+
+    <p>You configure cross-tenant synchronization from contoso.com to fabrikam.com by using the following settings:</p>
+
+    <div style="background: #f9f9f9; padding: 10px 15px; border-left: 4px solid #0078d4; margin: 10px 0; border-radius: 4px;">
+      <ul style="margin: 0; padding-left: 20px; line-height: 1.6;">
+        <li>Users and groups: Group1</li>
+        <li>Provisioning Mode: Automatic</li>
+        <li>Attribute Mappings
+          <ul style="margin: 0; padding-left: 20px;">
+            <li>Source Object Scope: Filter1, Filter2</li>
+          </ul>
+        </li>
+      </ul>
+      <p style="margin-top: 8px; margin-bottom: 0;">Filter1 is configured as shown in the following table.</p>
+    </div>
+
+    <div style="margin-bottom: 15px; text-align: center;">
+      <img src="images/q100_DepartmentAttribute.jpg" alt="Department Attribute" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+    </div>
+
+    <p>Filter2 is configured as shown in the following table.</p>
+
+    <div style="margin-bottom: 15px; text-align: center;">
+      <img src="images/q100_SourceAttribute.jpg" alt="Source Attribute" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+    </div>
+
+    <p>For each of the following statements, select <strong>Yes</strong> if the statement is true. Otherwise, select <strong>No</strong>.</p>
+    <p><em>NOTE: Each correct selection is worth one point.</em></p>
+
+    <div style="margin-top: 15px; background: #fff; padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
+      <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+          <tr style="border-bottom: 2px solid #ccc;">
+            <th style="text-align: left; padding: 8px;">Statements</th>
+            <th style="text-align: center; padding: 8px; width: 80px;">Yes</th>
+            <th style="text-align: center; padding: 8px; width: 80px;">No</th>
+          </tr>
+        </thead>
+        <tbody>
+          <input type="radio" name="answer" id="hotspot_dummy" style="display:none;" checked>
+
+          <tr style="border-bottom: 1px solid #eee;">
+            <td style="padding: 8px;">User1 syncs to fabrikam.com.</td>
+            <td style="text-align: center;"><input type="radio" name="q100_statement1" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q100_statement1 = 'Yes';"></td>
+            <td style="text-align: center;"><input type="radio" name="q100_statement1" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q100_statement1 = 'No';"></td>
+          </tr>
+          <tr style="border-bottom: 1px solid #eee;">
+            <td style="padding: 8px;">User2 syncs to fabrikam.com.</td>
+            <td style="text-align: center;"><input type="radio" name="q100_statement2" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q100_statement2 = 'Yes';"></td>
+            <td style="text-align: center;"><input type="radio" name="q100_statement2" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q100_statement2 = 'No';"></td>
+          </tr>
+          <tr>
+            <td style="padding: 8px;">User3 syncs to fabrikam.com.</td>
+            <td style="text-align: center;"><input type="radio" name="q100_statement3" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q100_statement3 = 'Yes';"></td>
+            <td style="text-align: center;"><input type="radio" name="q100_statement3" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q100_statement3 = 'No';"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  `,
+  answer: {
+    q100_statement1: "No",
+    q100_statement2: "No",
+    q100_statement3: "No"
+  },
+  explanation: `
+    <p><strong>User1 syncs to fabrikam.com — No</strong><br>
+    <em>Reasoning:</em> User1 is synchronized to fabrikam.com. This means User1 either exists only in the cloud directory (e.g., created directly in Azure AD) or exists in a different on-premises directory that is not synchronizing with fabrikam.com, or is not synchronized at all.</p>
+    
+    <p><strong>User2 syncs to fabrikam.com — No</strong><br>
+    <em>Reasoning:</em> Similar to User1, User2's account is not being synchronized to the fabrikam.com cloud environment.</p>
+    
+    <p><strong>User3 syncs to fabrikam.com — No</strong><br>
+    <em>Reasoning:</em> The same applies to User3.</p>
+  `
+},
+{
+  id: 101,
+  type: "single",
+  question: `
+    <p><strong>Question 101</strong></p>
+    <p>You have a Microsoft Entra tenant.</p>
+    <p>You have the end-user desktop environments shown in the following table.</p>
+    
+    <div style="margin-bottom: 15px; text-align: center;">
+      <img src="images/q101_DeviceDescription.jpg" alt="Device Description" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+    </div>
+
+    <p>You need to deploy Global Secure Access.</p>
+    <p>In which environments can you install the Global Secure Access client?</p>
+  `,
+  options: [
+    "Contractors, Developers, Frontline workers, Office staff, and Senior managers",
+    "Frontline workers and Senior managers only",
+    "Contractors and Office staff only",
+    "Developers, Office staff, and Senior managers only"
+  ],
+  answer: 3, // Corresponds to option D ("Developers, Office staff, and Senior managers only")
+  explanation: `
+    <p><strong>Correct Answer: D – Developers, Office staff, and Senior managers only</strong></p>
+    <p><strong>Reasoning:</strong> The Global Secure Access (GSA) client—which is part of Microsoft’s Security Service Edge (SSE) solution—has specific hardware and OS requirements that generally exclude the types of devices and shared-use patterns typical of Frontline workers.</p>
+    <p><strong>Platform Support:</strong> The client is currently supported on Windows (10/11), macOS, iOS, and Android.</p>
+  `
+},
+{
+  id: 102,
+  type: "hotspot",
+  question: `
+    <p><strong>Question 102: Hotspot</strong></p>
+    <p>You have a Microsoft Entra tenant that contains an administrative unit named AU1. AU1 is configured for assigned membership. The tenant contains the users shown in the following table.</p>
+    
+    <div style="margin-bottom: 15px; text-align: center;">
+      <img src="images/q102_UserDepartment.jpg" alt="User Department" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+    </div>
+
+    <p>The tenant contains the groups shown in the following table.</p>
+
+    <div style="margin-bottom: 15px; text-align: center;">
+      <img src="images/q102_GroupsDepartment.jpg" alt="Groups Department" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+    </div>
+
+    <p>For AU1, you update the following configurations:</p>
+
+    <div style="background: #f9f9f9; padding: 10px 15px; border-left: 4px solid #0078d4; margin: 10px 0; border-radius: 4px;">
+      <ul style="margin: 0; padding-left: 20px; line-height: 1.6;">
+        <li>Membership type: Dynamic User</li>
+        <li>Dynamic membership rule: (user.department -eq "hr")</li>
+      </ul>
+    </div>
+
+    <p>For each of the following statements, select <strong>Yes</strong> if the statement is true. Otherwise, select <strong>No</strong>.</p>
+    <p><em>NOTE: Each correct selection is worth one point.</em></p>
+
+    <div style="margin-top: 15px; background: #fff; padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
+      <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+          <tr style="border-bottom: 2px solid #ccc;">
+            <th style="text-align: left; padding: 8px;">Statements</th>
+            <th style="text-align: center; padding: 8px; width: 80px;">Yes</th>
+            <th style="text-align: center; padding: 8px; width: 80px;">No</th>
+          </tr>
+        </thead>
+        <tbody>
+          <input type="radio" name="answer" id="hotspot_dummy" style="display:none;" checked>
+
+          <tr style="border-bottom: 1px solid #eee;">
+            <td style="padding: 8px;">HR is a member of AU1.</td>
+            <td style="text-align: center;"><input type="radio" name="q102_statement1" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q102_statement1 = 'Yes';"></td>
+            <td style="text-align: center;"><input type="radio" name="q102_statement1" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q102_statement1 = 'No';"></td>
+          </tr>
+          <tr style="border-bottom: 1px solid #eee;">
+            <td style="padding: 8px;">User1 is a member of AU1.</td>
+            <td style="text-align: center;"><input type="radio" name="q102_statement2" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q102_statement2 = 'Yes';"></td>
+            <td style="text-align: center;"><input type="radio" name="q102_statement2" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q102_statement2 = 'No';"></td>
+          </tr>
+          <tr>
+            <td style="padding: 8px;">User2 is a member of AU1.</td>
+            <td style="text-align: center;"><input type="radio" name="q102_statement3" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q102_statement3 = 'Yes';"></td>
+            <td style="text-align: center;"><input type="radio" name="q102_statement3" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q102_statement3 = 'No';"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  `,
+  answer: {
+    q102_statement1: "No",
+    q102_statement2: "Yes",
+    q102_statement3: "No"
+  },
+  explanation: `
+    <p><strong>HR is a member of AU1 — No</strong><br>
+    <em>Explanation:</em> When an Administrative Unit (AU) is configured to use a Dynamic User membership rule, it evaluates individual user objects exclusively. Because HR is a group, it cannot satisfy a dynamic user membership query and is omitted from the AU.</p>
+    
+    <p><strong>User1 is a member of AU1 — Yes</strong><br>
+    <em>Explanation:</em> User1 possesses the specific attribute matching the dynamic membership rule criteria (such as user.department -eq "HR"). Microsoft Entra ID evaluates this property at runtime and automatically assigns them to AU1.</p>
+    
+    <p><strong>User2 is a member of AU1 — No</strong><br>
+    <em>Explanation:</em> Once an AU transitions to a dynamic query filter, any previous static or manually assigned memberships are cleared. Since User2 does not meet the specified attribute conditions defined in the dynamic rule, they are excluded from AU1.</p>
+  `
+},
+{
+  id: 103,
+  type: "hotspot",
+  question: `
+    <p><strong>Question 103: Hotspot</strong></p>
+    <p>You have a Microsoft Entra tenant named contoso.com that has cross-tenant access configured as shown in the following table.</p>
+    
+    <div style="margin-bottom: 15px; text-align: center;">
+      <img src="images/q103_Config.jpg" alt="Configuration" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+    </div>
+
+    <p>You have two partner organizations named Fabrikam, Inc. and A. Datum Corporation. Fabrikam has a Microsoft 365 domain named fabrikam.com. A. Datum has a Microsoft 365 domain named adatum.com.</p>
+    <p>You configure cross-tenant access for fabrikam.com as shown in the following table.</p>
+
+    <div style="margin-bottom: 15px; text-align: center;">
+      <img src="images/q103_Config2.jpg" alt="Configuration 2" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+    </div>
+
+    <p>For each of the following statements, select <strong>Yes</strong> if the statement is true. Otherwise, select <strong>No</strong>.</p>
+    <p><em>NOTE: Each correct selection is worth one point.</em></p>
+
+    <div style="margin-top: 15px; background: #fff; padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
+      <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+          <tr style="border-bottom: 2px solid #ccc;">
+            <th style="text-align: left; padding: 8px;">Statements</th>
+            <th style="text-align: center; padding: 8px; width: 80px;">Yes</th>
+            <th style="text-align: center; padding: 8px; width: 80px;">No</th>
+          </tr>
+        </thead>
+        <tbody>
+          <input type="radio" name="answer" id="hotspot_dummy" style="display:none;" checked>
+
+          <tr style="border-bottom: 1px solid #eee;">
+            <td style="padding: 8px;">A user in contoso.com can send a guest invitation to a user that has an email address of user1@fabrikam.com.</td>
+            <td style="text-align: center;"><input type="radio" name="q103_statement1" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q103_statement1 = 'Yes';"></td>
+            <td style="text-align: center;"><input type="radio" name="q103_statement1" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q103_statement1 = 'No';"></td>
+          </tr>
+          <tr style="border-bottom: 1px solid #eee;">
+            <td style="padding: 8px;">A user in contoso.com can send a guest invitation to a user that has an email address of user1@adatum.com.</td>
+            <td style="text-align: center;"><input type="radio" name="q103_statement2" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q103_statement2 = 'Yes';"></td>
+            <td style="text-align: center;"><input type="radio" name="q103_statement2" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q103_statement2 = 'No';"></td>
+          </tr>
+          <tr>
+            <td style="padding: 8px;">A user in contoso.com can accept a guest invitation from a user that has an email address of user1@fabrikam.com.</td>
+            <td style="text-align: center;"><input type="radio" name="q103_statement3" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q103_statement3 = 'Yes';"></td>
+            <td style="text-align: center;"><input type="radio" name="q103_statement3" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q103_statement3 = 'No';"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  `,
+  answer: {
+    q103_statement1: "No",
+    q103_statement2: "No",
+    q103_statement3: "Yes"
+  },
+  explanation: `
+    <p><strong>A user in contoso.com can send a guest invitation to a user that has an email address of user1@fabrikam.com — No</strong><br>
+    <em>Why it's false:</em> The tenant is configured with the most restrictive policy: "Allow invitations only to the specified domains." Since fabrikam.com is not explicitly added to the tenant's permitted Target Domains white-list, all outbound guest invitations sent to this domain are automatically blocked by the platform.</p>
+    
+    <p><strong>A user in contoso.com can send a guest invitation to a user that has an email address of user1@adatum.com — No</strong><br>
+    <em>Why it's false:</em> For the exact same reason as above, because adatum.com is missing from the designated list of allowed domains, internal employees are barred from inviting users from this organization as guests.</p>
+    
+    <p><strong>A user in contoso.com can accept a guest invitation from a user that has an email address of user1@fabrikam.com — Yes</strong><br>
+    <em>Why it's true:</em> The "Collaboration restrictions" menu inside your tenant strictly controls inbound invitations (who external guests coming into your space can be). It does not stop your own internal employees from accepting an invitation to leave and collaborate inside an external tenant like fabrikam.com. Restricting your users from joining external organizations requires configuring distinct Cross-Tenant Access Settings (Outbound Policies), rather than standard guest invite restrictions.</p>
+  `
+},
+{
+  id: 104,
+  type: "single",
+  question: `
+    <p><strong>Question 104</strong></p>
+    <p>You have a Microsoft Entra tenant.</p>
+    <p>You need to add the Facebook social identity provider to the tenant. What should you do first?</p>
+  `,
+  options: [
+    "Add a custom domain",
+    "Add a WS-Fed identity provider.",
+    "Add a SAML identity provider.",
+    "Set Enable guest self-service sign-up via user flows to Yes."
+  ],
+  answer: 3, // Corresponds to option D ("Set Enable guest self-service sign-up via user flows to Yes.")
+  explanation: `
+    <p><strong>Why option D is correct</strong></p>
+    <p>Adding a social identity provider such as Facebook requires the tenant to have the External Identities feature turned on.</p>
+    <p>The very first prerequisite is to enable “Guest self-service sign-up via user flows” (a setting under External Identities → User flows). This activates the user-flow engine that can consume external identity providers. Only after this setting is enabled can you register Facebook as an identity provider in the same user flow.</p>
+    
+    <p><strong>Why the other options are not appropriate</strong></p>
+    <ul>
+      <li><strong>A – Add a custom domain</strong> – Custom domains are used for verifying tenant-specific URLs (e.g., for Microsoft 365 services) and have no bearing on external identity-provider configuration.</li>
+      <li><strong>B – Add a WS-Fed identity provider</strong> – WS-Federation is a federation protocol for enterprise-grade SAML/OAuth scenarios; Facebook does not use WS-Fed, and the step is not a prerequisite for social providers.</li>
+      <li><strong>C – Add a SAML identity provider</strong> – SAML is a separate federation standard; Facebook is a social provider that uses OAuth2.0/OpenID Connect, not SAML, and you do not configure it as a generic SAML IdP in Azure AD.</li>
+    </ul>
+
+    <p><strong>Technical flow</strong></p>
+    <ol>
+      <li>Turn on Guest self-service sign-up → activates External Identities.</li>
+      <li>Create a User flow that includes “Facebook” as an identity provider.</li>
+      <li>Configure Facebook app registration (client ID/secret) and map it to the user flow.</li>
+    </ol>
+    <p>Thus, the initial action is to enable the guest-self-service sign-up setting (option D).</p>
+  `
+},
+];
+///*SIMULATION QUESTION FROM 81 - 84 IS SKIPT*///
 ];

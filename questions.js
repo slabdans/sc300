@@ -5625,7 +5625,863 @@ By using this cmdlet, you can set the appropriate parameters to block self-servi
       https://docs.microsoft.com/en-us/azure/active-directory/identity-protection/overview-identity-protection
     </p>
   `
-}
+},
+	{
+    id: 133,
+    type: "hotspot",
+    question: `
+      <p><strong>Question 133</strong></p>
+      <p><strong>HOTSPOT</strong></p>
+      <p>You have an Azure Active Directory (Azure AD) tenant that contains a group named Group3 and an administrative unit named Department1.</p>
+      <p>Department1 has the users shown in the Users exhibit. (Click the Users tab.)</p>
+      <div style="margin-bottom: 15px; text-align: center;">
+        <img src="images/q133_exhibit1.jpg" alt="133 exhibit 1" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+      </div>
+      <p>Department1 has the groups shown in the Groups exhibit. (Click the Groups tab.)</p>
+      <div style="margin-bottom: 15px; text-align: center;">
+        <img src="images/q133_exhibit2.jpg" alt="133 exhibit 2" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+      </div>
+      <p>Department1 has the user administrator assignments shown in the Assignments exhibit. (Click the Assignments tab.)</p>
+      <div style="margin-bottom: 15px; text-align: center;">
+        <img src="images/q133_exhibit3.jpg" alt="133 exhibit 3" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+      </div>
+      <p>The members of Group2 are shown in the Group2 exhibit. (Click the Group2 tab.)</p>
+      <div style="margin-bottom: 15px; text-align: center;">
+        <img src="images/q133_exhibit4.jpg" alt="133 exhibit 4" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+      </div>
+      <p>For each of the following statements, select Yes if the statement is true. Otherwise, select No.</p>
+      <p>NOTE: Each correct selection is worth one point.</p>
+      <table class="matrix-table" style="width:100%; border-collapse: collapse; margin-top: 15px;">
+        <thead>
+          <tr style="border-bottom: 2px solid #ddd; text-align: left;">
+            <th style="padding: 8px;">Statements</th>
+            <th style="padding: 8px; text-align: center; width: 80px;">Yes</th>
+            <th style="padding: 8px; text-align: center; width: 80px;">No</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid #eee;" id="row_statement1">
+            <td style="padding: 10px; font-size: 14px;">Admin1 can reset the passwords of User3 and User4.</td>
+            <td style="text-align: center;"><input type="radio" name="statement1" value="Yes"></td>
+            <td style="text-align: center;"><input type="radio" name="statement1" value="No"></td>
+          </tr>
+          <tr style="border-bottom: 1px solid #eee;" id="row_statement2">
+            <td style="padding: 10px; font-size: 14px;">Admin1 can add User1 to Group 2</td>
+            <td style="text-align: center;"><input type="radio" name="statement2" value="Yes"></td>
+            <td style="text-align: center;"><input type="radio" name="statement2" value="No"></td>
+          </tr>
+          <tr style="border-bottom: 1px solid #eee;" id="row_statement3">
+            <td style="padding: 10px; font-size: 14px;">Admin 2 can reset the password of User1.</td>
+            <td style="text-align: center;"><input type="radio" name="statement3" value="Yes"></td>
+            <td style="text-align: center;"><input type="radio" name="statement3" value="No"></td>
+          </tr>
+        </tbody>
+      </table>
+    `,
+    answer: {
+      "statement1": "No",
+      "statement2": "Yes",
+      "statement3": "Yes"
+    },
+    explanation: `
+      #1: No<br>
+      Because user3 and user4 are nested and from G2. See below from: https://docs.microsoft.com/en-us/azure/active-directory/roles/administrative-units<br>
+      "A scoped role assignment doesn't apply to members of groups added to an administrative unit, unless the group members are directly added to the administrative unit. For more information, see Add members to an administrative unit."<br><br>
+      #2: Yes<br>
+      User Admin have the following attributes "microsoft.directory/groups/members/update" Which can be confirmed:<br>
+      https://docs.microsoft.com/en-us/azure/active-directory/roles/permissions-reference#user-administrator<br><br>
+      #3: Yes, User1 is a direct member for the admin unit.<br><br>
+      Reference:<br>
+      https://docs.microsoft.com/en-us/azure/active-directory/roles/administrative-units
+    `
+  },
+{
+    id: 134,
+    type: "single",
+    question: `
+      <div style="border: 1px solid #b8daff; background-color: #e8f4f8; padding: 12px; border-radius: 4px; margin-bottom: 15px; font-size: 13px; color: #004085;">
+        <strong>Scenario:</strong><br>
+        Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.<br><br>
+        <em>After you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.</em><br><br>
+        You have a Microsoft 365 tenant.<br>
+        All users must use the Microsoft Authenticator app for multi-factor authentication (MFA) when accessing Microsoft 365 services.<br>
+        Some users report that they received an MFA prompt on their Microsoft Authenticator app without initiating a sign-in request.
+      </div>
+      <p><strong>Question 134</strong></p>
+      <p>You need to block the users automatically when they report an MFA request that they did not initiate.</p>
+      <p><strong>Solution:</strong> From the Azure portal, you configure the Fraud alert settings for multi-factor authentication (MFA).</p>
+      <p>Does this meet the goal?</p>
+    `,
+    options: [
+      "Yes",
+      "No"
+    ],
+    answer: 0,
+    explanation: `
+      <p>The fraud alert feature lets users report fraudulent attempts to access their resources. When an unknown and suspicious MFA prompt is received, users can report the fraud attempt using the Microsoft Authenticator app or through their phone.</p>
+      <p>The following fraud alert configuration options are available:</p>
+      <p>✑ Automatically block users who report fraud.<br>
+      ✑ Code to report fraud during initial greeting.</p>
+      <p><strong>Reference:</strong> https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-mfa-mfasettings</p>
+    `
+  },
+{
+    id: 135,
+    type: "single",
+    question: `
+      <p><strong>Question 135</strong></p>
+      <p>You have a Microsoft 365 tenant.</p>
+      <p>All users have mobile phones and laptops.</p>
+      <p>The users frequently work from remote locations that do not have Wi-Fi access or mobile phone connectivity. While working from the remote locations, the users connect their laptop to a wired network that has internet access.</p>
+      <p>You plan to implement multi-factor authentication (MFA).</p>
+      <p>Which MFA authentication method can the users use from the remote location?</p>
+    `,
+    options: [
+      "a notification through the Microsoft Authenticator app",
+      "email",
+      "security questions",
+      "a verification code from the Microsoft Authenticator app"
+    ],
+    answer: 3,
+    explanation: `
+      <p>The Authenticator app can be used as a software token to generate an OATH verification code. After entering your username and password, you enter the code provided by the Authenticator app into the sign-in interface.</p>
+      <p><strong>Incorrect Answers:</strong></p>
+      <p><strong>A:</strong> A notification through the Microsoft Authenticator app requires connectivity to send the verification code to the device requesting the logon.</p>
+      <p><strong>B:</strong> An email requires network connectivity.</p>
+      <p><strong>C:</strong> Security questions are not used as an authentication method but can be used during the self-service password reset (SSPR) process.</p>
+      <p><strong>Reference:</strong> https://docs.microsoft.com/en-us/azure/active-directory/authentication/concept-authentication-authenticator-app#verification-code-from-mobile-app</p>
+    `
+  },
+{
+    id: 136,
+    type: "dropdown",
+    question: `
+      <p><strong>Question 136</strong></p>
+      <p><strong>HOTSPOT</strong></p>
+      <p>You have a Microsoft 365 tenant.</p>
+      <p>You create a named location named HighRiskCountries that contains a list of high-risk countries.</p>
+      <p>You need to limit the amount of time a user can stay authenticated when connecting from a high-risk country.</p>
+      <p>What should you configure in a conditional access policy?</p>
+      <p>To answer, select the appropriate options in the answer area.</p>
+      <p>NOTE: Each correct selection is worth one point.</p>
+      <p><strong>Answer Area</strong></p>
+      <table style="width: 100%; border-collapse: separate; border-spacing: 0 15px; margin-top: 10px;">
+        <tr>
+          <td style="width: 55%; font-weight: 500; vertical-align: middle;">Configure HighRiskCountries by using:</td>
+          <td style="width: 45%; vertical-align: middle;">
+            <select class="inline-select" data-key="dropdown1" style="width: 100%; padding: 6px; border: 1px solid #ccc; background-color: #fff; font-size: 14px;">
+              <option value="">-- Select --</option>
+              <option value="A cloud app or action">A cloud app or action</option>
+              <option value="A condition">A condition</option>
+              <option value="A grant control">A grant control</option>
+              <option value="A session control">A session control</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td style="width: 55%; font-weight: 500; vertical-align: middle;">Configure Sign-in frequency by using:</td>
+          <td style="width: 45%; vertical-align: middle;">
+            <select class="inline-select" data-key="dropdown2" style="width: 100%; padding: 6px; border: 1px solid #ccc; background-color: #fff; font-size: 14px;">
+              <option value="">-- Select --</option>
+              <option value="A cloud app or action">A cloud app or action</option>
+              <option value="A condition">A condition</option>
+              <option value="A grant control">A grant control</option>
+              <option value="A session control">A session control</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+    `,
+    answer: {
+      "dropdown1": "A condition",
+      "dropdown2": "A session control"
+    },
+    explanation: `
+      <p><strong>Configure HighRiskCountries by using: A condition</strong></p>
+      <p>Named locations such as HighRiskCountries are configured under Conditions in a Conditional Access policy (e.g., specifying locations as a condition for the policy to apply).</p>
+      <p><strong>Configure Sign-in frequency by using: A session control</strong></p>
+      <p>Sign-in frequency allows you to configure the time period before a user is asked to sign in again, which is managed via Session controls in a Conditional Access policy.</p>
+    `
+  },
+
+{
+    id: 137,
+    type: "dropdown",
+    question: `
+      <p><strong>Question 137</strong></p>
+      <p><strong>HOTSPOT</strong></p>
+      <p>A user named User1 attempts to sign in to the tenant by entering the following incorrect passwords:</p>
+      <p>
+        ✑ Pa55w0rd12<br>
+        ✑ Pa55w0rd12<br>
+        ✑ Pa55w0rd12<br>
+        ✑ Pa55w.rd12<br>
+        ✑ Pa55w.rd123<br>
+        ✑ Pa55w.rd123<br>
+        ✑ Pa55w.rd123<br>
+        ✑ Pa55word12<br>
+        ✑ Pa55word12<br>
+        ✑ Pa55word12<br>
+        ✑ Pa55w.rd12
+      </p>
+      <p>You need to identify how many sign-in attempts were tracked for User1, and how User1 can unlock her account before the 300-second lockout duration expires.</p>
+      <p>What should you identify? To answer, select the appropriate options in the answer area.</p>
+      <p>NOTE: Each correct selection is worth one point.</p>
+      <p><strong>Answer Area</strong></p>
+      <table style="width: 100%; border-collapse: separate; border-spacing: 0 15px; margin-top: 10px;">
+        <tr>
+          <td style="width: 35%; font-weight: 500; vertical-align: middle;">Tracked sign-in attempts:</td>
+          <td style="width: 65%; vertical-align: middle;">
+            <select class="inline-select" data-key="dropdown1" style="width: 100%; padding: 6px; border: 1px solid #ccc; background-color: #fff; font-size: 14px;">
+              <option value="">-- Select --</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td style="width: 35%; font-weight: 500; vertical-align: middle;">Unlock by:</td>
+          <td style="width: 65%; vertical-align: middle;">
+            <select class="inline-select" data-key="dropdown2" style="width: 100%; padding: 6px; border: 1px solid #ccc; background-color: #fff; font-size: 14px;">
+              <option value="">-- Select --</option>
+              <option value="Clearing the browser cache">Clearing the browser cache</option>
+              <option value="Signing in by using inPrivate browsing mode">Signing in by using inPrivate browsing mode</option>
+              <option value="Performing a self-service password reset (SSPR)">Performing a self-service password reset (SSPR)</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+    `,
+    answer: {
+      "dropdown1": "11",
+      "dropdown2": "Performing a self-service password reset (SSPR)"
+    },
+    explanation: `
+      <p><strong>Tracked sign-in attempts: 11</strong></p>
+      <p>All 11 incorrect password attempts are tracked by Azure AD smart lockout, regardless of whether the passwords were duplicates or unique.</p>
+      <p><strong>Unlock by: Performing a self-service password reset (SSPR)</strong></p>
+      <p>A user can unlock their account or reset their password before the lockout duration expires by performing a self-service password reset (SSPR).</p>
+      <p><strong>Reference:</strong> https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-sspr-deployment</p>
+    `
+  },
+{
+    id: 138,
+    type: "dropdown",
+    question: `
+      <p><strong>Question 138</strong></p>
+      <p><strong>HOTSPOT</strong></p>
+      <p>You have an Azure Active Directory (Azure AD) tenant that has Security defaults disabled. You are creating a conditional access policy as shown in the following exhibit.</p>
+      <div style="margin-bottom: 15px; text-align: center;">
+        <img src="images/q138_table1.jpg" alt="q138 exhibit 1" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+      </div>
+      <p>Use the drop-down menus to select the answer choice that completes each statement based on the information presented in the graphic.</p>
+      <p>NOTE: Each correct selection is worth one point.</p>
+      <p><strong>Answer Area</strong></p>
+      <table style="width: 100%; border-collapse: separate; border-spacing: 0 15px; margin-top: 10px;">
+        <tr>
+          <td style="width: 55%; font-weight: 500; vertical-align: middle;">To ensure that User1 is prompted for multi-factor authentication (MFA) when accessing Cloud apps, you must configure the [answer choice].</td>
+          <td style="width: 45%; vertical-align: middle;">
+            <select class="inline-select" data-key="dropdown1" style="width: 100%; padding: 6px; border: 1px solid #ccc; background-color: #fff; font-size: 14px;">
+              <option value="">-- Select --</option>
+              <option value="Conditions settings">Conditions settings</option>
+              <option value="Enable policy setting">Enable policy setting</option>
+              <option value="Grant settings">Grant settings</option>
+              <option value="Sessions settings">Sessions settings</option>
+              <option value="Users and groups setting">Users and groups setting</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td style="width: 55%; font-weight: 500; vertical-align: middle;">To ensure that User1 is prompted for authentication every eight hours, you must configure the [answer choice].</td>
+          <td style="width: 45%; vertical-align: middle;">
+            <select class="inline-select" data-key="dropdown2" style="width: 100%; padding: 6px; border: 1px solid #ccc; background-color: #fff; font-size: 14px;">
+              <option value="">-- Select --</option>
+              <option value="Conditions settings">Conditions settings</option>
+              <option value="Enable policy setting">Enable policy setting</option>
+              <option value="Grant settings">Grant settings</option>
+              <option value="Sessions settings">Sessions settings</option>
+              <option value="Users and groups setting">Users and groups setting</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+    `,
+    answer: {
+      "dropdown1": "Grant settings",
+      "dropdown2": "Sessions settings"
+    },
+    explanation: `
+      <p><strong>To ensure that User1 is prompted for multi-factor authentication (MFA) when accessing Cloud apps, you must configure the Grant settings.</strong></p>
+      <p>Grant controls in a Conditional Access policy allow you to enforce requirements such as "Require multi-factor authentication".</p>
+      <p><strong>To ensure that User1 is prompted for authentication every eight hours, you must configure the Sessions settings.</strong></p>
+      <p>Session controls, such as Sign-in frequency, allow you to limit the frequency of authentication or session persistence.</p>
+      <p><Strong>Reference:</Strong> https://docs.microsoft.com/en-us/azure/active-directory/conditional-access/howto-conditional-access-policy-all-users-mfa</p>
+
+    `
+  },
+{
+    id: 139,
+    type: "single",
+    question: `
+      <p><strong>Question 139</strong></p>
+      <p>You have an Azure Active Directory (Azure AD) tenant that contains a user named SecAdmin1. SecAdmin1 is assigned the Security administrator role.</p>
+      <p>SecAdmin1 reports that she cannot reset passwords from the Azure AD Identity Protection portal. You need to ensure that SecAdmin1 can manage passwords and invalidate sessions on behalf of non- administrative users. The solution must use the principle of least privilege.</p>
+      <p>Which role should you assign to SecAdmin1?</p>
+    `,
+    options: [
+      "Authentication administrator",
+      "Helpdesk administrator",
+      "Privileged authentication administrator",
+      "Security operator"
+    ],
+    answer: 0,
+    explanation: `
+      <p><strong>A</strong></p>
+      <p><strong>In details:</strong></p>
+      <p>Privileged Auth Admin can reset passwords of non-admins and admin accounts.</p>
+      <p>Helpdesk Admins can reset non-admins and Helpdesk Admins password.</p>
+      <p>Authentication Administrator can only reset non-admin accounts password.</p>
+      <p>To follow the least privilege requirement, Authentication Administrator should be the answer.</p>
+    `
+  },
+{
+    id: 140,
+    type: "single",
+    question: `
+      <p><strong>Question 140</strong></p>
+      <p>You configure Azure Active Directory (Azure AD) Password Protection as shown in the exhibit. (Click the Exhibit tab.)</p>
+      <div style="margin-bottom: 15px; text-align: center;">
+        <img src="images/q140_table1.jpg" alt="q140 exhibit 1" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+      </div>
+      <p>You are evaluating the following passwords:</p>
+      <p>
+        ✑ Pr0jectlitw@re<br>
+        ✑ T@ilw1nd<br>
+        ✑ C0nt0s0
+      </p>
+      <p>Which passwords will be blocked?</p>
+    `,
+    options: [
+      "Pr0jectlitw@re and T@ilw1nd only",
+      "C0nt0s0 only",
+      "C0nt0s0, Pr0jectlitw@re, and T@ilw1nd",
+      "C0nt0s0 and T@ilw1nd only",
+      "C0nt0s0 and Pr0jectlitw@re only"
+    ],
+    answer: 2,
+    explanation: `
+      <p><strong>Full Question Correction:</strong></p>
+      <p>You are evaluating the following passwords:</p>
+      <p>
+        ✑ Pr0jectlitw@re<br>
+        ✑ T@ilw1nd<br>
+        ✑ C0nt0s0
+      </p>
+      <p>Which passwords will be blocked?</p>
+      <p><strong>Correct Answer = C</strong></p>
+      <p><strong>Reference:</strong> https://blog.enablingtechcorp.com/azure-ad-password-protection-password-evaluation</p>
+    `
+  },
+{
+    id: 141,
+    type: "single",
+    question: `
+      <p><strong>Question 141</strong></p>
+      <p>You have a Microsoft 365 tenant.</p>
+      <p>All users have mobile phones and laptops.</p>
+      <p>The users frequently work from remote locations that do not have Wi-Fi access or mobile phone connectivity. While working from the remote locations, the users connect their laptop to a wired network that has internet access.</p>
+      <p>You plan to implement multi-factor authentication (MFA).</p>
+      <p>Which MFA authentication method can the users use from the remote location?</p>
+    `,
+    options: [
+      "a verification code from the Microsoft Authenticator app",
+      "security questions",
+      "voice",
+      "SMS"
+    ],
+    answer: 0,
+    explanation: `
+      <p>The Authenticator app can be used as a software token to generate an OATH verification code. After entering your username and password, you enter the code provided by the Authenticator app into the sign-in interface.</p>
+      <p><strong>Incorrect Answers:</strong></p>
+      <p><strong>B:</strong> Security questions are not used as an authentication method but can be used during the self-service password reset (SSPR) process.</p>
+      <p><strong>C, D:</strong> An automated voice call and an SMS requires mobile connectivity.</p>
+      <p><strong>Reference:</strong> https://docs.microsoft.com/en-us/azure/active-directory/authentication/concept-authentication-methods</p>
+    `
+  },
+{
+    id: 142,
+    type: "dropdown",
+    question: `
+      <p><strong>Question 142</strong></p>
+      <p><strong>HOTSPOT</strong></p>
+      <p>You have an Azure Active Directory (Azure AD) tenant that contains the users shown in the following table.</p>
+      <div style="margin-bottom: 15px; text-align: center;">
+        <img src="images/q142_table1.jpg" alt="q142 table 1" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+      </div>
+      <p>User2 reports that he can only configure multi-factor authentication (MFA) to use the Microsoft Authenticator app. You need to ensure that User2 can configure alternate MFA methods.</p>
+      <p>Which configuration is required, and which user should perform the configuration? To answer, select the appropriate options in the answer area.</p>
+      <p>NOTE: Each correct selection is worth one point.</p>
+      <p><strong>Answer Area</strong></p>
+      <table style="width: 100%; border-collapse: separate; border-spacing: 0 15px; margin-top: 10px;">
+        <tr>
+          <td style="width: 35%; font-weight: 500; vertical-align: middle;">Configuration:</td>
+          <td style="width: 65%; vertical-align: middle;">
+            <select class="inline-select" data-key="dropdown1" style="width: 100%; padding: 6px; border: 1px solid #ccc; background-color: #fff; font-size: 14px;">
+              <option value="">-- Select --</option>
+              <option value="Enable access reviews.">Enable access reviews.</option>
+              <option value="Enable Azure AD Privileged Identity Management (PIM).">Enable Azure AD Privileged Identity Management (PIM).</option>
+              <option value="Modify security defaults.">Modify security defaults.</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td style="width: 35%; font-weight: 500; vertical-align: middle;">User:</td>
+          <td style="width: 65%; vertical-align: middle;">
+            <select class="inline-select" data-key="dropdown2" style="width: 100%; padding: 6px; border: 1px solid #ccc; background-color: #fff; font-size: 14px;">
+              <option value="">-- Select --</option>
+              <option value="User1 only">User1 only</option>
+              <option value="User2 only">User2 only</option>
+              <option value="User3 only">User3 only</option>
+              <option value="User1 and User2 only">User1 and User2 only</option>
+              <option value="User1 and User3 only">User1 and User3 only</option>
+              <option value="User2 and User3 only">User2 and User3 only</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+    `,
+    answer: {
+      "dropdown1": "Modify security defaults.",
+      "dropdown2": "User1 only"
+    },
+    explanation: `
+      <p>Box 1: Modify security defaults. Privileged Authentication Administrator</p>
+      <p>Users with this role can set or reset any authentication method (including passwords) for any user, including Global Administrators. Privileged Authentication Administrators can force users to re-register against existing non-password credential (such as MFA or FIDO) and revoke 'remember MFA on the device', prompting for MFA on the next sign-in of all users.</p>
+      <p>The Authentication Administrator role has permission to force re-registration and multifactor authentication for standard users and users with some admin roles.</p>
+      <div style="margin: 15px 0; text-align: center;">
+        <img src="images/q142_explanation.jpg" alt="q142 explanation" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+      </div>
+      <p>Box 2: User1 only.</p>
+      <p>Security Administrator.</p>
+      <p>Users with this role have permissions to manage security-related features in the Microsoft 365 Defender portal, Azure Active Directory Identity Protection, Azure Active Directory Authentication, Azure Information Protection, and Office 365 Security & Compliance Center.</p>
+      <p><strong>Incorrect:</strong></p>
+      <p>Not User3. Service Support Administrator.</p>
+      <p>Users with this role can create and manage support requests with Microsoft for Azure and Microsoft 365 services, and view the service dashboard and message center in the Azure portal and Microsoft 365 admin center.</p>
+      <p><strong>Reference:</strong> https://docs.microsoft.com/en-us/azure/active-directory/roles/permissions-reference</p>
+    `
+  },
+{
+    id: 143,
+    type: "single",
+    question: `
+      <p><strong>Question 143</strong></p>
+      <p>You have an Azure Active Directory (Azure AD) tenant.</p>
+      <p>You configure self-service password reset (SSPR) by using the following settings:</p>
+      <p>
+        ✑ Require users to register when signing in: Yes<br>
+        ✑ Number of methods required to reset: 1
+      </p>
+      <p>What is a valid authentication method available to users?</p>
+    `,
+    options: [
+      "a Microsoft Teams chat",
+      "a mobile app notification",
+      "a mobile app code",
+      "an FIDO2 security token"
+    ],
+    answer: 2,
+    explanation: `
+      <p>When administrators require one method be used to reset a password, verification code is the only option available.</p>
+      <p><strong>Note:</strong> When administrators require two methods be used to reset a password, users are able to use notification OR verification code in addition to any other enabled methods.</p>
+      <p><strong>Reference:</strong> https://docs.microsoft.com/en-us/azure/active-directory/authentication/concept-sspr-howitworks</p>
+    `
+  },
+{
+    id: 144,
+    type: "single",
+    question: `
+      <p><strong>Question 144</strong></p>
+      <p>You have an Azure Active Directory (Azure AD) tenant that uses Azure AD Identity Protection and contains the resources shown in the following table.</p>
+      <div style="margin: 15px 0; text-align: center;">
+        <img src="images/q144_table1.jpg" alt="q144 table" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+      </div>
+      <p>Azure Multi-factor Authentication (MFA) is enabled for all users.</p>
+      <p>User1 triggers a medium severity alert that requires additional investigation.</p>
+      <p>You need to force User1 to reset his password the next time he signs in.</p>
+      <p>The solution must minimize administrative effort.</p>
+      <p>What should you do?</p>
+    `,
+    options: [
+      "Reconfigure the user risk policy to trigger on medium or low severity.",
+      "Mark User1 as compromised.",
+      "Reset the Azure MFA registration for User1.",
+      "Configure a sign-in risk policy"
+    ],
+    answer: 1,
+    explanation: `
+      <p><strong>Scenario: User compromised (True positive)</strong></p>
+      <p>'Risky users' report shows an at-risk user [Risk state = At risk] with low risk [Risk level = Low] and that user was indeed compromised.</p>
+      <p><strong>Feedback:</strong> Select the user and click on 'Confirm user compromised'.</p>
+      <p><strong>What happens under the hood?</strong> Azure AD will move the user risk to High [Risk state = Confirmed compromised; Risk level = High] and will add a new detection 'Admin confirmed user compromised'.</p>
+      <p><strong>Notes:</strong> Currently, the 'Confirm user compromised' option is only available in 'Risky users' report.</p>
+      <p>The detection 'Admin confirmed user compromised' is shown in the tab 'Risk detections not linked to a sign-in' in the 'Risky users' report.</p>
+      <p><strong>Reference:</strong> https://docs.microsoft.com/en-us/azure/active-directory/identity-protection/howto-identity-protection-risk-feedback</p>
+    `
+  },
+{
+    id: 145,
+    type: "hotspot",
+    question: `
+      <p><strong>Question 145</strong></p>
+      <p><strong>HOTSPOT</strong></p>
+      <p>You have an Azure Active Directory (Azure AD) tenant that contains the users shown in the following table.</p>
+      <div style="margin: 15px 0; text-align: center;">
+        <img src="images/q145_table1.jpg" alt="145 table1" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+      </div>
+      <p>In Azure AD Identity Protection, you configure a user risk policy that has the following settings:</p>
+      <p>
+        ✑ Assignments:<br>
+        - Users: Group1<br>
+        - User risk: Low and above<br>
+        ✑ Controls:<br>
+        - Access: Block access<br>
+        ✑ Enforce policy: On
+      </p>
+      <p>In Azure AD Identity Protection, you configure a sign-in risk policy that has the following settings:</p>
+      <p>
+        ✑ Assignments:<br>
+        - Users: Group2<br>
+        - Sign-in risk: Low and above<br>
+        ✑ Controls:<br>
+        - Access: Require multi-factor authentication<br>
+        ✑ Enforce policy: On
+      </p>
+      <p>For each of the following statements, select Yes if the statement is true. Otherwise, select No.</p>
+      <p>NOTE: Each correct selection is worth one point.</p>
+      <p><strong>Answer Area</strong></p>
+      <div style="margin-top: 15px; background: #fff; padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
+        <table style="width: 100%; border-collapse: collapse;">
+          <thead>
+            <tr style="border-bottom: 2px solid #ccc;">
+              <th style="text-align: left; padding: 8px;">Statements</th>
+              <th style="text-align: center; padding: 8px; width: 80px;">Yes</th>
+              <th style="text-align: center; padding: 8px; width: 80px;">No</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Hidden dummy input satisfies app.js standard radio check -->
+            <input type="radio" name="answer" id="hotspot_dummy" style="display:none;" checked>
+
+            <tr style="border-bottom: 1px solid #eee;">
+              <td style="padding: 8px;">User1 can sign in from an anonymous IP address.</td>
+              <td style="text-align: center;"><input type="radio" name="matrix_q145_1" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.matrix_q145_1 = 'Yes';"></td>
+              <td style="text-align: center;"><input type="radio" name="matrix_q145_1" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.matrix_q145_1 = 'No';"></td>
+            </tr>
+            <tr style="border-bottom: 1px solid #eee;">
+              <td style="padding: 8px;">User2 can sign in from an anonymous IP address.</td>
+              <td style="text-align: center;"><input type="radio" name="matrix_q145_2" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.matrix_q145_2 = 'Yes';"></td>
+              <td style="text-align: center;"><input type="radio" name="matrix_q145_2" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.matrix_q145_2 = 'No';"></td>
+            </tr>
+            <tr>
+              <td style="padding: 8px;">User3 can sign in from an anonymous IP address.</td>
+              <td style="text-align: center;"><input type="radio" name="matrix_q145_3" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.matrix_q145_3 = 'Yes';"></td>
+              <td style="text-align: center;"><input type="radio" name="matrix_q145_3" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.matrix_q145_3 = 'No';"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    `,
+    answer: {
+      "matrix_q145_1": "Yes",
+      "matrix_q145_2": "No",
+      "matrix_q145_3": "Yes"
+    },
+    explanation: `
+      <p><strong>Box 1: Yes</strong></p>
+      <p>Azure AD Identity Protection can review user sign-in attempts and take additional action if there's suspicious behavior. Sign-ins from anonymous IP addresses trigger risk detection.</p>
+      <p><strong>Box 2: No</strong></p>
+      <p>User2 belongs to Group2 and is targeted by the sign-in risk policy configured to require multi-factor authentication for low and above risk levels, blocking anonymous IP sign-ins without MFA or depending on configuration restrictions.</p>
+      <p><strong>Box 3: Yes</strong></p>
+      <p>User3 sign-in from an anonymous IP address triggers risk policies accordingly.</p>
+      <p><strong>Reference:</strong> https://docs.microsoft.com/en-us/azure/active-directory/identity-protection/concept-identity-protection-risks</p>
+    `
+  },
+{
+    id: 146,
+    type: "single",
+    question: `
+      <p><strong>Question 146</strong></p>
+      <p>You have an Azure Active Directory (Azure AD) tenant.</p>
+      <p>You configure self-service password reset (SSPR) by using the following settings:</p>
+      <p>
+        ✑ Require users to register when signing in: Yes<br>
+        ✑ Number of methods required to reset: 1
+      </p>
+      <p>What is a valid authentication method available to users?</p>
+    `,
+    options: [
+      "an email to an address outside your organization",
+      "a smartcard",
+      "an FID02 security token",
+      "a Microsoft Teams chat"
+    ],
+    answer: 0,
+    explanation: `
+      <p>A one-gate policy requires one piece of authentication data, such as an email address or phone number. A one-gate policy applies in the following circumstances:</p>
+      <p>It's within the first 30 days of a trial subscription; or</p>
+      <p>A custom domain hasn't been configured for your Azure AD tenant so is using the default *.onmicrosoft.com. The default *.onmicrosoft.com domain isn't recommended for production use; and Azure AD Connect isn't synchronizing identities.</p>
+      <p><strong>Reference:</strong> https://docs.microsoft.com/en-us/azure/active-directory/authentication/concept-sspr-policy#administrator-reset-policy-differences</p>
+    `
+  },
+{
+    id: 147,
+    type: "single",
+    question: `
+      <p><strong>Question 147</strong></p>
+      <p>You have an Azure Active Directory (Azure AD) tenant that contains the users shown in the following table.</p>
+      <div style="margin: 15px 0; text-align: center;">
+        <img src="images/q147_table1.jpg" alt="147 table1" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+      </div>
+      <p>The tenant has the authentication methods shown in the following table.</p>
+      <div style="margin: 15px 0; text-align: center;">
+        <img src="images/q147_table2.jpg" alt="147 table2" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+      </div>
+      <p>Which users will sign in to cloud apps by matching a number shown in the app with a number shown on their phone?</p>
+    `,
+    options: [
+      "User1 only",
+      "User2 only",
+      "User3 only",
+      "User1 and User2 only",
+      "User2 and User3 only"
+    ],
+    answer: 0,
+    explanation: `
+      <p><strong>Microsoft Authenticator -</strong></p>
+      <p>You can also allow your employee's phone to become a passwordless authentication method. You may already be using the Authenticator app as a convenient multi-factor authentication option in addition to a password.</p>
+      <p>You can also use the Authenticator App as a passwordless option.</p>
+      <p>The Authenticator App turns any iOS or Android phone into a strong, passwordless credential. Users can sign in to any platform or browser by getting a notification to their phone, matching a number displayed on the screen to the one on their phone, and then using their biometric (touch or face) or PIN to confirm.</p>
+      <p><strong>Incorrect:</strong></p>
+      <p>* Not User2</p>
+      <p><strong>FIDO2 security keys -</strong></p>
+      <p>The FIDO (Fast IDentity Online) Alliance helps to promote open authentication standards and reduce the use of passwords as a form of authentication. FIDO2 is the latest standard that incorporates the web authentication (WebAuthn) standard.</p>
+      <p>FIDO2 security keys are an unphishable standards-based passwordless authentication method that can come in any form factor. Fast Identity Online (FIDO) is an open standard for passwordless authentication. FIDO allows users and organizations to leverage the standard to sign in to their resources without a username or password using an external security key or a platform key built into a device.</p>
+      <p><strong>Reference:</strong> https://docs.microsoft.com/en-us/azure/active-directory/authentication/concept-authentication-passwordless</p>
+    `
+  },
+{
+    id: 148,
+    type: "single",
+    question: `
+      <p><strong>Question 148</strong></p>
+      <p>You have an Azure Active Directory (Azure AD) tenant that contains a user named User1 and the conditional access policies shown in the following table.</p>
+      <div style="margin: 15px 0; text-align: center;">
+        <img src="images/q148_table1.jpg" alt="148 table1" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+      </div>
+      <p>You need to evaluate which policies will be applied to User1 when User1 attempts to sign-in from various IP addresses.</p>
+      <p>Which feature should you use?</p>
+    `,
+    options: [
+      "Access reviews",
+      "Identity Secure Score",
+      "The What If tool",
+      "the Microsoft 365 network connectivity test tool"
+    ],
+    answer: 2,
+    explanation: `
+      <p>The Azure AD conditional access What if tool allows you to understand the impact of your conditional access policies on your environment. Instead of test driving your policies by performing multiple sign-ins manually, this tool enables you to evaluate a simulated sign-in of a user. The simulation estimates the impact this sign-in has on your policies and generates a simulation report. The report does not only list the applied conditional access policies but also classic policies if they exist.</p>
+      <p><strong>Reference:</strong> https://azure.microsoft.com/en-us/updates/azure-ad-conditional-access-what-if-tool-is-now-available</p>
+    `
+  },
+{
+    id: 149,
+    type: "single",
+    question: `
+      <p><strong>Question 149</strong></p>
+      <p>You have a Microsoft 365 tenant.</p>
+      <p>All users have mobile phones and Windows 10 laptops.</p>
+      <p>The users frequently work from remote locations that do not have Wi-Fi access or mobile phone connectivity. While working from the remote locations, the users connect their laptops to a wired network that has internet access.</p>
+      <p>You plan to implement multi-factor authentication (MFA).</p>
+      <p>Which MFA authentication method can the users use from the remote location?</p>
+    `,
+    options: [
+      "an app password",
+      "voice",
+      "Windows Hello for Business",
+      "security questions"
+    ],
+    answer: 2,
+    explanation: `
+      <p>App Passwords are a legacy feature for old Office versions. Windows Hello is the way to go.</p>
+    `
+  },
+{
+    id: 150,
+    type: "single",
+    question: `
+      <p><strong>Question 150</strong></p>
+      <p>You create a conditional access policy that blocks access when a user triggers a high-severity sign-in alert. You need to test the policy under the following conditions:</p>
+      <p>
+        ✑ A user signs in from another country.<br>
+        ✑ A user triggers a sign-in risk.
+      </p>
+      <p>What should you use to complete the test?</p>
+    `,
+    options: [
+      "the Conditional Access What If tool",
+      "sign-ins logs in Azure Active Directory (Azure AD)",
+      "the activity logs in Microsoft Defender for Cloud Apps",
+      "access reviews in Azure Active Directory (Azure AD)"
+    ],
+    answer: 0,
+    explanation: `
+      <p>The Azure AD conditional access What if tool allows you to understand the impact of your conditional access policies on your environment. Instead of test driving your policies by performing multiple sign-ins manually, this tool enables you to evaluate a simulated sign-in of a user. The simulation estimates the impact this sign-in has on your policies and generates a simulation report. The report does not only list the applied conditional access policies but also classic policies if they exist.</p>
+      <p><strong>Reference:</strong> https://azure.microsoft.com/en-us/updates/azure-ad-conditional-access-what-if-tool-is-now-available</p>
+    `
+  },
+{
+    id: 151,
+    type: "hotspot",
+    question: `
+      <p><strong>Question 151</strong></p>
+      <p><strong>HOTSPOT</strong></p>
+      <p>You have an Azure Active Directory (Azure AD) tenant that contains the users shown in the following table.</p>
+      <div style="margin: 15px 0; text-align: center;">
+        <img src="images/q151_table1.jpg" alt="151 table1" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+      </div>
+      <p>You have the locations shown in the following table.</p>
+      <div style="margin: 15px 0; text-align: center;">
+        <img src="images/q151_table2.jpg" alt="151 table2" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+      </div>
+      <p>The tenant contains a named location that has the following configurations:</p>
+      <p>
+        ✑ Name: Location1<br>
+        ✑ Mark as trusted location: Enabled IPv4 range: 10.10.0.0/16 -<br>
+        MFA has a trusted IP address range of 193.17.17.0/24.<br>
+        ✑ Name: CAPolicy1<br>
+        ✑ Assignments<br>
+        - Users or workload identities: Group1<br>
+        - Cloud apps or actions: All cloud apps<br>
+        ✑ Conditions<br>
+        - Locations: All trusted locations<br>
+        ✑ Access controls<br>
+        - Grant<br>
+        - Grant access: Require multi-factor authentication<br>
+        - Session: 0 controls selected<br>
+        ✑ Enable policy: On
+      </p>
+      <p>For each of the following statements, select Yes if the statement is true. Otherwise, select No.</p>
+      <p>NOTE: Each correct selection is worth one point.</p>
+      <p><strong>Answer Area</strong></p>
+      <div style="margin-top: 15px; background: #fff; padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
+        <table style="width: 100%; border-collapse: collapse;">
+          <thead>
+            <tr style="border-bottom: 2px solid #ccc;">
+              <th style="text-align: left; padding: 8px;">Statements</th>
+              <th style="text-align: center; padding: 8px; width: 80px;">Yes</th>
+              <th style="text-align: center; padding: 8px; width: 80px;">No</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Hidden dummy input satisfies app.js standard radio check -->
+            <input type="radio" name="answer" id="hotspot_dummy" style="display:none;" checked>
+
+            <tr style="border-bottom: 1px solid #eee;">
+              <td style="padding: 8px;">If User1 connects to the tenant from IP address 10.10.0.150, the user will be prompted for MFA.</td>
+              <td style="text-align: center;"><input type="radio" name="matrix_q151_1" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.matrix_q151_1 = 'Yes';"></td>
+              <td style="text-align: center;"><input type="radio" name="matrix_q151_1" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.matrix_q151_1 = 'No';"></td>
+            </tr>
+            <tr style="border-bottom: 1px solid #eee;">
+              <td style="padding: 8px;">If User2 connects to the tenant from IP address 10.10.1.160, the user will be prompted for MFA.</td>
+              <td style="text-align: center;"><input type="radio" name="matrix_q151_2" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.matrix_q151_2 = 'Yes';"></td>
+              <td style="text-align: center;"><input type="radio" name="matrix_q151_2" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.matrix_q151_2 = 'No';"></td>
+            </tr>
+            <tr>
+              <td style="padding: 8px;">If User2 connects to the tenant from IP address 192.168.1.20, the user will be prompted for MFA.</td>
+              <td style="text-align: center;"><input type="radio" name="matrix_q151_3" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.matrix_q151_3 = 'Yes';"></td>
+              <td style="text-align: center;"><input type="radio" name="matrix_q151_3" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.matrix_q151_3 = 'No';"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    `,
+    answer: {
+      "matrix_q151_1": "No",
+      "matrix_q151_2": "Yes",
+      "matrix_q151_3": "No"
+    },
+    explanation: `
+      <p><strong>Box 1: No</strong></p>
+      <p>10.10.0.150 is from a trusted location.</p>
+      <p><strong>Note:</strong> The trusted IPs feature of Azure AD Multi-Factor Authentication bypasses multi-factor authentication prompts for users who sign in from a defined IP address range. You can set trusted IP ranges for your on-premises environments. When users are in one of these locations, there's no Azure AD Multi-Factor Authentication prompt. The trusted IPs feature requires Azure AD Premium P1 edition.</p>
+      <p><strong>Box 2: Yes</strong></p>
+      <p>(although the request is from a trusted location, that doesn't mean the MFA prompt will be bypassed! If there was CA policy configured to require MFA with the trusted locations EXCLUDED, then the user would not get the MFA prompt)</p>
+      <p><strong>Box 3: No</strong></p>
+      <p>(request is coming from the IP that is added to the MFA trusted IPs list in the legacy MFA portal https://account.activedirectory.windowsazure.com/UserManagement/MfaSettings.aspx)</p>
+    `
+  },
+{
+    id: 152,
+    type: "dropdown",
+    question: `
+      <p><strong>Question 152</strong></p>
+      <p><strong>HOTSPOT</strong></p>
+      <p>You have an Azure Active Directory (Azure AD) tenant named contoso.com that has Email one-time passcode for guests set to Yes.</p>
+      <p>You invite the guest users shown in the following table.</p>
+      <div style="margin: 15px 0; text-align: center;">
+        <img src="images/q152_table1.jpg" alt="152 table1" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+      </div>
+      <p>Which users will receive a one-time passcode, and how long will the passcode be valid?</p>
+      <p>To answer, select the appropriate options in the answer area.</p>
+      <p>NOTE: Each correct selection is worth one point.</p>
+      <p><strong>Answer Area</strong></p>
+      <table style="width: 100%; border-collapse: separate; border-spacing: 0 15px; margin-top: 10px;">
+        <tr>
+          <td style="width: 35%; font-weight: 500; vertical-align: middle;">Users:</td>
+          <td style="width: 65%; vertical-align: middle;">
+            <select class="inline-select" data-key="dropdown1" style="width: 100%; padding: 6px; border: 1px solid #ccc; background-color: #fff; font-size: 14px;">
+              <option value="">-- Select --</option>
+              <option value="Guest1 only">Guest1 only</option>
+              <option value="Guest2 only">Guest2 only</option>
+              <option value="Guest3 only">Guest3 only</option>
+              <option value="Guest1 and Guest2 only">Guest1 and Guest2 only</option>
+              <option value="Guest2 and Guest3 only">Guest2 and Guest3 only</option>
+              <option value="Guest1, Guest2, and Guest3">Guest1, Guest2, and Guest3</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td style="width: 35%; font-weight: 500; vertical-align: middle;">Valid for:</td>
+          <td style="width: 65%; vertical-align: middle;">
+            <select class="inline-select" data-key="dropdown2" style="width: 100%; padding: 6px; border: 1px solid #ccc; background-color: #fff; font-size: 14px;">
+              <option value="">-- Select --</option>
+              <option value="30 minutes">30 minutes</option>
+              <option value="60 minutes">60 minutes</option>
+              <option value="24 hours">24 hours</option>
+              <option value="48 hours">48 hours</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+    `,
+    answer: {
+      "dropdown1": "Guest3 only",
+      "dropdown2": "30 minutes"
+    },
+    explanation: `
+      <p><strong>Box 1: Guest3 only</strong></p>
+      <p>When does a guest user get a one-time passcode?</p>
+      <p>When a guest user redeems an invitation or uses a link to a resource that has been shared with them, they'll receive a one-time passcode if:</p>
+      <p>- They don't have an Azure AD account</p>
+      <p>- They don't have a Microsoft account</p>
+      <p>- The inviting tenant didn't set up federation with social (like Google) or other identity providers.</p>
+      <p><strong>Box 2: 30 minutes</strong></p>
+      <p>One-time passcodes are valid for 30 minutes. After 30 minutes, that specific one-time passcode is no longer valid, and the user must request a new one. User sessions expire after 24 hours. After that time, the guest user receives a new passcode when they access the resource. Session expiration provides added security, especially when a guest user leaves their company or no longer needs access.</p>
+      <p><strong>Reference:</strong> https://docs.microsoft.com/en-us/azure/active-directory/external-identities/one-time-passcode</p>
+    `
+  },
 ];
 ///*SIMULATION QUESTION FROM 81 - 84 IS SKIPT* question: 111 needs clarifications for its corresponding answer ///
 ///* question 3 missing table*///

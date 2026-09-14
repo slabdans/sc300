@@ -4887,7 +4887,7 @@ By using this cmdlet, you can set the appropriate parameters to block self-servi
       <li><strong>Statement 3 — Yes:</strong> Admin2 is authorized to assign Attribute2 to Group1.</li>
     </ul>
   `
-}
+},
 {
   id: 111,
   type: "dropdown",

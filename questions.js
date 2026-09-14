@@ -4744,31 +4744,30 @@ By using this cmdlet, you can set the appropriate parameters to block self-servi
   `
 },
 {
-  id: 110,
+  id: 172,
   type: "hotspot",
 
   question: `
-    <p><strong>Question 110: Hotspot</strong></p>
-    <p>You have a Microsoft Entra tenant that contains the users shown in the following table.</p>
+    <p style="text-align: left;">You have a Microsoft Entra tenant that contains the users shown in the following table.</p>
     
     <div style="margin-bottom: 15px; text-align: center;">
       <img src="images/q110_table1.jpg" alt="Domain and OU Filtering" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
     </div>
 
-    <p>The tenant contains the identities shown in the following table.</p>
+    <p style="text-align: left;">The tenant contains the identities shown in the following table.</p>
     
     <div style="margin-bottom: 15px; text-align: center;">
       <img src="images/q110_table2.jpg" alt="Domain and OU Filtering" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
     </div>
 
-    <p>You have an attribute set named Custom1 that contains the custom security attributes shown in the following table.</p>
+    <p style="text-align: left;">You have an attribute set named Custom1 that contains the custom security attributes shown in the following table.</p>
     
     <div style="margin-bottom: 15px; text-align: center;">
       <img src="images/q110_table_3.jpg" alt="Domain and OU Filtering" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
     </div>
 
-    <p>For each of the following statements, select <strong>Yes</strong> if the statement is true. Otherwise, select <strong>No</strong>.</p>
-    <p><em>NOTE: Each correct selection is worth one point.</em></p>
+    <p style="text-align: left;">For each of the following statements, select <strong>Yes</strong> if the statement is true. Otherwise, select <strong>No</strong>.</p>
+    <p style="text-align: left;"><em>NOTE: Each correct selection is worth one point.</em></p>
 
     <div style="margin-top: 15px; background: #fff; padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
       <table style="width: 100%; border-collapse: collapse;">
@@ -4783,19 +4782,19 @@ By using this cmdlet, you can set the appropriate parameters to block self-servi
           <input type="radio" name="answer" id="hotspot_dummy" style="display:none;" checked>
 
           <tr style="border-bottom: 1px solid #eee;">
-            <td style="padding: 8px;">Statement 1</td>
-            <td style="text-align: center;"><input type="radio" name="q110_statement1" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q110_statement1 = 'Yes';"></td>
-            <td style="text-align: center;"><input type="radio" name="q110_statement1" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q110_statement1 = 'No';"></td>
+            <td style="text-align: left; padding: 8px;">Admin1 can assign Attribute1 to User1.</td>
+            <td style="text-align: center;"><input type="radio" name="statement_1" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.statement_1 = 'Yes';"></td>
+            <td style="text-align: center;"><input type="radio" name="statement_1" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.statement_1 = 'No';"></td>
           </tr>
           <tr style="border-bottom: 1px solid #eee;">
-            <td style="padding: 8px;">Statement 2</td>
-            <td style="text-align: center;"><input type="radio" name="q110_statement2" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q110_statement2 = 'Yes';"></td>
-            <td style="text-align: center;"><input type="radio" name="q110_statement2" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q110_statement2 = 'No';"></td>
+            <td style="text-align: left; padding: 8px;">Admin2 can modify Attribute1.</td>
+            <td style="text-align: center;"><input type="radio" name="statement_2" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.statement_2 = 'Yes';"></td>
+            <td style="text-align: center;"><input type="radio" name="statement_2" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.statement_2 = 'No';"></td>
           </tr>
           <tr>
-            <td style="padding: 8px;">Statement 3</td>
-            <td style="text-align: center;"><input type="radio" name="q110_statement3" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q110_statement3 = 'Yes';"></td>
-            <td style="text-align: center;"><input type="radio" name="q110_statement3" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q110_statement3 = 'No';"></td>
+            <td style="text-align: left; padding: 8px;">Admin2 can assign Attribute2 to Goup1.</td>
+            <td style="text-align: center;"><input type="radio" name="statement_3" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.statement_3 = 'Yes';"></td>
+            <td style="text-align: center;"><input type="radio" name="statement_3" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.statement_3 = 'No';"></td>
           </tr>
         </tbody>
       </table>
@@ -4803,23 +4802,92 @@ By using this cmdlet, you can set the appropriate parameters to block self-servi
   `,
 
   answer: {
-    q110_statement1: "Yes",
-    q110_statement2: "No",
-    q110_statement3: "Yes"
+    statement_1: "Yes",
+    statement_2: "No",
+    statement_3: "Yes"
   },
 
   explanation: `
-    <p>
-      <strong>Statement 1 — Yes</strong>
-    </p>
-    <p>
-      <strong>Statement 2 — No</strong>
-    </p>
-    <p>
-      <strong>Statement 3 — Yes</strong>
-    </p>
+    <p><strong>Explanation:</strong></p>
+    <ul>
+      <li><strong>Statement 1 — Yes:</strong> Admin1 has the necessary permissions to assign Attribute1 to User1.</li>
+      <li><strong>Statement 2 — No:</strong> Admin2 lacks permissions to modify Attribute1 directly.</li>
+      <li><strong>Statement 3 — Yes:</strong> Admin2 is authorized to assign Attribute2 to Group1.</li>
+    </ul>
   `
-},
+}{
+  id: 110,
+  type: "hotspot",
+
+  question: `
+    <p style="text-align: left;">You have a Microsoft Entra tenant that contains the users shown in the following table.</p>
+    
+    <div style="margin-bottom: 15px; text-align: center;">
+      <img src="images/q110_table1.jpg" alt="Domain and OU Filtering" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+    </div>
+
+    <p style="text-align: left;">The tenant contains the identities shown in the following table.</p>
+    
+    <div style="margin-bottom: 15px; text-align: center;">
+      <img src="images/q110_table2.jpg" alt="Domain and OU Filtering" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+    </div>
+
+    <p style="text-align: left;">You have an attribute set named Custom1 that contains the custom security attributes shown in the following table.</p>
+    
+    <div style="margin-bottom: 15px; text-align: center;">
+      <img src="images/q110_table_3.jpg" alt="Domain and OU Filtering" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
+    </div>
+
+    <p style="text-align: left;">For each of the following statements, select <strong>Yes</strong> if the statement is true. Otherwise, select <strong>No</strong>.</p>
+    <p style="text-align: left;"><em>NOTE: Each correct selection is worth one point.</em></p>
+
+    <div style="margin-top: 15px; background: #fff; padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
+      <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+          <tr style="border-bottom: 2px solid #ccc;">
+            <th style="text-align: left; padding: 8px;">Statements</th>
+            <th style="text-align: center; padding: 8px; width: 80px;">Yes</th>
+            <th style="text-align: center; padding: 8px; width: 80px;">No</th>
+          </tr>
+        </thead>
+        <tbody>
+          <input type="radio" name="answer" id="hotspot_dummy" style="display:none;" checked>
+
+          <tr style="border-bottom: 1px solid #eee;">
+            <td style="text-align: left; padding: 8px;">Admin1 can assign Attribute1 to User1.</td>
+            <td style="text-align: center;"><input type="radio" name="statement_1" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.statement_1 = 'Yes';"></td>
+            <td style="text-align: center;"><input type="radio" name="statement_1" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.statement_1 = 'No';"></td>
+          </tr>
+          <tr style="border-bottom: 1px solid #eee;">
+            <td style="text-align: left; padding: 8px;">Admin2 can modify Attribute1.</td>
+            <td style="text-align: center;"><input type="radio" name="statement_2" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.statement_2 = 'Yes';"></td>
+            <td style="text-align: center;"><input type="radio" name="statement_2" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.statement_2 = 'No';"></td>
+          </tr>
+          <tr>
+            <td style="text-align: left; padding: 8px;">Admin2 can assign Attribute2 to Goup1.</td>
+            <td style="text-align: center;"><input type="radio" name="statement_3" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.statement_3 = 'Yes';"></td>
+            <td style="text-align: center;"><input type="radio" name="statement_3" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.statement_3 = 'No';"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  `,
+
+  answer: {
+    statement_1: "Yes",
+    statement_2: "No",
+    statement_3: "Yes"
+  },
+
+  explanation: `
+    <p><strong>Explanation:</strong></p>
+    <ul>
+      <li><strong>Statement 1 — Yes:</strong> Admin1 has the necessary permissions to assign Attribute1 to User1.</li>
+      <li><strong>Statement 2 — No:</strong> Admin2 lacks permissions to modify Attribute1 directly.</li>
+      <li><strong>Statement 3 — Yes:</strong> Admin2 is authorized to assign Attribute2 to Group1.</li>
+    </ul>
+  `
+}
 {
   id: 111,
   type: "dropdown",

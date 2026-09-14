@@ -144,7 +144,6 @@ const questions = [
     </ul>
   `
 },
-
   // Question 4: Single Choice
   {
     id: 4,
@@ -4744,79 +4743,6 @@ By using this cmdlet, you can set the appropriate parameters to block self-servi
   `
 },
 {
-  id: 172,
-  type: "hotspot",
-
-  question: `
-    <p style="text-align: left;">You have a Microsoft Entra tenant that contains the users shown in the following table.</p>
-    
-    <div style="margin-bottom: 15px; text-align: center;">
-      <img src="images/q110_table1.jpg" alt="Domain and OU Filtering" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
-    </div>
-
-    <p style="text-align: left;">The tenant contains the identities shown in the following table.</p>
-    
-    <div style="margin-bottom: 15px; text-align: center;">
-      <img src="images/q110_table2.jpg" alt="Domain and OU Filtering" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
-    </div>
-
-    <p style="text-align: left;">You have an attribute set named Custom1 that contains the custom security attributes shown in the following table.</p>
-    
-    <div style="margin-bottom: 15px; text-align: center;">
-      <img src="images/q110_table_3.jpg" alt="Domain and OU Filtering" style="width: 100%; max-width: 550px; height: auto; border: 1px solid #ccc; border-radius: 4px;">
-    </div>
-
-    <p style="text-align: left;">For each of the following statements, select <strong>Yes</strong> if the statement is true. Otherwise, select <strong>No</strong>.</p>
-    <p style="text-align: left;"><em>NOTE: Each correct selection is worth one point.</em></p>
-
-    <div style="margin-top: 15px; background: #fff; padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
-      <table style="width: 100%; border-collapse: collapse;">
-        <thead>
-          <tr style="border-bottom: 2px solid #ccc;">
-            <th style="text-align: left; padding: 8px;">Statements</th>
-            <th style="text-align: center; padding: 8px; width: 80px;">Yes</th>
-            <th style="text-align: center; padding: 8px; width: 80px;">No</th>
-          </tr>
-        </thead>
-        <tbody>
-          <input type="radio" name="answer" id="hotspot_dummy" style="display:none;" checked>
-
-          <tr style="border-bottom: 1px solid #eee;">
-            <td style="text-align: left; padding: 8px;">Admin1 can assign Attribute1 to User1.</td>
-            <td style="text-align: center;"><input type="radio" name="statement_1" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.statement_1 = 'Yes';"></td>
-            <td style="text-align: center;"><input type="radio" name="statement_1" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.statement_1 = 'No';"></td>
-          </tr>
-          <tr style="border-bottom: 1px solid #eee;">
-            <td style="text-align: left; padding: 8px;">Admin2 can modify Attribute1.</td>
-            <td style="text-align: center;"><input type="radio" name="statement_2" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.statement_2 = 'Yes';"></td>
-            <td style="text-align: center;"><input type="radio" name="statement_2" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.statement_2 = 'No';"></td>
-          </tr>
-          <tr>
-            <td style="text-align: left; padding: 8px;">Admin2 can assign Attribute2 to Goup1.</td>
-            <td style="text-align: center;"><input type="radio" name="statement_3" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.statement_3 = 'Yes';"></td>
-            <td style="text-align: center;"><input type="radio" name="statement_3" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.statement_3 = 'No';"></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  `,
-
-  answer: {
-    statement_1: "Yes",
-    statement_2: "No",
-    statement_3: "Yes"
-  },
-
-  explanation: `
-    <p><strong>Explanation:</strong></p>
-    <ul>
-      <li><strong>Statement 1 — Yes:</strong> Admin1 has the necessary permissions to assign Attribute1 to User1.</li>
-      <li><strong>Statement 2 — No:</strong> Admin2 lacks permissions to modify Attribute1 directly.</li>
-      <li><strong>Statement 3 — Yes:</strong> Admin2 is authorized to assign Attribute2 to Group1.</li>
-    </ul>
-  `
-},
-	{
   id: 110,
   type: "hotspot",
 
@@ -4889,7 +4815,6 @@ By using this cmdlet, you can set the appropriate parameters to block self-servi
     </ul>
   `
 },
-
 {
   id: 111,
   type: "dropdown",
@@ -5696,7 +5621,7 @@ By using this cmdlet, you can set the appropriate parameters to block self-servi
     </p>
   `
 },
-	{
+{
     id: 133,
     type: "hotspot",
     question: `
@@ -6552,6 +6477,839 @@ By using this cmdlet, you can set the appropriate parameters to block self-servi
       <p><strong>Reference:</strong> https://docs.microsoft.com/en-us/azure/active-directory/external-identities/one-time-passcode</p>
     `
   },
+{
+    id: 153,
+    type: "single",
+    question: `
+      <p><strong>Question 153</strong></p>
+      <p>You have a Microsoft 365 tenant.</p>
+      <p>You currently allow email clients that use Basic authentication to connect to Microsoft Exchange Online.</p>
+      <p>You need to ensure that users can connect to Exchange only from email clients that use Modern authentication protocols.</p>
+      <p>What should you implement?</p>
+    `,
+    options: [
+      "an OAuth policy in Microsoft Defender for Cloud Apps",
+      "a conditional access policy in Azure Active Directory (Azure AD)",
+      "a compliance policy in Microsoft Endpoint Manager",
+      "an application control profile in Microsoft Endpoint Manager"
+    ],
+    answer: 1,
+    explanation: `
+      <p><strong>Explanation:</strong></p>
+      <p>https://learn.microsoft.com/en-us/azure/active-directory/conditional-access/block-legacy-authentication</p>
+    `
+  },
+{
+    id: 154,
+    type: "single",
+    question: `
+      <p><strong>Question 154</strong></p>
+      <p>You have an Azure subscription that contains an Azure SQL database named db1.</p>
+      <p>You deploy an Azure App Service web app named App1 that provides product information to users that connect to App1 anonymously.</p>
+      <p>You need to provide App1 with access to db1. The solution must meet the following requirements:</p>
+      <p>
+        • Credentials must only be available to App1.<br>
+        • Administrative effort must be minimized. Which type of credentials should you use?
+      </p>
+    `,
+    options: [
+      "a system-assigned managed identity",
+      "an Azure Active Directory (Azure AD) user account",
+      "a SQL Server account",
+      "a user-assigned managed identity"
+    ],
+    answer: 0,
+    explanation: `
+      <p>A. a system-assigned managed identity. Why this is the best choice: A system-assigned managed identity is the most secure and efficient way to handle this scenario because it perfectly aligns with your two core requirements: Credentials only available to App1: The identity is tied directly to the lifecycle of the web app. It is automatically created in Microsoft Entra ID (Azure AD), and its credentials (secrets) are managed entirely by Azure behind the scenes. They are never exposed to developers or stored in code/configuration files.</p>
+    `
+  },
+{
+    id: 155,
+    type: "single",
+    question: `
+      <p><strong>Question 155</strong></p>
+      <p>You have an Azure subscription that contains the custom roles shown in the following table.</p>
+      <div style="margin: 15px 0; text-align: center;">
+        <img src="images/q155_table1.jpg" alt="155 table1" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+      </div>
+      <p>You need to create a custom Azure subscription role named Role3 by using the Azure portal. Role3 will use the baseline permissions of an existing role.</p>
+      <p>Which roles can you clone to create Role3?</p>
+    `,
+    options: [
+      "Role2 only",
+      "built-in Azure subscription roles only",
+      "built-in Azure subscription roles and Role2 only",
+      "built-in Azure subscription roles and built-in Azure AD roles only",
+      "Role1, Role2, built-in Azure subscription roles, and built-in Azure AD roles"
+    ],
+    answer: 2,
+    explanation: `
+      <p>The answer is correct. C. tested in the lab. You can clone Role2 (CustomRole) and Azure Built-in Roles</p>
+      <p>It's unclear if the question asks which roles can be cloned from a single action or in general, but I'd say the latter. So, both custom and Azure built-in roles can be cloned - https://learn.microsoft.com/en-us/azure/role-based-access-control/custom-roles-portal#clone-a-role</p>
+    `
+  },
+{
+    id: 156,
+    type: "single",
+    question: `
+      <p><strong>Question 156</strong></p>
+      <p>You have a Microsoft 365 tenant.</p>
+      <p>All users have mobile phones and Windows 10 laptops.</p>
+      <p>The users frequently work from remote locations that do not have Wi-Fi access or mobile phone connectivity. While working from the remote locations, the users connect their laptops to a wired network that has internet access.</p>
+      <p>You plan to implement multi-factor authentication (MFA).</p>
+      <p>Which MFA authentication method can the users use from the remote location?</p>
+    `,
+    options: [
+      "Windows Hello for Business",
+      "an app password",
+      "security questions",
+      "email"
+    ],
+    answer: 0,
+    explanation: `
+      <p>A. Windows Hello for business > app password. This question comes up several times and many users indicate that Windows hello for business is what should be the answer.</p>
+    `
+  },
+{
+    id: 157,
+    type: "single",
+    question: `
+      <p><strong>Question 157</strong></p>
+      <p>You have a Microsoft 365 tenant.</p>
+      <p>All users have mobile phones and Windows 10 laptops.</p>
+      <p>The users frequently work from remote locations that do not have Wi-Fi access or mobile phone connectivity. While working from the remote locations, the users connect their laptops to a wired network that has internet access.</p>
+      <p>You plan to implement multi-factor authentication (MFA).</p>
+      <p>Which MFA authentication method can the users use from the remote location?</p>
+    `,
+    options: [
+      "voice",
+      "Windows Hello for Business",
+      "email",
+      "security questions"
+    ],
+    answer: 1,
+    explanation: `
+      <p>Windows Hello for Business</p>
+    `
+  },
+{
+    id: 158,
+    type: "hotspot",
+    question: `
+      <p><strong>Question 158</strong></p>
+      <p><strong>HOTSPOT</strong></p>
+      <p>You have an Azure subscription that contains the following virtual machine:</p>
+      <ul>
+        <li>Name: V1</li>
+        <li>Azure region: East US</li>
+        <li>System-assigned managed identity: Disabled</li>
+      </ul>
+      <p>You create the managed identities shown in the following table.</p>
+      <div style="margin: 15px 0; text-align: center;">
+        <img src="images/q158_table1.jpg" alt="158 table1" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+      </div>
+      <p>You perform the following actions:</p>
+      <ul>
+        <li>Assign Managed1 to V1.</li>
+        <li>Create a resource group named RG1 in the West US region.</li>
+      </ul>
+      <p>For each of the following statements, select Yes if the statement is true. Otherwise, select No.</p>
+      <p>NOTE: Each correct selection is worth one point.</p>
+    `,
+    statements: [
+      "You can assign Managed2 to V1.",
+      "You can assign Managed3 to V1.",
+      "You can assign VM1 the Owner role for RG1."
+    ],
+    options: ["Yes", "No"],
+    answers: [0, 0, 1],
+    explanation: `
+      <p>Refer to the uploaded image and to the corresponding explanation for answers.</p>
+    `
+  },
+{
+    id: 158,
+    type: "hotspot",
+    question: `
+      <p><strong>Question 158</strong></p>
+      <p><strong>HOTSPOT</strong></p>
+      <p>You have an Azure subscription that contains the following virtual machine:</p>
+      <ul>
+        <li>Name: V1</li>
+        <li>Azure region: East US</li>
+        <li>System-assigned managed identity: Disabled</li>
+      </ul>
+      <p>You create the managed identities shown in the following table.</p>
+      <div style="margin: 15px 0; text-align: center;">
+        <img src="images/q158_table1.jpg" alt="158 table1" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+      </div>
+      <p>You perform the following actions:</p>
+      <ul>
+        <li>Assign Managed1 to V1.</li>
+        <li>Create a resource group named RG1 in the West US region.</li>
+      </ul>
+      <p>For each of the following statements, select Yes if the statement is true. Otherwise, select No.</p>
+      <p><em>NOTE: Each correct selection is worth one point.</em></p>
+
+      <div style="margin-top: 15px; background: #fff; padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
+        <table style="width: 100%; border-collapse: collapse;">
+          <thead>
+            <tr style="border-bottom: 2px solid #ccc;">
+              <th style="text-align: left; padding: 8px;">Statements</th>
+              <th style="text-align: center; padding: 8px; width: 80px;">Yes</th>
+              <th style="text-align: center; padding: 8px; width: 80px;">No</th>
+            </tr>
+          </thead>
+          <tbody>
+            <input type="radio" name="answer" id="hotspot_dummy" style="display:none;" checked>
+
+            <tr style="border-bottom: 1px solid #eee;">
+              <td style="padding: 8px;">You can assign Managed2 to V1.</td>
+              <td style="text-align: center;"><input type="radio" name="q158_statement1" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q158_statement1 = 'Yes';"></td>
+              <td style="text-align: center;"><input type="radio" name="q158_statement1" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q158_statement1 = 'No';"></td>
+            </tr>
+            <tr style="border-bottom: 1px solid #eee;">
+              <td style="padding: 8px;">You can assign Managed3 to V1.</td>
+              <td style="text-align: center;"><input type="radio" name="q158_statement2" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q158_statement2 = 'Yes';"></td>
+              <td style="text-align: center;"><input type="radio" name="q158_statement2" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q158_statement2 = 'No';"></td>
+            </tr>
+            <tr>
+              <td style="padding: 8px;">You can assign VM1 the Owner role for RG1.</td>
+              <td style="text-align: center;"><input type="radio" name="q158_statement3" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q158_statement3 = 'Yes';"></td>
+              <td style="text-align: center;"><input type="radio" name="q158_statement3" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q158_statement3 = 'No';"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    `,
+    answer: {
+      q158_statement1: "Yes",
+      q158_statement2: "Yes",
+      q158_statement3: "No"
+    },
+    explanation: `
+      <p>Refer to the uploaded image and to the corresponding explanation for answers.</p>
+    `
+  },
+{
+    id: 159,
+    type: "hotspot",
+    question: `
+      <p><strong>Question 159</strong></p>
+      <p><strong>HOTSPOT</strong></p>
+      <p>You have an Azure subscription that contains the key vaults shown in the following table.</p>
+      <div style="margin: 15px 0; text-align: center;">
+        <img src="images/q159_table1.jpg" alt="159 table1" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+      </div>
+      <p>The subscription contains the users shown in the following table.</p>
+      <div style="margin: 15px 0; text-align: center;">
+        <img src="images/q159_table2.jpg" alt="159 table2" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+      </div>
+      <p>On June 1, Admin4 performs the following actions:</p>
+      <ul>
+        <li>Deletes a certificate named Certificate1 from KeyVault1</li>
+        <li>Deletes a secret named Secret1 from KeyVault2</li>
+      </ul>
+      <p>For each of the following statements, select Yes if the statement is true. Otherwise, select No. NOTE: Each correct selection is worth one point.</p>
+
+      <div style="margin-top: 15px; background: #fff; padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
+        <table style="width: 100%; border-collapse: collapse;">
+          <thead>
+            <tr style="border-bottom: 2px solid #ccc;">
+              <th style="text-align: left; padding: 8px;">Statements</th>
+              <th style="text-align: center; padding: 8px; width: 80px;">Yes</th>
+              <th style="text-align: center; padding: 8px; width: 80px;">No</th>
+            </tr>
+          </thead>
+          <tbody>
+            <input type="radio" name="answer" id="hotspot_dummy" style="display:none;" checked>
+
+            <tr style="border-bottom: 1px solid #eee;">
+              <td style="padding: 8px;">Admin1 can recover Secret1 on June 7.</td>
+              <td style="text-align: center;"><input type="radio" name="q159_statement1" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q159_statement1 = 'Yes';"></td>
+              <td style="text-align: center;"><input type="radio" name="q159_statement1" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q159_statement1 = 'No';"></td>
+            </tr>
+            <tr style="border-bottom: 1px solid #eee;">
+              <td style="padding: 8px;">Admin2 can purge Certificate1 on June 12.</td>
+              <td style="text-align: center;"><input type="radio" name="q159_statement2" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q159_statement2 = 'Yes';"></td>
+              <td style="text-align: center;"><input type="radio" name="q159_statement2" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q159_statement2 = 'No';"></td>
+            </tr>
+            <tr>
+              <td style="padding: 8px;">Admin3 can purge Certificate1 on June 14.</td>
+              <td style="text-align: center;"><input type="radio" name="q159_statement3" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q159_statement3 = 'Yes';"></td>
+              <td style="text-align: center;"><input type="radio" name="q159_statement3" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q159_statement3 = 'No';"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    `,
+    answer: {
+      q159_statement1: "Yes",
+      q159_statement2: "No",
+      q159_statement3: "No"
+    },
+    explanation: `
+      <p><strong>Explanation:</strong></p>
+      <p><strong>Yes</strong> - Key Vault Administrator can perform all data plane operations on a key vault. and purge protection is disabled for KeyVault2.<br>
+      NB: Purge protection is an optional Key Vault behavior and is not enabled by default. Do not mismatch with soft-delete</p>
+      <p><strong>No</strong> - We are still in the Purge protection remaining period.<br>
+      NB: Also the Key Vault contributor role doesn't allow to get access to certificate</p>
+      <p><strong>No</strong> - We are still in the Purge protection remaining period.<br>
+      Even if the Certificate Officer role allow to get access to certificate</p>
+    `
+  },
+{
+    id: 160,
+    type: "single",
+    question: `
+      <p><strong>Question 160</strong></p>
+      <p>You have an Azure AD tenant.</p>
+      <p>You open the risk detections report.</p>
+      <p>Which risk detection type is classified as a user risk?</p>
+    `,
+    options: [
+      "Password spray",
+      "anonymous IP address",
+      "unfamiliar sign-in properties",
+      "Azure AD threat intelligence"
+    ],
+    answer: 3,
+    explanation: `
+      <p><strong>Sign-in Risk policies cover:</strong></p>
+      <ul>
+        <li>Anonymous IP address</li>
+        <li>Additional Risk detected</li>
+        <li>Admin confirmed user compromised</li>
+        <li>Anomalous token</li>
+        <li>Atypical travel</li>
+        <li>Azure AD threat intelligence</li>
+        <li>Impossible travel</li>
+        <li>Malicious IP</li>
+        <li>Malware linked IP</li>
+        <li>Mass Access to sensitive files</li>
+        <li>New country</li>
+        <li>Password spray</li>
+        <li>Suspicious browser</li>
+        <li>Suspicious inbox forwarding</li>
+        <li>Suspicious inbox manipulation rules</li>
+        <li>token issuer anomaly</li>
+        <li>Unfamiliar sign-in properties</li>
+      </ul>
+      <p><strong>User risk policies cover:</strong></p>
+      <ul>
+        <li>Additional risk detected</li>
+        <li>Anomalous user activity</li>
+        <li>Azure AD threat intelligence</li>
+        <li>Leaked credentials</li>
+        <li>Possible attempt to access Primary Refresh Token (PRT)</li>
+      </ul>
+      <p>https://learn.microsoft.com/en-us/azure/active-directory/identity-protection/concept-identity-protection-risks</p>
+    `
+  },
+{
+    id: 161,
+    type: "single",
+    question: `
+      <p><strong>Question 161</strong></p>
+      <p>You have an Azure Active Directory (Azure AD) tenant.</p>
+      <p>You configure self-service password reset (SSPR) by using the following settings:</p>
+      <ul>
+        <li>Require users to register when signing in: Yes</li>
+        <li>Number of methods required to reset: 1</li>
+      </ul>
+      <p>What is a valid authentication method available to users?</p>
+    `,
+    options: [
+      "a smartcard",
+      "a mobile app code",
+      "a mobile app notification",
+      "an email to an address outside your organization"
+    ],
+    answer: 1,
+    explanation: `
+      <p>It is only if 2 authentication methods are required.</p>
+      <p>https://learn.microsoft.com/en-us/azure/active-directory/authentication/concept-sspr-howitworks#mobile-app-and-sspr</p>
+      <p>When using a mobile app as a method for password reset, like the Microsoft Authenticator app, the following considerations apply:</p>
+      <ul>
+        <li>When administrators require one method be used to reset a password, verification code is the only option available.</li>
+        <li>When administrators require two methods be used to reset a password, users are able to use notification OR verification code in addition to any other enabled methods.</li>
+      </ul>
+    `
+  },
+{
+    id: 162,
+    type: "single",
+    question: `
+      <p><strong>Question 162</strong></p>
+      <p>You create a new Microsoft 365 E5 tenant.</p>
+      <p>You need to ensure that when users connect to the Microsoft 365 portal from an anonymous IP address, they are prompted to use multi-factor authentication (MFA).</p>
+      <p>What should you configure?</p>
+    `,
+    options: [
+      "a sign-in risk policy",
+      "a user risk policy",
+      "an MFA registration policy"
+    ],
+    answer: 0,
+    explanation: `
+      <p>Sign-in risk is correct. Examples for Sign-In Risk:</p>
+      <ul>
+        <li>Anonymous IP address</li>
+        <li>Atypical travel</li>
+        <li>Malware linked IP address</li>
+        <li>Unfamiliar sign-in properties</li>
+        <li>Leaked credentials</li>
+        <li>Password spray</li>
+      </ul>
+    `
+  },
+{
+    id: 163,
+    type: "hotspot",
+    question: `
+      <p><strong>Question 163</strong></p>
+      <p><strong>HOTSPOT</strong></p>
+      <p>You have a Microsoft 365 tenant.</p>
+      <p>You configure a conditional access policy as shown in the Conditional Access policy exhibit. (Click the Conditional Access policy tab.)</p>
+      <div style="margin: 15px 0; text-align: center;">
+        <img src="images/q163_exhibit.jpg" alt="163 exhibit" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+      </div>
+      <p>You view the User administrator role settings as shown in the Role setting details exhibit. (Click the Role setting details tab.)</p>
+      <div style="margin: 15px 0; text-align: center;">
+        <img src="images/q163_exhibit2.jpg" alt="163 exhibit2" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+      </div>
+      <p>You view the User administrator role assignments as shown in the Role assignments exhibit. (Click the Role assignments tab.)</p>
+      <div style="margin: 15px 0; text-align: center;">
+        <img src="images/q163_exhibit3.jpg" alt="163 exhibit3" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+      </div>
+      <p>For each of the following statements, select Yes if the statement is true. Otherwise, select No.</p>
+      <p><em>NOTE: Each correct selection is worth one point.</em></p>
+
+      <div style="margin-top: 15px; background: #fff; padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
+        <table style="width: 100%; border-collapse: collapse;">
+          <thead>
+            <tr style="border-bottom: 2px solid #ccc;">
+              <th style="text-align: left; padding: 8px;">Statements</th>
+              <th style="text-align: center; padding: 8px; width: 80px;">Yes</th>
+              <th style="text-align: center; padding: 8px; width: 80px;">No</th>
+            </tr>
+          </thead>
+          <tbody>
+            <input type="radio" name="answer" id="hotspot_dummy" style="display:none;" checked>
+
+            <tr style="border-bottom: 1px solid #eee;">
+              <td style="padding: 8px;">Before Admin1 can perform a task that requires the User administrator role, an approver must approve the activation request.</td>
+              <td style="text-align: center;"><input type="radio" name="q163_statement1" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q163_statement1 = 'Yes';"></td>
+              <td style="text-align: center;"><input type="radio" name="q163_statement1" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q163_statement1 = 'No';"></td>
+            </tr>
+            <tr style="border-bottom: 1px solid #eee;">
+              <td style="padding: 8px;">Admin2 can request activation of the User administrator role for a period of two hours.</td>
+              <td style="text-align: center;"><input type="radio" name="q163_statement2" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q163_statement2 = 'Yes';"></td>
+              <td style="text-align: center;"><input type="radio" name="q163_statement2" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q163_statement2 = 'No';"></td>
+            </tr>
+            <tr>
+              <td style="padding: 8px;">If Admin3 connects to the Azure Active Directory admin center, and then activates the User administrator role, Admin3 will be prompted to authenticate by using multi-factor authentication (MFA) twice.</td>
+              <td style="text-align: center;"><input type="radio" name="q163_statement3" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q163_statement3 = 'Yes';"></td>
+              <td style="text-align: center;"><input type="radio" name="q163_statement3" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q163_statement3 = 'No';"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    `,
+    answer: {
+      q163_statement1: "Yes",
+      q163_statement2: "Yes",
+      q163_statement3: "No"
+    },
+    explanation: `
+      <p><strong>Explanation:</strong></p>
+      <p><strong>Before Admin1 can perform a task... an approver must approve the activation request — Yes</strong><br>
+      This indicates that the "Require approval to activate" setting has been enabled for the User Administrator role. In PIM, you can designate specific users or groups as Approvers. When an eligible user like Admin1 tries to activate the role, the request sits in a "Pending" state until an approver signs off on it.</p>
+      <p><strong>Admin2 can request activation of the User administrator role for a period of two hours — Yes</strong><br>
+      Every PIM role has a "Maximum activation duration" (the default is often 8 hours). As long as the two-hour request is equal to or less than the maximum duration set by the administrator, the request is valid.</p>
+      <p><strong>If Admin3 connects... and then activates... Admin3 will be prompted to authenticate by using MFA twice — No</strong><br>
+      This is a common misconception. Microsoft Entra ID uses session-based authentication. If Admin3 already performed MFA to sign in to the portal (because of a Conditional Access policy), that MFA "claim" is stored in their security token. When they go to activate their PIM role, PIM checks for that MFA claim. Since it’s already there, the user is not prompted a second time. They only provide MFA once per session.</p>
+    `
+  },
+{
+    id: 164,
+    type: "hotspot",
+    question: `
+      <p><strong>Question 164</strong></p>
+      <p><strong>HOTSPOT</strong></p>
+      <p>You have an Azure AD tenant that contains the users shown in the following table.</p>
+      <div style="margin: 15px 0; text-align: center;">
+        <img src="images/q164_table1.jpg" alt="q161 table1" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+      </div>
+      <p>You have the Azure AD Identity Protection policies shown in the following table.</p>
+      <div style="margin: 15px 0; text-align: center;">
+        <img src="images/q164_table2.jpg" alt="q164 table2" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+      </div>
+      <p>You review the Risky users report and the Risky sign-ins report and perform actions for each user as shown in the following table.</p>
+      <div style="margin: 15px 0; text-align: center;">
+        <img src="images/q164_table3.jpg" alt="q161 table3" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" />
+      </div>
+      <p>For each of the following statements, select Yes if the statement is true. Otherwise, select No.</p>
+      <p><em>NOTE: Each correct selection is worth one point.</em></p>
+
+      <div style="margin-top: 15px; background: #fff; padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
+        <table style="width: 100%; border-collapse: collapse;">
+          <thead>
+            <tr style="border-bottom: 2px solid #ccc;">
+              <th style="text-align: left; padding: 8px;">Statements</th>
+              <th style="text-align: center; padding: 8px; width: 80px;">Yes</th>
+              <th style="text-align: center; padding: 8px; width: 80px;">No</th>
+            </tr>
+          </thead>
+          <tbody>
+            <input type="radio" name="answer" id="hotspot_dummy" style="display:none;" checked>
+
+            <tr style="border-bottom: 1px solid #eee;">
+              <td style="padding: 8px;">User1 can sign in by using multi-factor authentication (MFA).</td>
+              <td style="text-align: center;"><input type="radio" name="q164_statement1" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q164_statement1 = 'Yes';"></td>
+              <td style="text-align: center;"><input type="radio" name="q164_statement1" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q164_statement1 = 'No';"></td>
+            </tr>
+            <tr style="border-bottom: 1px solid #eee;">
+              <td style="padding: 8px;">User2 can sign in by using multi-factor authentication (MFA).</td>
+              <td style="text-align: center;"><input type="radio" name="q164_statement2" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q164_statement2 = 'Yes';"></td>
+              <td style="text-align: center;"><input type="radio" name="q164_statement2" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q164_statement2 = 'No';"></td>
+            </tr>
+            <tr>
+              <td style="padding: 8px;">User3 can sign in from an anonymous IP address.</td>
+              <td style="text-align: center;"><input type="radio" name="q164_statement3" value="Yes" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q164_statement3 = 'Yes';"></td>
+              <td style="text-align: center;"><input type="radio" name="q164_statement3" value="No" onclick="window.userAnswers = window.userAnswers || {}; window.userAnswers.q164_statement3 = 'No';"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    `,
+    answer: {
+      q164_statement1: "No",
+      q164_statement2: "No",
+      q164_statement3: "Yes"
+    },
+    explanation: `
+      <p><strong>Explanation:</strong></p>
+      <p><strong>User1 can sign in by using multi-factor authentication (MFA): No</strong><br>
+      - Blocked access prevents self-remediation through password resets & Azure AD MFA.</p>
+      <p><strong>User2 can sign in by using multi-factor authentication (MFA): No</strong><br>
+      - Blocked access prevents self-remediation through password resets & Azure AD MFA.</p>
+      <p><strong>User3 can sign in from an anonymous IP address: Yes</strong><br>
+      - Anonymous IP address sign-in risk is Medium.</p>
+    `
+  },
+{
+    id: 165,
+    type: "single",
+    question: `
+      <p><strong>Question 165</strong></p>
+      <p>You have an Azure subscription that contains a user named User1. You need to meet the following requirements:</p>
+      <ul>
+        <li>Prevent User1 from being added as an owner of newly registered apps.</li>
+        <li>Ensure that User1 can manage the application proxy settings.</li>
+        <li>Ensure that User1 can register apps.</li>
+        <li>Use the principle of least privilege. Which role should you assign to User1?</li>
+      </ul>
+    `,
+    options: [
+      "Application developer",
+      "Cloud application administrator",
+      "Service support administrator",
+      "Application administrator"
+    ],
+    answer: 3,
+    explanation: `
+      <p><strong>Answer: Application administrator</strong></p>
+      <p>The Application Administrator role allows users to create and manage all aspects of enterprise applications, application registrations, and application proxy settings while maintaining least privilege compared to Global Administrator, whereas Application Developer doesn't manage application proxy settings by default.</p>
+    `
+  },
+{
+    id: 166,
+    type: "dragdrop",
+    question: `
+      <p><strong>Question 166: Drag and Drop</strong></p>
+      <p>You have a Microsoft 365 E5 subscription and an Azure subscription. You need to meet the following requirements:</p>
+      <ul>
+        <li>Ensure that users can sign in to Azure virtual machines by using their Microsoft 365 credentials.</li>
+        <li>Delegate the ability to create new virtual machines.</li>
+      </ul>
+      <p>What should you use for each requirement? To answer, drag the appropriate features to the correct requirements. Each feature may be used once, more than once, or not at all.</p>
+    `,
+    items: [
+      { id: "item1", text: "Azure AD built-in roles" },
+      { id: "item2", text: "Azure AD managed identities" },
+      { id: "item3", text: "Azure role-based access control (Azure RBAC)" }
+    ],
+    targets: [
+      { id: "step1", label: "Ensure that users can sign in to Azure virtual machines by using their Microsoft 365 credentials:" },
+      { id: "step2", label: "Delegate the ability to create new virtual machines:" }
+    ],
+    answer: {
+      step1: "item3", // Azure role-based access control (Azure RBAC)
+      step2: "item1"  // Azure AD built-in roles
+    },
+    explanation: `
+      <p><strong>1. Azure role-based access control (Azure RBAC)</strong><br>
+      https://learn.microsoft.com/en-us/azure/active-directory/devices/howto-vm-sign-in-azure-ad-windows#configure-role-assignments-for-the-vm</p>
+      
+      <p><strong>2. Azure AD built-in roles</strong><br>
+      https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles</p>
+    `
+  },
+{
+    id: 167,
+    type: "single",
+    question: `
+      <p><strong>Question 167</strong></p>
+      <p>You have a Microsoft 365 tenant.</p>
+      <p>All users have mobile phones and Windows 10 laptops.</p>
+      <p>The users frequently work from remote locations that do not have Wi-Fi access or mobile phone connectivity. While working from the remote locations, the users connect their laptops to a wired network that has internet access.</p>
+      <p>You plan to implement multi-factor authentication (MFA).</p>
+      <p>Which MFA authentication method can the users use from the remote location?</p>
+    `,
+    options: [
+      "a notification through the Microsoft Authenticator app",
+      "SMS",
+      "email",
+      "Windows Hello for Business"
+    ],
+    answer: 3,
+    explanation: `
+      <p>Windows Hello for Business</p>
+    `
+  },
+{
+  id: 168,
+  type: "dropdown",
+
+  question: `
+    <p style="text-align: left;">Your network contains an on-premises Active Directory Domain Services (AD DS) domain that syncs with an Azure AD tenant. The AD DS domain contains the organizational units (OUs) shown in the following table.</p>
+    
+<div style="margin: 12px 0; text-align: center;">
+<img src="images/q168_table1.jpg" style="max-width: 100%; height: auto; border: 1px solid #ccc; border-radius: 4px;" alt="q168 table1" />
+</div>
+
+    <p style="text-align: left;">You need to create a break-glass account named BreakGlass.</p>
+    <p style="text-align: left;">Where should you create BreakGlass, and which role should you assign to BreakGlass? To answer, select the appropriate options in the answer area.</p>
+
+    <div style="margin-top: 15px; background: #f9f9f9; padding: 15px; border: 1px solid #ddd; border-radius: 4px;">
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <label style="font-weight: 500; min-width: 80px; text-align: right;">Location:</label>
+          <select class="inline-select" data-key="dropdown_1" style="padding: 6px; flex-grow: 1;">
+            <option value="">-- Select Option --</option>
+            <option value="Azure AD">Azure AD</option>
+            <option value="OU1">OU1</option>
+            <option value="OU2">OU2</option>
+          </select>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <label style="font-weight: 500; min-width: 80px; text-align: right;">Role:</label>
+          <select class="inline-select" data-key="dropdown_2" style="padding: 6px; flex-grow: 1;">
+            <option value="">-- Select Option --</option>
+            <option value="Billing Administrator">Billing Administrator</option>
+            <option value="Global Administrator">Global Administrator</option>
+            <option value="Owner">Owner</option>
+            <option value="Privileged Role Administrator">Privileged Role Administrator</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  `,
+
+  answer: {
+    dropdown_1: "Azure AD",
+    dropdown_2: "Global Administrator"
+  },
+
+  explanation: `
+    <p><strong>Explanation:</strong></p>
+    <ul>
+      <li><strong>Azure AD:</strong> Emergency access accounts (break-glass accounts) should be cloud-only accounts created directly in Azure AD (cloud-only) rather than synced from on-premises AD DS. This ensures that if the on-premises directory infrastructure or synchronization mechanism fails, the emergency account remains accessible.</li>
+      <li><strong>Global Administrator:</strong> Break-glass accounts are assigned the Global Administrator role in Azure AD to ensure full administrative access is available during an emergency when standard authentication methods fail.</li>
+    </ul>
+    <p>
+      <strong>References:</strong><br>
+      https://learn.microsoft.com/en-us/azure/active-directory/roles/security-emergency-access#how-to-create-an-emergency-access-account
+    </p>
+  `
+},
+{
+  id: 169,
+  type: "single",
+
+  question: `
+    <p style="text-align: left;">You have a Microsoft 365 E5 subscription that contains a Microsoft SharePoint Online site named Site1.</p>
+    <p style="text-align: left;">You need to ensure that users can request access to Site1.</p>
+    <p style="text-align: left;">The solution must meet the following requirements:</p>
+    <ul style="margin-top: 5px; margin-bottom: 15px;">
+      <li style="text-align: left;">Automatically approve requests from users based on their group membership.</li>
+      <li style="text-align: left;">Automatically remove the access after 30 days.</li>
+    </ul>
+    <p style="text-align: left;">What should you do?</p>
+  `,
+
+  options: [
+    "Create a Conditional Access policy.",
+    "Create an access package.",
+    "Configure Role settings in Azure AD Privileged Identity Management.",
+    "Create a Microsoft Defender for Cloud Apps access policy."
+  ],
+
+  answer: 1,
+
+  explanation: `
+    <p><strong>Explanation:</strong></p>
+    <ul>
+      <li><strong>Create an access package:</strong> Microsoft Entra entitlement management (formerly Azure AD entitlement management) allows organizations to manage access to groups, applications, and SharePoint Online sites through access packages. Access packages can enforce automatic approvals based on requestor attributes/group memberships and include automatic expiration settings (e.g., removing access after 30 days).</li>
+    </ul>
+    <p>
+      <strong>References:</strong><br>
+      https://learn.microsoft.com/en-us/azure/active-directory/governance/entitlement-management-access-package-create
+    </p>
+  `
+},
+{
+  id: 170,
+  type: "dropdown",
+
+  question: `
+    <p style="text-align: left;">You have an Azure subscription.</p>
+    <p style="text-align: left;">You need to create two custom roles named Role1 and Role2.</p>
+    <p style="text-align: left;">The solution must meet the following requirements:</p>
+    <ul style="margin-top: 5px; margin-bottom: 15px;">
+      <li style="text-align: left;">Users that are assigned Role1 can manage application security groups.</li>
+      <li style="text-align: left;">Users that are assigned Role2 can manage Azure Firewall.</li>
+    </ul>
+    <p style="text-align: left;">Which resource provider permissions are required for each role? To answer, select the appropriate options in the answer area.</p>
+
+    <div style="margin-top: 15px; background: #f9f9f9; padding: 15px; border: 1px solid #ddd; border-radius: 4px;">
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <label style="font-weight: 500; min-width: 60px; text-align: right;">Role1:</label>
+          <select class="inline-select" data-key="dropdown_1" style="padding: 6px; flex-grow: 1;">
+            <option value="">-- Select Option --</option>
+            <option value="Microsoft.App">Microsoft.App</option>
+            <option value="Microsoft.Computer">Microsoft.Computer</option>
+            <option value="Microsoft.Network">Microsoft.Network</option>
+            <option value="Microsoft.Security">Microsoft.Security</option>
+          </select>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <label style="font-weight: 500; min-width: 60px; text-align: right;">Role2:</label>
+          <select class="inline-select" data-key="dropdown_2" style="padding: 6px; flex-grow: 1;">
+            <option value="">-- Select Option --</option>
+            <option value="Microsoft.App">Microsoft.App</option>
+            <option value="Microsoft.Management">Microsoft.Management</option>
+            <option value="Microsoft.Network">Microsoft.Network</option>
+            <option value="Microsoft.Security">Microsoft.Security</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  `,
+
+  answer: {
+    dropdown_1: "Microsoft.Network",
+    dropdown_2: "Microsoft.Network"
+  },
+
+  explanation: `
+    <p><strong>Explanation:</strong></p>
+    <ul>
+      <li><strong>Role 1: Microsoft.Network</strong> — This indicates that the first role is granted permissions to manage networking resources, such as Virtual Networks (VNets), Network Security Groups (NSGs), Application Security Groups (ASGs), or Load Balancers.</li>
+      <li><strong>Role 2: Microsoft.Network</strong> — The second role is also assigned to the networking provider to allow management of Azure Firewall resources.</li>
+    </ul>
+    <p>
+      <strong>References:</strong><br>
+      https://learn.microsoft.com/en-us/azure/role-based-access-control/resource-provider-operations#microsoftnetwork
+    </p>
+  `
+},
+{
+  id: 171,
+  type: "single",
+
+  question: `
+    <p style="text-align: left;">You have a Microsoft 365 tenant.</p>
+    <p style="text-align: left;">All users have mobile phones and Windows 10 laptops.</p>
+    <p style="text-align: left;">The users frequently work from remote locations that do not have Wi-Fi access or mobile phone connectivity. While working from the remote locations, the users connect their laptop to a wired network that has internet access.</p>
+    <p style="text-align: left;">You plan to implement multi-factor authentication (MFA).</p>
+    <p style="text-align: left;">Which MFA authentication method can the users use from the remote location?</p>
+  `,
+
+  options: [
+    "voice",
+    "an app password",
+    "security questions",
+    "a verification code from the Microsoft Authenticator app"
+  ],
+
+  answer: 3,
+
+  explanation: `
+    <p><strong>Explanation:</strong></p>
+    <ul>
+      <li><strong>a verification code from the Microsoft Authenticator app:</strong> The Authenticator app can be used as a software token to generate an OATH verification code. After entering your username and password, you enter the code provided by the Authenticator app into the sign-in interface.</li>
+    </ul>
+    <p><strong>Incorrect Answers:</strong></p>
+    <ul>
+      <li><strong>security questions:</strong> Security questions are not used as an authentication method but can be used during the self-service password reset (SSPR) process.</li>
+      <li><strong>voice / an app password:</strong> An automated voice call and an SMS require mobile connectivity.</li>
+    </ul>
+    <p>
+      <strong>References:</strong><br>
+      https://docs.microsoft.com/en-us/azure/active-directory/authentication/concept-authentication-methods
+    </p>
+  `
+},
+{
+  id: 172,
+  type: "dragdrop",
+
+  question: `
+    <p><strong>Question 172: Drag and Drop</strong></p><br>
+    <p>You have a Microsoft 365 E5 tenant. You purchase a cloud app named App1.</p><b>
+    <p>You need to enable real-time session-level monitoring of App1 by using Microsoft Defender for Cloud Apps.</p><br>
+    <p>In which order should you perform the actions?</p><br>
+    <p>To answer, move the appropriate actions from the list of actions to the answer area and arrange them in the correct order</p>
+  `,
+
+  items: [
+    { id: "item1", text: "Publish App1 in Azure AD." },
+    { id: "item2", text: "Create a conditional access policy that has session controls configured." },
+    { id: "item3", text: "From Microsoft Defender for Cloud Apps, create a session policy." },
+    { id: "item4", text: "From Microsoft Defender for Cloud Apps, modify the Connected apps settings for App1." }
+  ],
+
+  targets: [
+    { id: "step1", label: "" },
+    { id: "step2", label: "" },
+    { id: "step3", label: "" },
+    { id: "step4", label: "" }
+  ],
+
+  answer: {
+    step1: "item1",
+    step2: "item2",
+    step3: "item4",
+    step4: "item3"
+  },
+
+  explanation: `
+    <p><strong>Explanation:</strong></p>
+    <ol>
+      <li>Publish App1.</li>
+      <li>Create a conditional access policy that has session controls configured.</li>
+      <li>From MCAS modify the Connected apps settings.</li>
+      <li>From MCAS create a session policy.</li>
+    </ol>
+    <p>
+      <strong>Reference:</strong><br>
+      https://techcommunity.microsoft.com/t5/itops-talk-blog/step-by-step-blocking-data-downloads-via-microsoft-cloud-app/ba-p/326357
+    </p>
+  `
+}
 ];
 ///*SIMULATION QUESTION FROM 81 - 84 IS SKIPT* question: 111 needs clarifications for its corresponding answer ///
 ///* question 3 missing table*///
@@ -6561,3 +7319,7 @@ By using this cmdlet, you can set the appropriate parameters to block self-servi
 ///* question 115, 116 ,118 simulation well get back later*///
 ///* question 115, 116 , simulation well get back later*///
 ///* question 123 , explanation is confusing*///
+///* question 38 & 89 , explanation is confusing*///
+///* https://script.google.com/macros/s/AKfycby5tMHc93VCTe0Yf29rNi9n5dioKtm0mnn7AqV9eALjEgr78ooSSxooGfxbW0AwxXZN/exec *///
+///* dropdown id:168 * ///
+///* radion button id:18 *///
